@@ -1,0 +1,157 @@
+# nullroute — baza pytań MTCNA
+# Format: pytanie;odpA;odpB;...;poprawna(e)
+# Jedna odpowiedź: ...;B
+# Wielokrotna:     ...;A,C  lub  ...;B,D,E
+# Linie z # są ignorowane
+
+# ════════════════════════════════════════════════════════
+# BLOK 1 — WPROWADZENIE / SYSTEM / LICENCJE
+# ════════════════════════════════════════════════════════
+Jaki jest domyślny login administratora w RouterOS?;root;administrator;admin;user;C
+Jaki jest domyślny adres IP nowego routera MikroTik (WebFig)?;192.168.0.1;192.168.1.1;192.168.88.1;10.0.0.1;C
+Które narzędzie służy do graficznego zarządzania RouterOS w Windows?;PuTTY;Winbox;NetInstall;The Dude;B
+Jak długo ważna jest licencja poziomu 1 (demo)?;24 godziny;Nieskończony czas;1 miesiąc;1 rok;A
+Które polecenie CLI wyświetla wszystkie adresy IP przypisane do interfejsów?;/ip address show;/ip address list;/ip address print;/interface print;C
+Z których lokalizacji możesz pobrać Winbox?;Strona internetowa routera;Menu plików w routerze;Przez kabel konsolowy;mikrotik.com;A,D
+Jak można połączyć się z RouterOS po raz pierwszy gdy nie znasz adresu IP?;Tylko przez WebFig;Przez MAC-Telnet lub Winbox z użyciem adresu MAC;Tylko przez konsolę szeregową;Nie można;B
+Co to jest NetInstall?;Narzędzie do monitorowania sieci;Narzędzie do reinstalacji RouterOS przez sieć;Menedżer plików RouterOS;Klient VPN;B
+Który poziom licencji RouterOS pozwala na nielimitowaną liczbę tuneli;Level 3;Level 4;Level 5;Level 6;D
+Co robi polecenie /system reset-configuration?;Restartuje router;Przywraca domyślną konfigurację fabryczną;Aktualizuje RouterOS;Eksportuje konfigurację;B
+Które polecenie wyświetla aktualną wersję RouterOS?;/system info;/system version;/system resource print;/system print;C
+Jak wykonać backup konfiguracji RouterOS (binarny)?;/export file=backup;/system backup save name=backup;/system config save;/ip backup create;B
+Czym różni się /export od /system backup save?;Niczym — to samo;/export tworzy plik tekstowy .rsc edytowalny; backup tworzy binarny nieedytowalny;/export jest szybszy;backup działa tylko offline;B
+Zaznacz wszystkie poprawne stwierdzenia dotyczące /export (plik rsc);Eksportuje logi z /log print;Eksportuje pełną konfigurację routera;Eksportuje tylko część konfiguracji (np. /ip firewall);Eksportuje skrypty z /system script;Pliki eksportu nie mogą być edytowane;B,C,D
+
+# ════════════════════════════════════════════════════════
+# BLOK 2 — ADRESACJA / DHCP
+# ════════════════════════════════════════════════════════
+Ile użytecznych adresów hostów ma podsieć /27?;30;14;62;32;A
+Ile użytecznych adresów IP znajduje się w podsieci 23-bitowej (255.255.254.0)?;254;510;512;508;B
+Wybierz zakres ważnych adresów hostów dla podsieci 15.242.55.62/27;15.242.55.31-15.242.55.62;15.242.55.32-15.242.55.63;15.242.55.33-15.242.55.62;15.242.55.33-15.242.55.63;C
+Które z poniższych są prawidłowymi adresami IP?;10.10.14.0;192.168.13.255;1.27.14.254;192.168.256.1;A,B,C
+Wybierz prawidłowy adres MAC;G2:60:CF:21:99:H0;192.168.0.0/16;AEC8:21F1:AA44:54FF:1111:DDAE:0212:1201;00:00:5E:80:EE:B0;D
+Podstawowa jednostka sieci fizycznej (warstwa 1 modelu OSI);Rama;Nagłówek;Bajt;Bit;D
+Jaki protokół jest używany do Ping i Trace route?;DHCP;IP;TCP;ICMP;UDP;D
+W którym menu RouterOS konfiguruje się serwer DHCP?;/ip dhcp-server;/ip pool;/ip address;/ip dns;A
+Jaki jest domyślny czas dzierżawy (lease time) serwera DHCP w RouterOS?;1 godzina;3 dni;10 minut;12 godzin;B
+Co to jest DHCP relay?;Serwer DHCP backup;Agent przekazujący żądania DHCP między podsieciami;Klient DHCP;Filtr DHCP;B
+Jakie polecenie CLI dodaje pulę adresów DHCP 192.168.1.100-200?;/ip pool add name=pool1 ranges=192.168.1.100-192.168.1.200;/ip dhcp-server pool add range=192.168.1.100-200;/ip address add pool=192.168.1.100-200;/dhcp pool add 192.168.1.100-200;A
+Który adres jest adresem broadcast dla sieci 10.0.0.0/24?;10.0.0.0;10.0.0.1;10.0.0.254;10.0.0.255;D
+Co oznacza prefix /30?;2 adresy hostów;4 adresy hostów;6 adresów hostów;30 adresów hostów;A
+
+# ════════════════════════════════════════════════════════
+# BLOK 3 — ROUTING
+# ════════════════════════════════════════════════════════
+Jaka jest administrative distance trasy statycznej w RouterOS?;1;110;120;5;A
+Która domyślna trasa będzie aktywna gdy odległość pierwszej to 10 a drugiej to 5?;Trasa przez bramę 1.1.1.1 (odległość 10);Trasa przez bramę 2.2.2.2 (odległość 5);B
+Co oznacza flaga DAb przy trasie w /ip route print?;Dynamic Active BGP;Trasa jest dynamiczna aktywna i blackhole;Trasa jest domyślna aktywna;Dynamic Alternate Backup;A
+Które protokoły routingu dynamicznego obsługuje RouterOS?;RIP;OSPF;BGP;IS-IS;A,B,C
+Jaka jest administrative distance OSPF w RouterOS?;1;110;120;20;B
+Jakie polecenie dodaje trasę domyślną przez bramę 10.0.0.1?;/ip route add dst-address=0.0.0.0/0 gateway=10.0.0.1;/ip route add default=10.0.0.1;/route add 0.0.0.0 via 10.0.0.1;/ip route default 10.0.0.1;A
+Co to jest floating static route?;Trasa statyczna z wysoką administrative distance jako backup;Trasa dynamiczna;Trasa z load balancingiem;Trasa blackhole;A
+Co robi flaga blackhole na trasie?;Przekazuje ruch do następnego routera;Odrzuca pakiety bez powiadamiania nadawcy;Wysyła ICMP unreachable;Przekierowuje na loopback;B
+Jakie polecenie wyświetla tablicę routingu w RouterOS?;/ip route print;/routing table print;/ip route show;/route list;A
+
+# ════════════════════════════════════════════════════════
+# BLOK 4 — BRIDGING
+# ════════════════════════════════════════════════════════
+Do czego służy interfejs bridge w RouterOS?;Do szyfrowania ruchu;Łączy interfejsy na warstwie 2 tworząc jeden segment;Do routowania między podsieciami;Do przydzielania IP;B
+Który protokół zapobiega pętlom w sieci z mostkami (bridge)?;OSPF;STP (Spanning Tree Protocol);RSTP;MSTP;B,C
+Jakie polecenie dodaje port ether2 do bridge1?;/interface bridge port add bridge=bridge1 interface=ether2;/bridge add port=ether2 to=bridge1;/interface bridge add member=ether2;/bridge port add ether2 bridge1;A
+Czy można podłączyć interfejs bezprzewodowy do bridge w RouterOS?;Tak zawsze;Tak ale wymaga włączenia station-pseudobridge lub ap-bridge;Nie nigdy;Tylko w trybie WDS;B
+Co to jest bridge filter?;Filtr dla routowanego ruchu;Filtr dla ruchu na warstwie 2 przechodzącego przez bridge;Filtr ARP;Filtr VLAN;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 5 — FIREWALL / NAT / MANGLE
+# ════════════════════════════════════════════════════════
+Działanie=przekierowanie jest stosowane w:;łańcuch=srcnat;łańcuch=dstnat;łańcuch=do przodu;łańcuch=wyjście;B
+Który łańcuch firewalla filtruje ruch przechodzący PRZEZ router?;input;output;forward;prerouting;C
+Które działanie NAT pozwala wielu hostom prywatnym dzielić jeden publiczny adres IP?;dst-nat;src-nat;masquerade;redirect;C
+Co oznacza NAT?;Network Address Translation;Network Access Terminal;Node Address Table;Network Allocation Transfer;A
+Jaka jest poprawna zasada maskarady dla sieci 192.168.0.0/24 z wychodzącym interfejsem ether1?;/ip firewall nat add action=masquerade chain=srcnat;/ip firewall nat dodaj akcję=maskowanie łańcuch=srcnat adres-źródłowy=192.168.0.0/24;/ip firewall nat add action=masquerade out-interface=ether1 chain=dstnat;/ip firewall nat add action=masquerade chain=srcnat out-interface=ether1;A,B,D
+Które działanie firewalla odrzuca pakiet bez wysyłania odpowiedzi do nadawcy?;reject;drop;deny;discard;B
+Który stan połączenia pasuje do pakietów należących do już ustanowionego połączenia?;new;established;related;invalid;B
+Co pasuje stan połączenia related w firewalli RouterOS?;Zupełnie nowe połączenia;Pakiety istniejącego połączenia;Pakiety powiązane z ustanowionym połączeniem np. dane FTP;Nieprawidłowe pakiety;C
+Czy można dodać łańcuchy zdefiniowane przez użytkownika w ip firewall mangle?;Prawda;Fałsz;A
+Do czego służy ip firewall mangle?;Blokowanie ruchu;Oznaczanie pakietów lub połączeń dla QoS lub routingu;Translacja adresów;Monitorowanie przepustowości;B
+Co robi akcja dst-nat w łańcuchu dstnat?;Maskuje źródłowy adres IP;Przekierowuje pakiety na inny adres/port docelowy;Odrzuca pakiety;Oznacza pakiety;B
+Które łańcuchy są dostępne w ip firewall filter?;input;output;forward;prerouting;postrouting;A,B,C
+Jakie polecenie wyświetla reguły firewalla z licznikami pakietów?;/ip firewall filter print;/ip firewall filter print stats;/ip firewall print count;/firewall show stats;B
+Co to jest connection tracking w RouterOS?;Śledzenie tras;Mechanizm śledzenia stanów połączeń TCP/UDP/ICMP;Monitor przepustowości;Log połączeń;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 6 — WIRELESS
+# ════════════════════════════════════════════════════════
+Masz kartę bezprzewodową 802.11b/g. Jakie częstotliwości są dla ciebie dostępne?;5800MHz;2412MHz;5210MHz;2422MHz;2327MHz;B,D
+Jaką kartę bezprzewodową można użyć aby osiągnąć przepustowość bezprzewodową 100 Mbps?;802.11 b/g;802.11 a/b/g;802.11 a;802.11 a/n;802.11 a/b/g/n;D,E
+Zaznacz wszystkie funkcje które są zgodne z Nstreme;WDS między urządzeniem w trybie stacji WDS a urządzeniem w trybie stacji WDS;Szyfrowanie;WDS między urządzeniem w trybie ap-bridge a urządzeniem w trybie station-wds;Łączenie urządzenia w trybie stacji z urządzeniem w trybie ap-bridge;B,C
+Co oznacza SSID?;Secure System Identifier;Service Set Identifier;Subnet Static ID;System Service ID;B
+Który tryb bezprzewodowy powinien używać punkt dostępowy w RouterOS?;station;bridge;ap bridge;wds slave;C
+Który protokół bezpieczeństwa jest zalecany dla WPA2 w RouterOS?;WEP;WPA;aes ccm;tkip;C
+Co to jest WDS w sieciach bezprzewodowych?;Wireless Data Sharing;Wireless Distribution System — rozszerzanie zasięgu między AP;Wireless Device Security;Wireless Direct Stream;B
+Jakie pasmo używa standard 802.11a?;2.4 GHz;5 GHz;60 GHz;900 MHz;B
+Które standardy 802.11 pracują w paśmie 2.4 GHz?;802.11a;802.11b;802.11g;802.11n;B,C,D
+Co to jest Nstreme w RouterOS?;Protokół routingu;Proprietary MikroTik protocol poprawiający wydajność połączeń PtP;Protokół szyfrowania;Tryb skanowania kanałów;B
+Jaka jest maksymalna szerokość kanału 802.11n?;20 MHz;40 MHz;80 MHz;160 MHz;B
+Które tryby bezprzewodowe obsługują klientów (stacje)?;ap bridge;station;station-wds;bridge;B,C
+
+# ════════════════════════════════════════════════════════
+# BLOK 7 — VPN / TUNNELE
+# ════════════════════════════════════════════════════════
+Który protokół VPN jest natywnie obsługiwany przez RouterOS i używa IP protokołu 47?;L2TP;PPTP;IPsec;SSTP;B
+Jakiego rodzaju użytkownicy są wymienieni w oknie Sekrety w menu PPP?;użytkownicy pptp;użytkownicy l2tp;użytkownicy winbox;użytkownicy bezprzewodowi;użytkownicy pppoe;użytkownicy hotspotów;A,B,E
+Który protokół tunelowania używa portu TCP 1723?;L2TP;PPTP;IPsec;SSTP;B
+Co to jest EoIP?;Ethernet over IP — tunel warstwy 2 między routerami MikroTik;Encrypted over IP;Extended over IP;Ethernet over IPsec;A
+Który protokół VPN używa portu UDP 1701?;PPTP;L2TP;SSTP;IPsec;B
+Na jakim porcie działa SSTP?;1194;1723;443;500;C
+Co to jest IPsec?;Protokół routingu;Zestaw protokołów do szyfrowania i uwierzytelniania pakietów IP;Protokół tunelowania warstwy 2;Protokół zarządzania;B
+Które tryby pracy obsługuje IPsec?;Transport mode;Tunnel mode;Bridge mode;NAT mode;A,B
+
+# ════════════════════════════════════════════════════════
+# BLOK 8 — QoS / KOLEJKI
+# ════════════════════════════════════════════════════════
+Który typ kolejki zapewnia proste ograniczanie przepustowości per adres docelowy?;PCQ;FIFO;SFQ;Simple Queue;D
+Co oznacza PCQ?;Packet Control Queue;Per Connection Queue;Priority Class Queue;Packet Classifier Queue;B
+Co to jest HTB w QoS?;High Throughput Bandwidth;Hierarchical Token Bucket — system kolejkowania z priorytetami;High Traffic Buffer;Hybrid Traffic Balancer;B
+Do czego służy oznaczanie pakietów w mangle?;Blokowania połączeń;Kierowania oznaczonych pakietów do określonych kolejek lub tras;Szyfrowania ruchu;Logowania;B
+Czym różni się Simple Queue od Queue Tree?;Niczym;Simple Queue działa per IP; Queue Tree wymaga oznaczania pakietów w mangle i jest bardziej elastyczny;Queue Tree jest prostszy;Simple Queue obsługuje więcej interfejsów;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 9 — HOTSPOT / PPPoE
+# ════════════════════════════════════════════════════════
+Jeśli musisz upewnić się że jeden komputer w sieci HotSpot może uzyskać dostęp do Internetu bez uwierzytelniania które menu pozwala ci to zrobić?;Użytkownicy;Powiązania IP;Ogród zamknięty;IP w zamkniętym ekosystemie;B
+Co to jest Walled Garden w HotSpot?;Fizyczne ogrodzenie AP;Lista adresów dostępnych bez uwierzytelniania;Filtr MAC;Strefa bezprzewodowa;B
+Na czym polega PPPoE?;Point-to-Point Protocol over Ethernet — enkapsulacja PPP w ramkach Ethernet;Protocol for PPP over Encryption;Peer-to-Peer over Ethernet;Packet Processing Protocol Ethernet;A
+Który serwis RouterOS zarządza sesjami PPPoE?;/ip pppoe-server;/interface pppoe-server server;/ppp pppoe;/ip server pppoe;B
+Co to jest RADIUS w kontekście HotSpot?;Router Addressing and Distribution Interface;Centralny serwer uwierzytelniania używany przez HotSpot;Protokół routingu;Typ szyfrowania;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 10 — NARZĘDZIA / MONITORING
+# ════════════════════════════════════════════════════════
+Które narzędzie RouterOS pokazuje ruch w czasie rzeczywistym na interfejsie?;Netwatch;Ping;Torch;Traffic Monitor;C
+Co robi Netwatch w RouterOS?;Monitoruje interfejsy;Pinguje hosty i wykonuje skrypty gdy host jest online/offline;Analizuje ruch;Skanuje porty;B
+Który protokół używa Neighbor Discovery w RouterOS?;LLDP;CDP;MNDP;OSPF;C
+Co to jest The Dude?;Klient VPN MikroTik;Aplikacja do monitorowania sieci od MikroTik;Narzędzie do konfiguracji;Protokół routingu;B
+Jakie narzędzie RouterOS umożliwia śledzenie trasy pakietów?;Ping;Traceroute;Torch;Packet Sniffer;B
+Co robi Packet Sniffer w RouterOS?;Blokuje pakiety;Przechwytuje i analizuje pakiety sieciowe;Kompresuje pakiety;Routuje pakiety;B
+Czy możesz ręcznie dodać sterowniki do RouterOS gdy karta Ethernet PCI nie jest rozpoznawana?;Tak;Nie;B
+Które narzędzie RouterOS pozwala na zdalny dostęp do terminala przez sieć?;Winbox;SSH;MAC-Telnet;Telnet;B,C,D
+
+# ════════════════════════════════════════════════════════
+# BLOK 11 — DODATKOWE PYTANIA EGZAMINACYJNE
+# ════════════════════════════════════════════════════════
+Które polecenie wyświetla tablicę ARP w RouterOS?;/ip arp print;/arp show;/ip neighbor print;/interface arp;A
+Co to jest flaga D przy wpisie ARP?;Dynamic — wpis dodany automatycznie;Disabled — wpis wyłączony;Default — wpis domyślny;Duplicate — powielony adres;A
+Jakie polecenie pokazuje aktualne połączenia w connection tracking?;/ip firewall connection print;/ip connection show;/firewall track print;/ip state print;A
+Na jakiej warstwie modelu OSI działa switch?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;B
+Na jakiej warstwie modelu OSI działa router?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;C
+Które protokoły pracują na warstwie transportowej modelu OSI?;IP;TCP;UDP;ICMP;B,C
+Jaki jest zakres adresów prywatnych klasy A?;10.0.0.0 - 10.255.255.255;172.16.0.0 - 172.31.255.255;192.168.0.0 - 192.168.255.255;169.254.0.0 - 169.254.255.255;A
+Które adresy IP są prywatnymi (RFC 1918)?;10.0.0.1;172.16.5.1;192.168.1.1;8.8.8.8;A,B,C
+Co oznacza adres 169.254.x.x?;Adres multicast;APIPA — automatycznie przypisany gdy DHCP niedostępny;Adres broadcast;Adres loopback;B
+Jaki jest adres loopback IPv4?;0.0.0.0;255.255.255.255;127.0.0.1;192.168.0.1;C
+Co to jest DNS?;Dynamic Network Service;Domain Name System — tłumaczy nazwy domenowe na adresy IP;Data Network Standard;Distributed Node System;B
+Który submenu RouterOS służy do konfiguracji DNS?;/ip dns;/ip settings;/system dns;/ip host;A
+Jakie polecenie flushuje cache DNS w RouterOS?;/ip dns flush;/ip dns cache flush;/system dns reset;/ip dns clear;B
+Co to jest MTU?;Maximum Transfer Unit;Maximum Transmission Unit — maksymalny rozmiar ramki;Minimum Tunnel Unit;Medium Transfer Unit;B
+Jaka jest domyślna wartość MTU dla Ethernet?;576;1024;1500;9000;C
