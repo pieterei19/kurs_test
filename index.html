@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>MTCNA Quiz</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,6 +22,18 @@
     --wrong-t:   #f07070;
     --dim:       0.32;
     --radius:    12px;
+
+    /* fluid scale: 16px @ 360px → 18px @ 1024px */
+    --fs-base:   clamp(15px, 1.5vw + 10px, 18px);
+    --fs-sm:     clamp(12px, 1.1vw + 8px,  15px);
+    --fs-xs:     clamp(11px, 0.9vw + 7px,  13px);
+    --fs-lg:     clamp(16px, 1.8vw + 10px, 21px);
+    --fs-xl:     clamp(22px, 3vw + 10px,   32px);
+
+    --pad-x:     clamp(14px, 3vw, 40px);
+    --pad-y:     clamp(16px, 2.5vh, 32px);
+    --gap:       clamp(8px,  1.5vw, 14px);
+    --app-max:   680px;
   }
 
   html, body {
@@ -29,7 +41,7 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    font-size: 16px;
+    font-size: var(--fs-base);
     line-height: 1.5;
   }
 
@@ -37,18 +49,40 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    min-height: 100vh;
+    min-height: 100dvh;
     padding: 0;
   }
 
   #app {
     width: 100%;
-    max-width: 480px;
-    min-height: 100vh;
+    max-width: var(--app-max);
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    padding: 20px 16px 40px;
-    gap: 0;
+    padding: var(--pad-y) var(--pad-x) max(var(--pad-y), env(safe-area-inset-bottom, 16px));
+  }
+
+  /* ── Tablet layout: two-column quiz ── */
+  @media (min-width: 700px) {
+    :root {
+      --radius: 14px;
+    }
+    #app {
+      padding-top: clamp(20px, 3vh, 40px);
+    }
+    #quiz-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      column-gap: 20px;
+      align-items: start;
+    }
+    .q-card       { grid-column: 1 / -1; }
+    #options      { grid-column: 1; grid-row: 2; margin-bottom: 0; }
+    #right-col    { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; gap: var(--gap); }
+    #btn-row      { grid-column: 1 / -1; grid-row: 3; display: flex; gap: 12px; margin-top: 20px; }
+    #btn-next     { flex: 1; margin-top: 0; }
+    #btn-menu     { flex: 0 0 auto; width: auto; padding: 16px 24px; }
   }
 
   /* ── Header ── */
@@ -56,11 +90,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4px 0 20px;
+    padding: 4px 0 clamp(14px, 2.5vh, 24px);
+    flex-shrink: 0;
   }
 
   .logo {
-    font-size: 13px;
+    font-size: var(--fs-xs);
     font-weight: 700;
     letter-spacing: 2px;
     color: var(--accent);
@@ -70,10 +105,9 @@
   .stats {
     display: flex;
     gap: 14px;
-    font-size: 13px;
+    font-size: var(--fs-xs);
     color: var(--muted);
   }
-
   .stats span b { font-weight: 700; }
   .stats .ok b  { color: var(--correct-t); }
   .stats .err b { color: var(--wrong-t); }
@@ -83,10 +117,10 @@
     height: 3px;
     background: var(--border);
     border-radius: 2px;
-    margin-bottom: 24px;
+    margin-bottom: clamp(16px, 2.5vh, 28px);
     overflow: hidden;
+    flex-shrink: 0;
   }
-
   .progress-bar {
     height: 100%;
     background: var(--accent);
@@ -100,21 +134,19 @@
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 18px 16px;
-    margin-bottom: 16px;
+    padding: clamp(14px, 2vw, 22px);
+    margin-bottom: var(--gap);
   }
-
   .q-meta {
-    font-size: 11px;
+    font-size: var(--fs-xs);
     font-weight: 700;
     letter-spacing: 1px;
     color: var(--muted);
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
-
   .q-text {
-    font-size: 15px;
+    font-size: var(--fs-base);
     color: var(--text);
     line-height: 1.6;
   }
@@ -123,42 +155,40 @@
   .options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: var(--gap);
+    margin-bottom: var(--gap);
   }
 
   .opt {
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 14px 16px;
+    padding: clamp(12px, 1.8vw, 18px) clamp(12px, 2vw, 20px);
     cursor: pointer;
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: clamp(10px, 1.5vw, 16px);
     text-align: left;
     color: var(--text);
-    font-size: 15px;
+    font-size: var(--fs-base);
     line-height: 1.45;
     transition: background 0.12s, border-color 0.12s, opacity 0.15s;
     width: 100%;
+    min-height: 48px; /* comfortable tap target */
     -webkit-tap-highlight-color: transparent;
   }
-
-  .opt:active:not([disabled]) {
-    background: var(--bg3);
-  }
+  .opt:active:not([disabled]) { background: var(--bg3); }
 
   .opt-letter {
-    min-width: 24px;
-    height: 24px;
+    min-width: clamp(22px, 3vw, 30px);
+    height: clamp(22px, 3vw, 30px);
     border-radius: 6px;
     background: var(--bg3);
     border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-weight: 700;
     color: var(--muted);
     flex-shrink: 0;
@@ -166,83 +196,76 @@
     transition: background 0.12s, border-color 0.12s, color 0.12s;
   }
 
-  .opt.correct {
-    background: var(--correct);
-    border-color: var(--correct-t);
-  }
-
-  .opt.correct .opt-letter {
-    background: var(--correct-t);
-    border-color: var(--correct-t);
-    color: #0a2e15;
-  }
-
-  .opt.wrong {
-    background: var(--wrong);
-    border-color: var(--wrong-t);
-  }
-
-  .opt.wrong .opt-letter {
-    background: var(--wrong-t);
-    border-color: var(--wrong-t);
-    color: #2e0a0a;
-  }
-
-  .opt.dimmed {
-    opacity: var(--dim);
-    cursor: default;
-  }
-
+  .opt.correct { background: var(--correct); border-color: var(--correct-t); }
+  .opt.correct .opt-letter { background: var(--correct-t); border-color: var(--correct-t); color: #0a2e15; }
+  .opt.wrong   { background: var(--wrong);   border-color: var(--wrong-t); }
+  .opt.wrong .opt-letter   { background: var(--wrong-t);   border-color: var(--wrong-t);   color: #2e0a0a; }
+  .opt.dimmed  { opacity: var(--dim); cursor: default; }
   .opt[disabled] { cursor: default; }
 
-  /* ── Result message ── */
+  /* ── Result / explanation ── */
   .result-msg {
     text-align: center;
-    font-size: 15px;
+    font-size: var(--fs-sm);
     font-weight: 700;
-    min-height: 22px;
-    margin-bottom: 12px;
+    min-height: 20px;
+    margin-bottom: var(--gap);
     letter-spacing: 0.2px;
   }
-
   .result-msg.ok  { color: var(--correct-t); }
   .result-msg.err { color: var(--wrong-t); }
 
-  /* ── Explanation ── */
   .explanation {
     background: var(--bg2);
     border: 1px solid var(--border);
     border-left: 3px solid var(--wrong-t);
     border-radius: var(--radius);
-    padding: 12px 14px;
-    font-size: 13px;
+    padding: clamp(10px, 1.5vw, 16px);
+    font-size: var(--fs-sm);
     color: var(--muted);
     line-height: 1.6;
-    margin-bottom: 16px;
+    margin-bottom: var(--gap);
     display: none;
   }
 
-  /* ── Main button ── */
+  /* ── Buttons ── */
   .btn-next {
     background: var(--accent);
     color: #fff;
     border: none;
     border-radius: var(--radius);
-    font-size: 15px;
+    font-size: var(--fs-sm);
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 16px;
+    padding: clamp(14px, 2vh, 18px) 16px;
     width: 100%;
     cursor: pointer;
     transition: background 0.12s, transform 0.1s;
     margin-top: auto;
     -webkit-tap-highlight-color: transparent;
   }
-
   .btn-next:active { transform: scale(0.98); background: var(--accent-h); }
 
-  /* ── Loading / Error state ── */
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: clamp(11px, 1.6vh, 14px) 16px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+    -webkit-tap-highlight-color: transparent;
+    margin-top: 10px;
+  }
+  .btn-ghost:active { background: var(--bg3); color: var(--text); }
+
+  /* ── Loading / Error ── */
   .state-center {
     flex: 1;
     display: flex;
@@ -251,65 +274,139 @@
     justify-content: center;
     gap: 12px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: var(--fs-sm);
     text-align: center;
     padding: 40px 0;
   }
-
   .spinner {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border: 3px solid var(--border);
     border-top-color: var(--accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── Summary screen ── */
-  .summary {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding-top: 40px;
-    text-align: center;
-  }
+  /* ── MENU ── */
+  #menu { display: none; flex-direction: column; flex: 1; }
+  #menu.active { display: flex; }
 
-  .summary.active { display: flex; }
-
-  .summary-score {
-    font-size: 64px;
+  .menu-title {
+    font-size: var(--fs-xl);
     font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .summary-label {
-    font-size: 14px;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
-
-  .summary-detail {
-    font-size: 15px;
     color: var(--text);
+    margin-bottom: 4px;
+    margin-top: 8px;
   }
+  .menu-sub {
+    font-size: var(--fs-sm);
+    color: var(--muted);
+    margin-bottom: clamp(24px, 4vh, 40px);
+  }
+  .menu-label {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .mode-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    margin-bottom: clamp(20px, 3vh, 32px);
+  }
+
+  /* tablet: side-by-side mode cards */
+  @media (min-width: 700px) {
+    .mode-cards { flex-direction: row; }
+    .mode-card  { flex: 1; }
+  }
+
+  .mode-card {
+    background: var(--bg2);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: clamp(14px, 2vw, 22px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 2vw, 20px);
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mode-card:active { background: var(--bg3); }
+  .mode-card.selected { border-color: var(--accent); background: #2a1e1e; }
+
+  .mode-icon {
+    width: clamp(40px, 5vw, 52px);
+    height: clamp(40px, 5vw, 52px);
+    border-radius: 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(18px, 2.5vw, 24px);
+    flex-shrink: 0;
+  }
+  .mode-card.selected .mode-icon { background: var(--accent); border-color: var(--accent); }
+  .mode-info { display: flex; flex-direction: column; gap: 3px; }
+  .mode-name { font-size: var(--fs-base); font-weight: 700; color: var(--text); }
+  .mode-desc { font-size: var(--fs-xs); color: var(--muted); line-height: 1.4; }
+
+  .test-size-row { flex-direction: column; gap: 10px; margin-bottom: clamp(20px, 3vh, 32px); display: none; }
+  .test-size-row.visible { display: flex; }
+
+  .size-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: clamp(7px, 1.2vh, 10px) clamp(14px, 2.5vw, 22px);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.12s, color 0.12s, background 0.12s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pill.selected { border-color: var(--accent); color: var(--accent); background: #2a1e1e; }
+
+  /* ── Summary ── */
+  #summary { display: none; flex-direction: column; flex: 1; align-items: center; justify-content: center; gap: clamp(12px, 2vh, 20px); text-align: center; padding: 20px 0; }
+  #summary.active { display: flex; }
+
+  .sum-ring { position: relative; width: clamp(110px, 18vw, 150px); height: clamp(110px, 18vw, 150px); }
+  .sum-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+  .sum-ring-bg  { fill: none; stroke: var(--border); stroke-width: 8; }
+  .sum-ring-fg  { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+  .sum-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: clamp(24px, 4vw, 34px); font-weight: 700; color: var(--text); }
+
+  .sum-label   { font-size: var(--fs-xs); letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .sum-detail  { font-size: var(--fs-base); color: var(--text); }
+  .sum-verdict { font-size: var(--fs-lg); font-weight: 700; }
+  .sum-verdict.pass { color: var(--correct-t); }
+  .sum-verdict.fail { color: var(--wrong-t); }
+  .sum-btns { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 320px; }
 </style>
 </head>
 <body>
 <div id="app">
   <div class="header">
     <div class="logo">MTCNA Quiz</div>
-    <div class="stats">
+    <div class="stats" id="stats-bar" style="display:none">
       <span class="ok">✓ <b id="s-good">0</b></span>
       <span class="err">✗ <b id="s-bad">0</b></span>
-      <span id="s-total" style="color:var(--muted)">0 pyt.</span>
+      <span id="s-total" style="color:var(--muted)"></span>
     </div>
   </div>
 
-  <div class="progress-wrap">
+  <div class="progress-wrap" id="progress-wrap" style="display:none">
     <div class="progress-bar" id="progress"></div>
   </div>
 
@@ -323,84 +420,93 @@
   <div class="state-center" id="error" style="display:none">
     <div style="font-size:32px">⚠️</div>
     <div id="error-msg">Nie można załadować pliku questions.txt</div>
-    <div style="font-size:12px;color:var(--muted);max-width:280px">Upewnij się, że plik questions.txt jest w tym samym katalogu co index.html</div>
+    <div style="font-size:var(--fs-xs);color:var(--muted);max-width:300px">Upewnij się, że plik questions.txt jest w tym samym katalogu co index.html</div>
+  </div>
+
+  <!-- MENU -->
+  <div id="menu">
+    <div class="menu-title">Witaj!</div>
+    <div class="menu-sub">Załadowano <b id="q-count">0</b> pytań</div>
+
+    <div class="menu-label">Tryb nauki</div>
+    <div class="mode-cards">
+      <div class="mode-card selected" id="card-endless" onclick="selectMode('endless')">
+        <div class="mode-icon">∞</div>
+        <div class="mode-info">
+          <div class="mode-name">Tryb nieskończony</div>
+          <div class="mode-desc">Jedno pytanie po drugim bez limitu. Losowanie bez powtórek z całej puli.</div>
+        </div>
+      </div>
+      <div class="mode-card" id="card-test" onclick="selectMode('test')">
+        <div class="mode-icon">📋</div>
+        <div class="mode-info">
+          <div class="mode-name">Test</div>
+          <div class="mode-desc">Określona liczba pytań, wynik procentowy i ocena na końcu.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-size-row" id="test-size-row">
+      <div class="menu-label">Liczba pytań w teście</div>
+      <div class="size-pills" id="size-pills"></div>
+    </div>
+
+    <button class="btn-next" onclick="startQuiz()" style="margin-top:auto">Rozpocznij</button>
   </div>
 
   <!-- Quiz -->
   <div id="quiz" style="display:none; flex-direction:column; flex:1; gap:0">
-    <div class="q-card">
-      <div class="q-meta" id="q-meta">Pytanie 1 / 30</div>
-      <div class="q-text" id="q-text"></div>
+    <div id="quiz-inner">
+      <div class="q-card">
+        <div class="q-meta" id="q-meta"></div>
+        <div class="q-text" id="q-text"></div>
+      </div>
+
+      <div class="options" id="options"></div>
+
+      <!-- right column on tablet (result + explanation) -->
+      <div id="right-col">
+        <div class="result-msg" id="result-msg"></div>
+        <div class="explanation" id="explanation"></div>
+      </div>
+
+      <!-- button row -->
+      <div id="btn-row">
+        <button class="btn-next" id="btn-next" onclick="handleBtn()">Następne pytanie</button>
+        <button class="btn-ghost" id="btn-menu" onclick="goToMenu()">← Menu</button>
+      </div>
     </div>
-
-    <div class="options" id="options"></div>
-
-    <div class="result-msg" id="result-msg"></div>
-    <div class="explanation" id="explanation"></div>
-
-    <button class="btn-next" id="btn-next" onclick="handleBtn()">Wylosuj pytanie</button>
   </div>
 
   <!-- Summary -->
-  <div class="summary" id="summary">
-    <div class="summary-score" id="sum-pct">0%</div>
-    <div class="summary-label">WYNIK KOŃCOWY</div>
-    <div class="summary-detail" id="sum-detail"></div>
-    <button class="btn-next" style="max-width:280px" onclick="restartQuiz()">Zacznij od nowa</button>
+  <div id="summary">
+    <div class="sum-ring">
+      <svg viewBox="0 0 130 130">
+        <circle class="sum-ring-bg" cx="65" cy="65" r="55"/>
+        <circle class="sum-ring-fg" id="sum-ring-fg" cx="65" cy="65" r="55"
+          stroke-dasharray="345.4" stroke-dashoffset="345.4"/>
+      </svg>
+      <div class="sum-pct" id="sum-pct">0%</div>
+    </div>
+    <div class="sum-label">WYNIK KOŃCOWY</div>
+    <div class="sum-verdict" id="sum-verdict"></div>
+    <div class="sum-detail" id="sum-detail"></div>
+    <div class="sum-btns">
+      <button class="btn-next" onclick="restartSameMode()">Jeszcze raz</button>
+      <button class="btn-ghost" onclick="goToMenu()">← Menu główne</button>
+    </div>
   </div>
 </div>
 
 <script>
 const LETTERS = ['A','B','C','D','E'];
+const CIRCUMFERENCE = 2 * Math.PI * 55;
 
 let allQuestions = [];
-let pool = [];
-let current = null;
-let answered = false;
-let goodCount = 0;
-let badCount = 0;
-let askedCount = 0;
+let pool = [], current = null, answered = false;
+let goodCount = 0, badCount = 0, askedCount = 0;
+let mode = 'endless', testSize = 30, selectedSize = 30;
 
-// ── Parse questions.txt ──────────────────────────────────────────────────────
-function parseQuestions(text) {
-  return text
-    .split('\n')
-    .map(l => l.trim())
-    .filter(l => l.length > 0 && !l.startsWith('#'))
-    .map((line, idx) => {
-      const parts = line.split(';');
-      // Format: pytanie;odpA;odpB;odpC;odpD;poprawna_odpowiedź
-      if (parts.length < 4) return null;
-      const question = parts[0].trim();
-      const options   = parts.slice(1, parts.length - 1).map(o => o.trim());
-      const answer    = parts[parts.length - 1].trim();
-      const answerIdx = options.findIndex(o => o === answer);
-      if (!question || options.length < 2 || answerIdx === -1) return null;
-      return { id: idx + 1, question, options, answerIdx };
-    })
-    .filter(Boolean);
-}
-
-// ── Load questions.txt ───────────────────────────────────────────────────────
-async function loadQuestions() {
-  try {
-    const res = await fetch('questions.txt');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    allQuestions = parseQuestions(text);
-    if (allQuestions.length === 0) throw new Error('Brak poprawnych pytań w pliku');
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('quiz').style.display = 'flex';
-    document.getElementById('s-total').textContent = `0 / ${allQuestions.length}`;
-    refillPool();
-  } catch (e) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('error').style.display = 'flex';
-    document.getElementById('error-msg').textContent = e.message;
-  }
-}
-
-// ── Pool management ──────────────────────────────────────────────────────────
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -408,37 +514,136 @@ function shuffle(arr) {
   }
   return arr;
 }
+function show(id, flex) { document.getElementById(id).style.display = flex ? 'flex' : 'block'; }
+function hide(id)       { document.getElementById(id).style.display = 'none'; }
 
-function refillPool() {
-  pool = shuffle([...allQuestions]);
+function parseQuestions(text) {
+  return text.split('\n')
+    .map(l => l.trim())
+    .filter(l => l.length > 0 && !l.startsWith('#'))
+    .map((line, idx) => {
+      const parts = line.split(';');
+      if (parts.length < 4) return null;
+      const question  = parts[0].trim();
+      const options   = parts.slice(1, parts.length - 1).map(o => o.trim());
+      const answer    = parts[parts.length - 1].trim();
+      const answerIdx = options.findIndex(o => o === answer);
+      if (!question || options.length < 2 || answerIdx === -1) return null;
+      return { id: idx + 1, question, options, answerIdx };
+    }).filter(Boolean);
 }
 
-// ── Draw next question ───────────────────────────────────────────────────────
+async function loadQuestions() {
+  try {
+    const res = await fetch('questions.txt');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    allQuestions = parseQuestions(await res.text());
+    if (allQuestions.length === 0) throw new Error('Brak poprawnych pytań w pliku');
+    hide('loading');
+    showMenu();
+  } catch (e) {
+    hide('loading');
+    show('error', true);
+    document.getElementById('error-msg').textContent = e.message;
+  }
+}
+
+function showMenu() {
+  hide('quiz');
+  hide('summary');
+  hide('stats-bar');
+  hide('progress-wrap');
+  document.getElementById('summary').classList.remove('active');
+  document.getElementById('q-count').textContent = allQuestions.length;
+  buildSizePills();
+  show('menu', true);
+  document.getElementById('menu').classList.add('active');
+  selectMode(mode);
+}
+
+function buildSizePills() {
+  const n = allQuestions.length;
+  const sizes = [10, 20, 30, 40, 50].filter(s => s <= n);
+  if (sizes.length === 0) sizes.push(n);
+  if (!sizes.includes(selectedSize)) selectedSize = sizes[0];
+  const container = document.getElementById('size-pills');
+  container.innerHTML = '';
+  sizes.forEach(s => {
+    const pill = document.createElement('button');
+    pill.className = 'pill' + (s === selectedSize ? ' selected' : '');
+    pill.textContent = s + ' pyt.';
+    pill.onclick = () => {
+      selectedSize = s;
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+    };
+    container.appendChild(pill);
+  });
+}
+
+function selectMode(m) {
+  mode = m;
+  document.getElementById('card-endless').classList.toggle('selected', m === 'endless');
+  document.getElementById('card-test').classList.toggle('selected', m === 'test');
+  document.getElementById('test-size-row').classList.toggle('visible', m === 'test');
+}
+
+function goToMenu() { showMenu(); }
+
+function startQuiz() {
+  testSize = selectedSize;
+  goodCount = badCount = askedCount = 0;
+  document.getElementById('s-good').textContent = 0;
+  document.getElementById('s-bad').textContent  = 0;
+  hide('menu');
+  document.getElementById('menu').classList.remove('active');
+  hide('summary');
+  show('stats-bar', true);
+  show('progress-wrap', true);
+  show('quiz', true);
+  document.getElementById('quiz').style.display = 'flex';
+  document.getElementById('progress').style.width = '0%';
+  pool = shuffle([...allQuestions]);
+  nextQuestion();
+}
+
+function refillPool() { pool = shuffle([...allQuestions]); }
+
 function nextQuestion() {
+  if (mode === 'test' && askedCount >= testSize) { showSummary(); return; }
   if (pool.length === 0) refillPool();
-  current = pool.pop();
+  current  = pool.pop();
   answered = false;
   askedCount++;
 
-  // Shuffle options (keep answer index tracking)
   const indices = current.options.map((_, i) => i);
   shuffle(indices);
   const shuffledOptions = indices.map(i => current.options[i]);
-  const newAnswerIdx = indices.indexOf(current.answerIdx);
+  current._shuffledOptions   = shuffledOptions;
+  current._shuffledAnswerIdx = indices.indexOf(current.answerIdx);
 
-  current._shuffledOptions = shuffledOptions;
-  current._shuffledAnswerIdx = newAnswerIdx;
-
-  // Update UI
   document.getElementById('q-meta').textContent =
-    `Pytanie ${askedCount} · pula: ${allQuestions.length}`;
+    mode === 'test'
+      ? `Pytanie ${askedCount} / ${testSize}`
+      : `Pytanie ${askedCount} · pula: ${allQuestions.length}`;
+
+  document.getElementById('s-total').textContent =
+    mode === 'test' ? `${askedCount}/${testSize}` : `${askedCount}`;
+
   document.getElementById('q-text').textContent = current.question;
   document.getElementById('result-msg').textContent = '';
   document.getElementById('result-msg').className = 'result-msg';
   document.getElementById('explanation').style.display = 'none';
-  document.getElementById('btn-next').textContent = 'Wylosuj pytanie';
 
-  // Render options
+  const btnNext = document.getElementById('btn-next');
+  btnNext.style.display = 'none';
+
+  if (mode === 'test') {
+    document.getElementById('progress').style.width = ((askedCount - 1) / testSize * 100) + '%';
+  } else {
+    document.getElementById('progress').style.width = ((allQuestions.length - pool.length) / allQuestions.length * 100) + '%';
+  }
+
   const optDiv = document.getElementById('options');
   optDiv.innerHTML = '';
   shuffledOptions.forEach((opt, i) => {
@@ -448,76 +653,81 @@ function nextQuestion() {
     btn.onclick = () => selectAnswer(i);
     optDiv.appendChild(btn);
   });
-
-  // Progress bar (cycles through full pool)
-  const pct = ((allQuestions.length - pool.length) / allQuestions.length) * 100;
-  document.getElementById('progress').style.width = pct + '%';
 }
 
-// ── Handle answer selection ──────────────────────────────────────────────────
 function selectAnswer(idx) {
   if (answered) return;
   answered = true;
 
-  const btns = document.querySelectorAll('.opt');
+  const btns      = document.querySelectorAll('.opt');
   const correctIdx = current._shuffledAnswerIdx;
-  const isCorrect = idx === correctIdx;
+  const isCorrect  = idx === correctIdx;
 
   btns.forEach((btn, i) => {
     btn.disabled = true;
-    if (i === correctIdx) {
-      btn.classList.add('correct');
-    } else if (i === idx) {
-      btn.classList.add('wrong');
-    } else {
-      btn.classList.add('dimmed');
-    }
+    if (i === correctIdx)   btn.classList.add('correct');
+    else if (i === idx)     btn.classList.add('wrong');
+    else                    btn.classList.add('dimmed');
   });
 
   const msg = document.getElementById('result-msg');
   if (isCorrect) {
     goodCount++;
     msg.textContent = '✓ Poprawna odpowiedź!';
-    msg.className = 'result-msg ok';
+    msg.className   = 'result-msg ok';
   } else {
     badCount++;
     msg.textContent = '✗ Nieprawidłowa odpowiedź!';
-    msg.className = 'result-msg err';
+    msg.className   = 'result-msg err';
     const exp = document.getElementById('explanation');
     exp.textContent = `Poprawna odpowiedź: ${current._shuffledOptions[correctIdx]}`;
     exp.style.display = 'block';
   }
 
   document.getElementById('s-good').textContent = goodCount;
-  document.getElementById('s-bad').textContent = badCount;
-  document.getElementById('s-total').textContent =
-    `${askedCount} / ${allQuestions.length}`;
+  document.getElementById('s-bad').textContent  = badCount;
 
-  document.getElementById('btn-next').textContent = 'Następne pytanie';
+  const btnNext = document.getElementById('btn-next');
+  btnNext.style.display = '';
+  btnNext.textContent = (mode === 'test' && askedCount >= testSize)
+    ? 'Zobacz wynik' : 'Następne pytanie';
+
+  if (mode === 'test') {
+    document.getElementById('progress').style.width = (askedCount / testSize * 100) + '%';
+  }
 }
 
-// ── Button handler ───────────────────────────────────────────────────────────
 function handleBtn() {
-  if (!answered && askedCount > 0) return; // waiting for answer
+  if (!answered) return;
   nextQuestion();
 }
 
-// ── Restart ──────────────────────────────────────────────────────────────────
-function restartQuiz() {
-  goodCount = 0;
-  badCount = 0;
-  askedCount = 0;
-  document.getElementById('s-good').textContent = 0;
-  document.getElementById('s-bad').textContent = 0;
-  document.getElementById('s-total').textContent = `0 / ${allQuestions.length}`;
-  document.getElementById('summary').classList.remove('active');
-  document.getElementById('quiz').style.display = 'flex';
-  document.getElementById('progress').style.width = '0%';
-  refillPool();
-  nextQuestion();
+function showSummary() {
+  hide('quiz');
+  hide('stats-bar');
+  hide('progress-wrap');
+  const pct     = testSize > 0 ? Math.round((goodCount / testSize) * 100) : 0;
+  const passing = pct >= 60;
+  document.getElementById('sum-pct').textContent    = pct + '%';
+  document.getElementById('sum-verdict').textContent = passing ? '✓ Zaliczony' : '✗ Niezaliczony';
+  document.getElementById('sum-verdict').className   = 'sum-verdict ' + (passing ? 'pass' : 'fail');
+  document.getElementById('sum-detail').textContent  = `Poprawne: ${goodCount} / ${testSize}  ·  Błędne: ${badCount}`;
+  const fg = document.getElementById('sum-ring-fg');
+  fg.style.stroke = passing ? 'var(--correct-t)' : 'var(--wrong-t)';
+  setTimeout(() => { fg.style.strokeDashoffset = CIRCUMFERENCE * (1 - pct / 100); }, 50);
+  const sumEl = document.getElementById('summary');
+  sumEl.style.display = 'flex';
+  sumEl.classList.add('active');
 }
 
-// ── Boot ─────────────────────────────────────────────────────────────────────
+function restartSameMode() {
+  const sumEl = document.getElementById('summary');
+  sumEl.style.display = 'none';
+  sumEl.classList.remove('active');
+  document.getElementById('sum-ring-fg').style.strokeDashoffset = CIRCUMFERENCE;
+  startQuiz();
+}
+
 loadQuestions();
 </script>
 </body>
