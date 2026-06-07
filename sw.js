@@ -1,5 +1,5 @@
 // Zmień wersję żeby wymusić odświeżenie cache po każdym deploy
-const CACHE = 'mtcna-v4';
+const CACHE = 'nullroute-v1';
 
 // Ścieżki relatywne — działają niezależnie od podkatalogu repo
 const FILES = [

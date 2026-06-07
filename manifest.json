@@ -1,7 +1,7 @@
 {
-  "name": "MTCNA Quiz",
-  "short_name": "MTCNA",
-  "description": "Quiz do egzaminu MikroTik MTCNA",
+  "name": "nullroute",
+  "short_name": "nullroute",
+  "description": "MikroTik MTCNA exam prep — nullroute your ignorance",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#16161e">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>MTCNA – Test 30 pytań</title>
+<title>nullroute — test</title>
 <style>
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
 :root {
@@ -107,7 +107,7 @@ body {
   <div class="topbar">
     <a class="back-btn" href="index.html">
       <div class="back-icon">‹</div>
-      <span class="back-label">MTCNA</span>
+      <span class="back-label">nullroute</span>
     </a>
     <div class="tcounter"><b id="qn">0</b> / <b id="qt2">30</b></div>
   </div>
@@ -268,7 +268,7 @@ function res(pass){
 function handleNext(){if(!answered)return;nextQ();}
 function showSum(){
   document.getElementById('sq').classList.remove('active');
-  const n=pool.length,pct=Math.round(good/n*100),p=pct>=60;
+  const n=pool.length,pct=Math.round(good/n*100),p=pct>=75;
   document.getElementById('sp').textContent=pct+'%';
   document.getElementById('sv').textContent=p?'✓ Zaliczony':'✗ Niezaliczony';
   document.getElementById('sv').className='sum-v '+(p?'pass':'fail');
