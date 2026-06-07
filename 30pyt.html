@@ -113,7 +113,13 @@ body {
   </div>
   <div class="progress-wrap"><div class="progress-bar" id="prog"></div></div>
   <div class="state-center" id="loading"><div class="spinner"></div><div>Ładowanie pytań…</div></div>
-  <div class="state-center" id="errbox" style="display:none"><div style="font-size:32px">⚠️</div><div id="errmsg"></div></div>
+  <div class="state-center" id="errbox" style="display:none">
+    <div style="font-size:32px">⚠️</div>
+    <div id="errmsg" style="margin-bottom:16px"></div>
+    <button onclick="clearCacheAndReload()" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;">
+      Wyczyść cache i spróbuj ponownie
+    </button>
+  </div>
   <div class="screen" id="sq">
     <div id="qi">
       <div class="multi-badge" id="mb">☑ Zaznacz wszystkie poprawne odpowiedzi</div>
@@ -147,6 +153,18 @@ body {
 const L=['A','B','C','D','E','F'], SZ=30, C=2*Math.PI*55;
 let allQ=[],pool=[],cur=null,answered=false,asked=0,good=0,bad=0,isM=false,sel=new Set();
 
+async function clearCacheAndReload() {
+  if ('caches' in window) {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(k => caches.delete(k)));
+  }
+  if ('serviceWorker' in navigator) {
+    const regs = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(regs.map(r => r.unregister()));
+  }
+  location.reload(true);
+}
+
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function parse(text){
   return text.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('#'))
@@ -161,8 +179,11 @@ function parse(text){
 }
 async function init(){
   try{
-    const r=await fetch('questions.txt'); if(!r.ok)throw new Error('HTTP '+r.status);
-    allQ=parse(await r.text()); if(!allQ.length)throw new Error('Brak pytań');
+    const r=await fetch('./questions.txt');
+    if(!r.ok)throw new Error('Błąd HTTP '+r.status+' — sprawdź czy plik questions.txt jest w repozytorium');
+    const text=await r.text();
+    allQ=parse(text);
+    if(!allQ.length)throw new Error('Plik questions.txt jest pusty lub ma nieprawidłowy format');
     document.getElementById('loading').style.display='none';
     const n=Math.min(SZ,allQ.length); document.getElementById('qt2').textContent=n;
     startTest();
@@ -256,7 +277,7 @@ function showSum(){
   setTimeout(()=>{fg.style.strokeDashoffset=C*(1-pct/100);},50);
   document.getElementById('ss').classList.add('active');
 }
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 init();
 </script>
 </body>
