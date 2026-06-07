@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MTCNA Quiz</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #16161e;
+    --bg2:       #1e1e2a;
+    --bg3:       #252535;
+    --border:    #2e2e42;
+    --text:      #d4d4e8;
+    --muted:     #6c6c8a;
+    --accent:    #e05a5a;
+    --accent-h:  #c94444;
+    --correct:   #2a6e3a;
+    --correct-t: #5dd87a;
+    --wrong:     #6e2a2a;
+    --wrong-t:   #f07070;
+    --dim:       0.32;
+    --radius:    12px;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  #app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px 40px;
+    gap: 0;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0 20px;
+  }
+
+  .logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .stats {
+    display: flex;
+    gap: 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .stats span b { font-weight: 700; }
+  .stats .ok b  { color: var(--correct-t); }
+  .stats .err b { color: var(--wrong-t); }
+
+  /* ── Progress bar ── */
+  .progress-wrap {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ── Question card ── */
+  .q-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    margin-bottom: 16px;
+  }
+
+  .q-meta {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .q-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── Options ── */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .opt {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.45;
+    transition: background 0.12s, border-color 0.12s, opacity 0.15s;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .opt:active:not([disabled]) {
+    background: var(--bg3);
+  }
+
+  .opt-letter {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+  }
+
+  .opt.correct {
+    background: var(--correct);
+    border-color: var(--correct-t);
+  }
+
+  .opt.correct .opt-letter {
+    background: var(--correct-t);
+    border-color: var(--correct-t);
+    color: #0a2e15;
+  }
+
+  .opt.wrong {
+    background: var(--wrong);
+    border-color: var(--wrong-t);
+  }
+
+  .opt.wrong .opt-letter {
+    background: var(--wrong-t);
+    border-color: var(--wrong-t);
+    color: #2e0a0a;
+  }
+
+  .opt.dimmed {
+    opacity: var(--dim);
+    cursor: default;
+  }
+
+  .opt[disabled] { cursor: default; }
+
+  /* ── Result message ── */
+  .result-msg {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    min-height: 22px;
+    margin-bottom: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  .result-msg.ok  { color: var(--correct-t); }
+  .result-msg.err { color: var(--wrong-t); }
+
+  /* ── Explanation ── */
+  .explanation {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--wrong-t);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    display: none;
+  }
+
+  /* ── Main button ── */
+  .btn-next {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 16px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.12s, transform 0.1s;
+    margin-top: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-next:active { transform: scale(0.98); background: var(--accent-h); }
+
+  /* ── Loading / Error state ── */
+  .state-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 14px;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Summary screen ── */
+  .summary {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 40px;
+    text-align: center;
+  }
+
+  .summary.active { display: flex; }
+
+  .summary-score {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .summary-label {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .summary-detail {
+    font-size: 15px;
+    color: var(--text);
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <div class="logo">MTCNA Quiz</div>
+    <div class="stats">
+      <span class="ok">✓ <b id="s-good">0</b></span>
+      <span class="err">✗ <b id="s-bad">0</b></span>
+      <span id="s-total" style="color:var(--muted)">0 pyt.</span>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progress"></div>
+  </div>
+
+  <!-- Loading -->
+  <div class="state-center" id="loading">
+    <div class="spinner"></div>
+    <div>Ładowanie pytań…</div>
+  </div>
+
+  <!-- Error -->
+  <div class="state-center" id="error" style="display:none">
+    <div style="font-size:32px">⚠️</div>
+    <div id="error-msg">Nie można załadować pliku questions.txt</div>
+    <div style="font-size:12px;color:var(--muted);max-width:280px">Upewnij się, że plik questions.txt jest w tym samym katalogu co index.html</div>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz" style="display:none; flex-direction:column; flex:1; gap:0">
+    <div class="q-card">
+      <div class="q-meta" id="q-meta">Pytanie 1 / 30</div>
+      <div class="q-text" id="q-text"></div>
+    </div>
+
+    <div class="options" id="options"></div>
+
+    <div class="result-msg" id="result-msg"></div>
+    <div class="explanation" id="explanation"></div>
+
+    <button class="btn-next" id="btn-next" onclick="handleBtn()">Wylosuj pytanie</button>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary" id="summary">
+    <div class="summary-score" id="sum-pct">0%</div>
+    <div class="summary-label">WYNIK KOŃCOWY</div>
+    <div class="summary-detail" id="sum-detail"></div>
+    <button class="btn-next" style="max-width:280px" onclick="restartQuiz()">Zacznij od nowa</button>
+  </div>
+</div>
+
+<script>
+const LETTERS = ['A','B','C','D','E'];
+
+let allQuestions = [];
+let pool = [];
+let current = null;
+let answered = false;
+let goodCount = 0;
+let badCount = 0;
+let askedCount = 0;
+
+// ── Parse questions.txt ──────────────────────────────────────────────────────
+function parseQuestions(text) {
+  return text
+    .split('\n')
+    .map(l => l.trim())
+    .filter(l => l.length > 0 && !l.startsWith('#'))
+    .map((line, idx) => {
+      const parts = line.split(';');
+      // Format: pytanie;odpA;odpB;odpC;odpD;poprawna_odpowiedź
+      if (parts.length < 4) return null;
+      const question = parts[0].trim();
+      const options   = parts.slice(1, parts.length - 1).map(o => o.trim());
+      const answer    = parts[parts.length - 1].trim();
+      const answerIdx = options.findIndex(o => o === answer);
+      if (!question || options.length < 2 || answerIdx === -1) return null;
+      return { id: idx + 1, question, options, answerIdx };
+    })
+    .filter(Boolean);
+}
+
+// ── Load questions.txt ───────────────────────────────────────────────────────
+async function loadQuestions() {
+  try {
+    const res = await fetch('questions.txt');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = await res.text();
+    allQuestions = parseQuestions(text);
+    if (allQuestions.length === 0) throw new Error('Brak poprawnych pytań w pliku');
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('quiz').style.display = 'flex';
+    document.getElementById('s-total').textContent = `0 / ${allQuestions.length}`;
+    refillPool();
+  } catch (e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'flex';
+    document.getElementById('error-msg').textContent = e.message;
+  }
+}
+
+// ── Pool management ──────────────────────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function refillPool() {
+  pool = shuffle([...allQuestions]);
+}
+
+// ── Draw next question ───────────────────────────────────────────────────────
+function nextQuestion() {
+  if (pool.length === 0) refillPool();
+  current = pool.pop();
+  answered = false;
+  askedCount++;
+
+  // Shuffle options (keep answer index tracking)
+  const indices = current.options.map((_, i) => i);
+  shuffle(indices);
+  const shuffledOptions = indices.map(i => current.options[i]);
+  const newAnswerIdx = indices.indexOf(current.answerIdx);
+
+  current._shuffledOptions = shuffledOptions;
+  current._shuffledAnswerIdx = newAnswerIdx;
+
+  // Update UI
+  document.getElementById('q-meta').textContent =
+    `Pytanie ${askedCount} · pula: ${allQuestions.length}`;
+  document.getElementById('q-text').textContent = current.question;
+  document.getElementById('result-msg').textContent = '';
+  document.getElementById('result-msg').className = 'result-msg';
+  document.getElementById('explanation').style.display = 'none';
+  document.getElementById('btn-next').textContent = 'Wylosuj pytanie';
+
+  // Render options
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+  shuffledOptions.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    optDiv.appendChild(btn);
+  });
+
+  // Progress bar (cycles through full pool)
+  const pct = ((allQuestions.length - pool.length) / allQuestions.length) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+}
+
+// ── Handle answer selection ──────────────────────────────────────────────────
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const btns = document.querySelectorAll('.opt');
+  const correctIdx = current._shuffledAnswerIdx;
+  const isCorrect = idx === correctIdx;
+
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === correctIdx) {
+      btn.classList.add('correct');
+    } else if (i === idx) {
+      btn.classList.add('wrong');
+    } else {
+      btn.classList.add('dimmed');
+    }
+  });
+
+  const msg = document.getElementById('result-msg');
+  if (isCorrect) {
+    goodCount++;
+    msg.textContent = '✓ Poprawna odpowiedź!';
+    msg.className = 'result-msg ok';
+  } else {
+    badCount++;
+    msg.textContent = '✗ Nieprawidłowa odpowiedź!';
+    msg.className = 'result-msg err';
+    const exp = document.getElementById('explanation');
+    exp.textContent = `Poprawna odpowiedź: ${current._shuffledOptions[correctIdx]}`;
+    exp.style.display = 'block';
+  }
+
+  document.getElementById('s-good').textContent = goodCount;
+  document.getElementById('s-bad').textContent = badCount;
+  document.getElementById('s-total').textContent =
+    `${askedCount} / ${allQuestions.length}`;
+
+  document.getElementById('btn-next').textContent = 'Następne pytanie';
+}
+
+// ── Button handler ───────────────────────────────────────────────────────────
+function handleBtn() {
+  if (!answered && askedCount > 0) return; // waiting for answer
+  nextQuestion();
+}
+
+// ── Restart ──────────────────────────────────────────────────────────────────
+function restartQuiz() {
+  goodCount = 0;
+  badCount = 0;
+  askedCount = 0;
+  document.getElementById('s-good').textContent = 0;
+  document.getElementById('s-bad').textContent = 0;
+  document.getElementById('s-total').textContent = `0 / ${allQuestions.length}`;
+  document.getElementById('summary').classList.remove('active');
+  document.getElementById('quiz').style.display = 'flex';
+  document.getElementById('progress').style.width = '0%';
+  refillPool();
+  nextQuestion();
+}
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+loadQuestions();
+</script>
+</body>
+</html>
