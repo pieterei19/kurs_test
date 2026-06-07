@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MTCNA">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#16161e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>MTCNA Quiz</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #16161e;
+  --bg2:     #1e1e2a;
+  --bg3:     #252535;
+  --border:  #2e2e42;
+  --text:    #d4d4e8;
+  --muted:   #6c6c8a;
+  --accent:  #e05a5a;
+  --accent-h:#c94444;
+  --radius:  14px;
+
+  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left:   env(safe-area-inset-left, 0px);
+  --safe-right:  env(safe-area-inset-right, 0px);
+}
+
+html {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  display: flex;
+  justify-content: center;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+#app {
+  width: 100%;
+  max-width: 680px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding:
+    calc(var(--safe-top) + clamp(20px, 3vh, 40px))
+    calc(var(--safe-right) + clamp(16px, 4vw, 48px))
+    calc(var(--safe-bottom) + clamp(20px, 3vh, 40px))
+    calc(var(--safe-left) + clamp(16px, 4vw, 48px));
+}
+
+/* ── Top bar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(32px, 7vh, 60px);
+}
+.logo-badge {
+  width: clamp(32px, 5vw, 42px);
+  height: clamp(32px, 5vw, 42px);
+  background: var(--accent);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(13px, 2vw, 17px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.logo-text {
+  font-size: clamp(10px, 1.5vw, 12px);
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Hero ── */
+.hero-tag {
+  font-size: clamp(10px, 1.5vw, 12px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.hero-title {
+  font-size: clamp(26px, 6vw, 52px);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.hero-sub {
+  font-size: clamp(13px, 1.8vw, 16px);
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: clamp(32px, 7vh, 56px);
+  max-width: 420px;
+}
+
+/* ── Cards ── */
+.section-label {
+  font-size: clamp(10px, 1.4vw, 12px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: auto;
+}
+@media (min-width: 500px) {
+  .cards { flex-direction: row; }
+  .mode-card { flex: 1; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .mode-arrow { display: none; }
+}
+
+.mode-card {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(16px, 3vw, 26px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s, background 0.18s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.mode-card:active { transform: scale(0.98); background: var(--bg3); }
+@media (hover: hover) {
+  .mode-card:hover { border-color: var(--accent); background: #221a1a; }
+  .mode-card:hover .mode-icon { background: var(--accent); border-color: var(--accent); }
+  .mode-card:hover .mode-arrow { color: var(--accent); transform: translateX(3px); }
+}
+
+.mode-icon {
+  width: clamp(42px, 7vw, 54px);
+  height: clamp(42px, 7vw, 54px);
+  border-radius: 11px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 3.5vw, 26px);
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+.mode-info { display: flex; flex-direction: column; gap: 4px; }
+.mode-name {
+  font-size: clamp(14px, 2.2vw, 17px);
+  font-weight: 700;
+  color: var(--text);
+}
+.mode-desc {
+  font-size: clamp(12px, 1.6vw, 14px);
+  color: var(--muted);
+  line-height: 1.45;
+}
+.mode-arrow {
+  margin-left: auto;
+  font-size: 22px;
+  color: var(--border);
+  flex-shrink: 0;
+  transition: color 0.18s, transform 0.18s;
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: clamp(24px, 4vh, 40px);
+  font-size: clamp(10px, 1.3vw, 12px);
+  color: var(--muted);
+  text-align: center;
+  opacity: 0.5;
+}
+
+/* ── PWA install banner ── */
+#pwa-banner {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: clamp(12px, 1.5vw, 13px);
+  color: var(--muted);
+}
+#pwa-banner.visible { display: flex; }
+#pwa-banner b { color: var(--text); }
+#pwa-install-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="topbar">
+    <div class="logo-badge">MT</div>
+    <div class="logo-text">MTCNA Quiz</div>
+  </div>
+
+  <div id="pwa-banner">
+    <span>Dodaj do ekranu głównego — działa jak apka bez paska przeglądarki.</span>
+    <button id="pwa-install-btn">Instaluj</button>
+  </div>
+
+  <div class="hero-tag">Nauka do egzaminu</div>
+  <h1 class="hero-title">Wybierz tryb</h1>
+  <p class="hero-sub">Pytania z zakresu MikroTik RouterOS. Odpowiedzi losowane, kolejność opcji mieszana. Obsługa pytań wielokrotnego wyboru.</p>
+
+  <div class="section-label">Tryb nauki</div>
+  <div class="cards">
+    <a class="mode-card" href="1pyt.html">
+      <div class="mode-icon">∞</div>
+      <div class="mode-info">
+        <div class="mode-name">Jedno pytanie</div>
+        <div class="mode-desc">Losuj bez końca, w dowolnym tempie. Bez limitu.</div>
+      </div>
+      <div class="mode-arrow">›</div>
+    </a>
+    <a class="mode-card" href="30pyt.html">
+      <div class="mode-icon">📋</div>
+      <div class="mode-info">
+        <div class="mode-name">Test 30 pytań</div>
+        <div class="mode-desc">30 losowych pytań, wynik i ocena na końcu.</div>
+      </div>
+      <div class="mode-arrow">›</div>
+    </a>
+  </div>
+
+  <div class="footer">MTCNA Quiz · questions.txt</div>
+</div>
+
+<script>
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+// PWA install prompt
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('pwa-banner').classList.add('visible');
+});
+
+document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  if (outcome === 'accepted') {
+    document.getElementById('pwa-banner').classList.remove('visible');
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('pwa-banner').classList.remove('visible');
+});
+</script>
+</body>
+</html>

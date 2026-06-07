@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#16161e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>MTCNA – Test 30 pytań</title>
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#16161e; --bg2:#1e1e2a; --bg3:#252535; --border:#2e2e42;
+  --text:#d4d4e8; --muted:#6c6c8a; --accent:#e05a5a; --accent-h:#c94444;
+  --correct:#2a6e3a; --correct-t:#5dd87a; --wrong:#6e2a2a; --wrong-t:#f07070;
+  --multi:#1a2e4a; --multi-t:#5ab4f0; --dim:0.32; --radius:12px;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
+  --px:clamp(14px,4vw,40px); --py:clamp(14px,2.5vh,28px); --gap:clamp(8px,1.5vw,14px);
+}
+html { height:100%; height:-webkit-fill-available; }
+body {
+  min-height:100vh; min-height:100dvh; min-height:-webkit-fill-available;
+  background:var(--bg); color:var(--text);
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  font-size:clamp(15px,1.5vw + 10px,18px); line-height:1.5;
+  display:flex; justify-content:center; overscroll-behavior:none;
+  -webkit-text-size-adjust:100%;
+}
+#app {
+  width:100%; max-width:680px; min-height:100dvh;
+  display:flex; flex-direction:column;
+  padding:
+    calc(var(--safe-top) + var(--py))
+    calc(var(--safe-right) + var(--px))
+    calc(var(--safe-bottom) + var(--py))
+    calc(var(--safe-left) + var(--px));
+}
+.topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:clamp(12px,2vh,20px); flex-shrink:0; }
+.back-btn { display:flex; align-items:center; gap:8px; text-decoration:none; -webkit-tap-highlight-color:transparent; user-select:none; }
+.back-icon { width:32px; height:32px; border-radius:8px; background:var(--bg2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--muted); transition:background 0.12s,color 0.12s; }
+.back-btn:active .back-icon { background:var(--bg3); color:var(--text); }
+.back-label { font-size:clamp(10px,1.4vw,12px); font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.tcounter { font-size:clamp(12px,1.5vw,14px); font-weight:700; color:var(--muted); }
+.tcounter b { color:var(--text); }
+.progress-wrap { height:4px; background:var(--border); border-radius:2px; margin-bottom:clamp(12px,2vh,22px); overflow:hidden; flex-shrink:0; }
+.progress-bar  { height:100%; background:var(--accent); border-radius:2px; transition:width 0.4s ease; width:0%; }
+.multi-badge { display:none; align-items:center; gap:6px; background:var(--multi); border:1px solid var(--multi-t); border-radius:8px; padding:7px 12px; font-size:clamp(11px,1.2vw,13px); font-weight:600; color:var(--multi-t); margin-bottom:var(--gap); }
+.multi-badge.visible { display:flex; }
+.q-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:clamp(14px,2vw,22px); margin-bottom:var(--gap); }
+.q-meta { font-size:clamp(10px,1.2vw,12px); font-weight:700; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+.q-text { font-size:clamp(15px,1.5vw + 10px,18px); color:var(--text); line-height:1.6; }
+.options { display:flex; flex-direction:column; gap:var(--gap); margin-bottom:var(--gap); }
+.opt,.chk-opt { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:clamp(11px,1.8vw,16px) clamp(12px,2vw,18px); cursor:pointer; display:flex; align-items:flex-start; gap:clamp(10px,1.5vw,14px); text-align:left; color:var(--text); font-size:clamp(14px,1.4vw + 9px,17px); line-height:1.45; width:100%; min-height:50px; transition:background 0.12s,border-color 0.12s,opacity 0.15s; -webkit-tap-highlight-color:transparent; user-select:none; }
+.opt:active:not([disabled]) { background:var(--bg3); }
+.opt-letter { min-width:clamp(22px,3vw,28px); height:clamp(22px,3vw,28px); border-radius:6px; background:var(--bg3); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:clamp(11px,1.2vw,13px); font-weight:700; color:var(--muted); flex-shrink:0; margin-top:2px; transition:background 0.12s,border-color 0.12s,color 0.12s; }
+.chk-opt.selected { background:var(--multi); border-color:var(--multi-t); }
+.chk-opt.selected .opt-letter { background:var(--multi-t); border-color:var(--multi-t); color:#0a1e2e; }
+.opt.correct,.chk-opt.correct { background:var(--correct); border-color:var(--correct-t); }
+.opt.correct .opt-letter,.chk-opt.correct .opt-letter { background:var(--correct-t); border-color:var(--correct-t); color:#0a2e15; }
+.opt.wrong,.chk-opt.wrong { background:var(--wrong); border-color:var(--wrong-t); }
+.opt.wrong .opt-letter,.chk-opt.wrong .opt-letter { background:var(--wrong-t); border-color:var(--wrong-t); color:#2e0a0a; }
+.opt.missed,.chk-opt.missed { background:var(--correct); border-color:var(--correct-t); opacity:0.65; }
+.opt.missed .opt-letter,.chk-opt.missed .opt-letter { background:var(--correct-t); border-color:var(--correct-t); color:#0a2e15; }
+.opt.dimmed,.chk-opt.dimmed { opacity:var(--dim); cursor:default; }
+.opt[disabled],.chk-opt[disabled] { cursor:default; }
+.result-msg { text-align:center; font-size:clamp(13px,1.5vw,15px); font-weight:700; min-height:20px; margin-bottom:var(--gap); letter-spacing:0.2px; }
+.result-msg.ok { color:var(--correct-t); } .result-msg.err { color:var(--wrong-t); }
+.explanation { background:var(--bg2); border:1px solid var(--border); border-left:3px solid var(--wrong-t); border-radius:var(--radius); padding:clamp(10px,1.5vw,14px); font-size:clamp(12px,1.3vw,14px); color:var(--muted); line-height:1.6; margin-bottom:var(--gap); display:none; }
+.btn-confirm { background:var(--multi); color:var(--multi-t); border:1px solid var(--multi-t); border-radius:var(--radius); font-size:clamp(13px,1.5vw,15px); font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:clamp(13px,1.8vh,16px) 16px; width:100%; cursor:pointer; transition:background 0.12s,transform 0.1s; -webkit-tap-highlight-color:transparent; display:none; }
+.btn-confirm:active { transform:scale(0.98); } .btn-confirm.visible { display:block; }
+.btn-main { background:var(--accent); color:#fff; border:none; border-radius:var(--radius); font-size:clamp(13px,1.5vw,15px); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:clamp(14px,2vh,18px) 16px; width:100%; cursor:pointer; transition:background 0.12s,transform 0.1s; margin-top:8px; -webkit-tap-highlight-color:transparent; display:none; }
+.btn-main:active { transform:scale(0.98); background:var(--accent-h); } .btn-main.visible { display:block; }
+@media (min-width:700px) {
+  #qi { display:grid; grid-template-columns:1fr 1fr; column-gap:20px; align-items:start; }
+  .q-card,.multi-badge { grid-column:1/-1; }
+  #options { grid-column:1; margin-bottom:0; }
+  #rc { grid-column:2; display:flex; flex-direction:column; gap:var(--gap); }
+  #br { grid-column:1/-1; margin-top:16px; display:flex; flex-direction:column; gap:8px; }
+  .btn-confirm,.btn-main { margin-top:0; }
+}
+.screen { display:none; flex-direction:column; flex:1; }
+.screen.active { display:flex; }
+.state-center { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:var(--muted); font-size:clamp(13px,1.5vw,15px); text-align:center; padding:40px 0; }
+.spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+#ss { align-items:center; justify-content:center; gap:clamp(12px,2vh,20px); text-align:center; padding:20px 0; }
+.sum-ring { position:relative; width:clamp(110px,20vw,150px); height:clamp(110px,20vw,150px); }
+.sum-ring svg { transform:rotate(-90deg); width:100%; height:100%; }
+.srb { fill:none; stroke:var(--border); stroke-width:8; }
+.srf { fill:none; stroke:var(--accent); stroke-width:8; stroke-linecap:round; transition:stroke-dashoffset 0.8s ease; }
+.sum-pct { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:clamp(24px,4vw,34px); font-weight:700; color:var(--text); }
+.sum-lbl { font-size:clamp(10px,1.2vw,12px); letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
+.sum-v { font-size:clamp(16px,2.5vw,22px); font-weight:700; }
+.sum-v.pass { color:var(--correct-t); } .sum-v.fail { color:var(--wrong-t); }
+.sum-det { font-size:clamp(13px,1.5vw,16px); color:var(--text); }
+.sum-btns { display:flex; flex-direction:column; gap:10px; width:100%; max-width:320px; }
+.btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:var(--radius); font-size:clamp(12px,1.3vw,14px); font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:clamp(11px,1.6vh,14px) 16px; width:100%; cursor:pointer; transition:background 0.12s,color 0.12s; -webkit-tap-highlight-color:transparent; text-decoration:none; display:flex; align-items:center; justify-content:center; }
+.btn-ghost:active { background:var(--bg3); color:var(--text); }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <a class="back-btn" href="index.html">
+      <div class="back-icon">‹</div>
+      <span class="back-label">MTCNA</span>
+    </a>
+    <div class="tcounter"><b id="qn">0</b> / <b id="qt2">30</b></div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="prog"></div></div>
+  <div class="state-center" id="loading"><div class="spinner"></div><div>Ładowanie pytań…</div></div>
+  <div class="state-center" id="errbox" style="display:none"><div style="font-size:32px">⚠️</div><div id="errmsg"></div></div>
+  <div class="screen" id="sq">
+    <div id="qi">
+      <div class="multi-badge" id="mb">☑ Zaznacz wszystkie poprawne odpowiedzi</div>
+      <div class="q-card"><div class="q-meta" id="qm"></div><div class="q-text" id="qtext"></div></div>
+      <div class="options" id="options"></div>
+      <div id="rc"><div class="result-msg" id="rm"></div><div class="explanation" id="exp"></div></div>
+      <div id="br">
+        <button class="btn-confirm" id="bc" onclick="confirmMulti()">Zatwierdź odpowiedź</button>
+        <button class="btn-main" id="bn" onclick="handleNext()">Następne pytanie</button>
+      </div>
+    </div>
+  </div>
+  <div class="screen" id="ss">
+    <div class="sum-ring">
+      <svg viewBox="0 0 130 130">
+        <circle class="srb" cx="65" cy="65" r="55"/>
+        <circle class="srf" id="srf" cx="65" cy="65" r="55" stroke-dasharray="345.4" stroke-dashoffset="345.4"/>
+      </svg>
+      <div class="sum-pct" id="sp">0%</div>
+    </div>
+    <div class="sum-lbl">WYNIK TESTU</div>
+    <div class="sum-v" id="sv"></div>
+    <div class="sum-det" id="sd"></div>
+    <div class="sum-btns">
+      <button class="btn-main visible" onclick="startTest()">Powtórz test</button>
+      <a class="btn-ghost" href="index.html">‹ Menu główne</a>
+    </div>
+  </div>
+</div>
+<script>
+const L=['A','B','C','D','E','F'], SZ=30, C=2*Math.PI*55;
+let allQ=[],pool=[],cur=null,answered=false,asked=0,good=0,bad=0,isM=false,sel=new Set();
+
+function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function parse(text){
+  return text.split('\n').map(l=>l.trim()).filter(l=>l&&!l.startsWith('#'))
+    .map((line,idx)=>{
+      const p=line.split(';'); if(p.length<4)return null;
+      const q=p[0].trim(),opts=p.slice(1,p.length-1).map(o=>o.trim());
+      const af=p[p.length-1].trim(),al=af.split(',').map(a=>a.trim());
+      const ai=al.map(a=>a.charCodeAt(0)-65);
+      if(!q||opts.length<2||ai.some(i=>i<0||i>=opts.length))return null;
+      return{id:idx+1,question:q,options:opts,ansIndices:ai,multi:ai.length>1};
+    }).filter(Boolean);
+}
+async function init(){
+  try{
+    const r=await fetch('questions.txt'); if(!r.ok)throw new Error('HTTP '+r.status);
+    allQ=parse(await r.text()); if(!allQ.length)throw new Error('Brak pytań');
+    document.getElementById('loading').style.display='none';
+    const n=Math.min(SZ,allQ.length); document.getElementById('qt2').textContent=n;
+    startTest();
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('errbox').style.display='flex';
+    document.getElementById('errmsg').textContent=e.message;
+  }
+}
+function startTest(){
+  asked=good=bad=0; pool=shuf([...allQ]).slice(0,Math.min(SZ,allQ.length));
+  document.getElementById('srf').style.strokeDashoffset=C;
+  document.getElementById('ss').classList.remove('active');
+  document.getElementById('sq').classList.add('active');
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('qn').textContent='0';
+  nextQ();
+}
+function nextQ(){
+  if(asked>=pool.length){showSum();return;}
+  cur=pool[asked]; answered=false; isM=cur.multi; sel=new Set(); asked++;
+  const idx=cur.options.map((_,i)=>i); shuf(idx);
+  cur._o=idx.map(i=>cur.options[i]); cur._a=new Set(cur.ansIndices.map(i=>idx.indexOf(i)));
+  const n=pool.length;
+  document.getElementById('qm').textContent='Pytanie '+asked+' / '+n;
+  document.getElementById('qn').textContent=asked;
+  document.getElementById('qtext').textContent=cur.question;
+  document.getElementById('rm').textContent=''; document.getElementById('rm').className='result-msg';
+  document.getElementById('exp').style.display='none';
+  document.getElementById('prog').style.width=((asked-1)/n*100)+'%';
+  document.getElementById('mb').classList.toggle('visible',isM);
+  document.getElementById('bc').classList.remove('visible');
+  const bn=document.getElementById('bn'); bn.classList.remove('visible');
+  bn.textContent=asked<n?'Następne pytanie':'Zobacz wynik';
+  const od=document.getElementById('options'); od.innerHTML='';
+  cur._o.forEach((opt,i)=>{
+    const b=document.createElement('button');
+    b.className=isM?'opt chk-opt':'opt';
+    b.innerHTML='<span class="opt-letter">'+L[i]+'</span><span>'+opt+'</span>';
+    b.onclick=isM?()=>tog(i,b):()=>pick(i);
+    od.appendChild(b);
+  });
+}
+function tog(i,btn){
+  if(answered)return;
+  if(sel.has(i)){sel.delete(i);btn.classList.remove('selected');}else{sel.add(i);btn.classList.add('selected');}
+  document.getElementById('bc').classList.toggle('visible',sel.size>0);
+}
+function confirmMulti(){
+  if(answered||!sel.size)return; answered=true;
+  document.getElementById('bc').classList.remove('visible');
+  const ok=cur._a,s=sel,pass=[...ok].every(i=>s.has(i))&&s.size===ok.size;
+  document.querySelectorAll('.chk-opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(ok.has(i)&&s.has(i))b.classList.add('correct');
+    else if(!ok.has(i)&&s.has(i))b.classList.add('wrong');
+    else if(ok.has(i)&&!s.has(i))b.classList.add('missed');
+    else b.classList.add('dimmed');
+    b.classList.remove('selected');
+  });
+  res(pass);
+}
+function pick(i){
+  if(answered)return; answered=true;
+  document.querySelectorAll('.opt:not(.chk-opt)').forEach((b,j)=>{
+    b.disabled=true;
+    if(cur._a.has(j))b.classList.add('correct'); else if(j===i)b.classList.add('wrong'); else b.classList.add('dimmed');
+  });
+  res(cur._a.has(i));
+}
+function res(pass){
+  const m=document.getElementById('rm');
+  if(pass){good++;m.textContent='✓ Poprawna odpowiedź!';m.className='result-msg ok';}
+  else{bad++;m.textContent='✗ Nieprawidłowa odpowiedź!';m.className='result-msg err';
+    const e=document.getElementById('exp');
+    e.textContent='Poprawna odpowiedź: '+[...cur._a].map(i=>L[i]).join(', ');
+    e.style.display='block';
+  }
+  document.getElementById('prog').style.width=(asked/pool.length*100)+'%';
+  document.getElementById('bn').classList.add('visible');
+}
+function handleNext(){if(!answered)return;nextQ();}
+function showSum(){
+  document.getElementById('sq').classList.remove('active');
+  const n=pool.length,pct=Math.round(good/n*100),p=pct>=60;
+  document.getElementById('sp').textContent=pct+'%';
+  document.getElementById('sv').textContent=p?'✓ Zaliczony':'✗ Niezaliczony';
+  document.getElementById('sv').className='sum-v '+(p?'pass':'fail');
+  document.getElementById('sd').textContent='Poprawne: '+good+' / '+n+'  ·  Błędne: '+bad;
+  const fg=document.getElementById('srf'); fg.style.stroke=p?'var(--correct-t)':'var(--wrong-t)';
+  setTimeout(()=>{fg.style.strokeDashoffset=C*(1-pct/100);},50);
+  document.getElementById('ss').classList.add('active');
+}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+init();
+</script>
+</body>
+</html>
