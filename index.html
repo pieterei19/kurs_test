@@ -140,6 +140,49 @@ body {
 
 .footer { margin-top:clamp(20px,3vh,36px); font-size:clamp(10px,1.3vw,12px); color:var(--muted); text-align:center; opacity:0.4; }
 .card-stats { font-size:clamp(10px,1.2vw,11px); color:var(--muted); opacity:0.75; min-height:0; }
+
+/* ── Easter egg ── */
+#egg {
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:radial-gradient(ellipse at 50% 60%, #4a0e40 0%, #1e0828 55%, #0c0414 100%);
+  flex-direction:column; align-items:center; justify-content:center;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+  overflow:hidden; user-select:none;
+}
+#egg.show { display:flex; animation:eggIn 0.45s cubic-bezier(0.34,1.56,0.64,1) both; }
+@keyframes eggIn { from{opacity:0;transform:scale(0.82)} to{opacity:1;transform:scale(1)} }
+.egg-inner { position:relative; z-index:1; text-align:center; padding:32px 28px; }
+.egg-heart-main {
+  font-size:clamp(80px,22vw,120px); line-height:1; display:block;
+  margin-bottom:clamp(16px,3vh,28px);
+  animation:heartbeat 1.4s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%,100%{transform:scale(1)}
+  14%    {transform:scale(1.22)}
+  28%    {transform:scale(1.02)}
+  42%    {transform:scale(1.14)}
+  56%    {transform:scale(1)}
+}
+.egg-msg {
+  font-size:clamp(30px,8.5vw,58px); font-weight:900;
+  color:#ffc2da; line-height:1.2;
+  text-shadow:0 0 28px #ff6b9d, 0 0 56px #ff6b9d44;
+  margin-bottom:clamp(12px,2.5vh,20px);
+}
+.egg-row { font-size:clamp(22px,5.5vw,32px); letter-spacing:10px; margin-bottom:clamp(24px,4vh,40px); }
+.egg-hint {
+  font-size:clamp(10px,1.4vw,12px); letter-spacing:2.5px;
+  text-transform:uppercase; color:#ff9dc440;
+}
+.egg-bg-hearts { position:absolute; inset:0; pointer-events:none; }
+.fh { position:absolute; bottom:-60px; animation:fhUp linear infinite; }
+@keyframes fhUp {
+  0%  { transform:translateY(0)   rotate(-18deg); opacity:0; }
+  8%  { opacity:1; }
+  88% { opacity:0.65; }
+  100%{ transform:translateY(-115vh) rotate(18deg); opacity:0; }
+}
 </style>
 </head>
 <body>
@@ -244,6 +287,16 @@ body {
 
   <div class="footer">nullroute · questions/*.txt</div>
 </div>
+<div id="egg" onclick="eggClose()">
+  <div class="egg-bg-hearts" id="egg-bg"></div>
+  <div class="egg-inner">
+    <span class="egg-heart-main">❤️</span>
+    <div class="egg-msg">kocham Cię<br>kruszynko</div>
+    <div class="egg-row">💕 💗 💖 💝 💕</div>
+    <div class="egg-hint">dotknij żeby zamknąć</div>
+  </div>
+</div>
+
 <script>
 // ── Fullscreen ────────────────────────────────────────────────────────────────
 function requestFullscreen() {
@@ -324,6 +377,34 @@ document.getElementById('pwa-install-btn').addEventListener('click', async () =>
   if (outcome === 'accepted') document.getElementById('pwa-banner').classList.remove('visible');
 });
 window.addEventListener('appinstalled', () => document.getElementById('pwa-banner').classList.remove('visible'));
+
+// ── Easter egg — 3× klik w logo ───────────────────────────────────────────────
+(function(){
+  const H=['❤️','💕','💗','💖','💝','💓','🩷','💞','💋','✨'];
+  let n=0, t=null;
+  document.querySelector('.logo-badge').addEventListener('click',()=>{
+    n++; clearTimeout(t);
+    t=setTimeout(()=>{n=0;},650);
+    if(n>=3){ n=0; clearTimeout(t); eggOpen(); }
+  });
+  window.eggOpen=function(){
+    const bg=document.getElementById('egg-bg');
+    bg.innerHTML='';
+    for(let i=0;i<28;i++){
+      const s=document.createElement('span');
+      s.className='fh';
+      s.textContent=H[Math.floor(Math.random()*H.length)];
+      s.style.cssText=
+        'left:'+(Math.random()*100)+'vw;'+
+        'font-size:'+(13+Math.random()*28)+'px;'+
+        'animation-duration:'+(5+Math.random()*8)+'s;'+
+        'animation-delay:'+(Math.random()*11)+'s';
+      bg.appendChild(s);
+    }
+    document.getElementById('egg').classList.add('show');
+  };
+  window.eggClose=function(){ document.getElementById('egg').classList.remove('show'); };
+})();
 </script>
 </body>
 </html>
