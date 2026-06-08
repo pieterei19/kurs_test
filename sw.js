@@ -1,4 +1,4 @@
-const CACHE = 'nullroute-v6';
+const CACHE = 'nullroute-v7';
 
 // Pliki KRYTYCZNE - apka nie działa bez nich
 const CORE = [
@@ -19,7 +19,6 @@ const OPTIONAL = [
   './protokoly.txt'
 ];
 
-// Cachuj plik bez rzucania błędu jeśli nie ma
 async function tryCache(cache, url) {
   try {
     const res = await fetch(url);
@@ -34,9 +33,7 @@ self.addEventListener('message', e => {
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(async cache => {
-      // Core musi się załadować
       await cache.addAll(CORE);
-      // Optional - ignoruj błędy
       await Promise.all(OPTIONAL.map(url => tryCache(cache, url)));
       return self.skipWaiting();
     })
@@ -58,8 +55,9 @@ self.addEventListener('fetch', e => {
 
   const url = e.request.url;
 
-  // .txt pliki — network-first, fallback do cache
-  if (url.endsWith('.txt')) {
+  // HTML i .txt — network-first: po każdym pushu apka dostaje świeży kod,
+  // offline fallback z cache
+  if (url.endsWith('.html') || url.endsWith('.txt') || /\/$/.test(url.split('?')[0])) {
     e.respondWith(
       fetch(e.request)
         .then(res => {
@@ -69,12 +67,12 @@ self.addEventListener('fetch', e => {
           }
           return res;
         })
-        .catch(() => caches.match(e.request))
+        .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
     );
     return;
   }
 
-  // Reszta — cache-first, fallback network, ostatecznie index.html
+  // Zasoby statyczne (ikony, manifest) — cache-first
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;

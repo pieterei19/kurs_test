@@ -277,6 +277,7 @@ async function clearOldCaches() {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js')
     .then(reg => {
+      reg.update(); // sprawdź nową wersję SW przy każdym uruchomieniu
       if (reg.waiting) reg.waiting.postMessage({type:'SKIP_WAITING'});
       reg.addEventListener('updatefound', () => {
         const nw = reg.installing;

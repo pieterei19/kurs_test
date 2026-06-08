@@ -436,7 +436,7 @@ document.addEventListener('keydown',e=>{
     } else { handleNext(); }
   }
 });
-if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(r=>{if(r.waiting)r.waiting.postMessage({type:'SKIP_WAITING'});}).catch(()=>{});}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(r=>{r.update();if(r.waiting)r.waiting.postMessage({type:'SKIP_WAITING'});}).catch(()=>{});}
 init();
 </script>
 </body>
