@@ -1,6 +1,5 @@
-const CACHE = 'nullroute-v7';
+const CACHE = 'nullroute-v8';
 
-// Pliki KRYTYCZNE - apka nie działa bez nich
 const CORE = [
   './index.html',
   './quiz.html',
@@ -8,7 +7,6 @@ const CORE = [
   './manifest.json'
 ];
 
-// Pliki OPCJONALNE - cachujemy jeśli się uda
 const OPTIONAL = [
   './',
   './icon-192.png',
@@ -53,22 +51,51 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
 
-  const url = e.request.url;
+  const path = e.request.url.split('?')[0];
 
-  // HTML i .txt — network-first: po każdym pushu apka dostaje świeży kod,
-  // offline fallback z cache
-  if (url.endsWith('.html') || url.endsWith('.txt') || /\/$/.test(url.split('?')[0])) {
+  // Pliki .txt — network-first: zawsze świeże pytania, offline fallback z cache
+  if (path.endsWith('.txt')) {
     e.respondWith(
       fetch(e.request)
         .then(res => {
           if (res && res.status === 200) {
-            const clone = res.clone();
-            caches.open(CACHE).then(c => c.put(e.request, clone));
+            caches.open(CACHE).then(c => c.put(e.request, res.clone()));
           }
           return res;
         })
-        .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
+        .catch(() => caches.match(e.request))
     );
+    return;
+  }
+
+  // Pliki HTML — stale-while-revalidate:
+  // 1. Serwuj z cache natychmiast (brak "can't connect", działa offline)
+  // 2. Równolegle pobierz z sieci i zaktualizuj cache
+  // 3. Kolejne otwarcie = nowa wersja po pushu
+  if (path.endsWith('.html') || path.endsWith('/')) {
+    e.respondWith((async () => {
+      const cache = await caches.open(CACHE);
+      const cached = await cache.match(e.request);
+
+      if (cached) {
+        // Odśwież cache w tle — nie blokuj odpowiedzi
+        fetch(e.request)
+          .then(res => { if (res && res.status === 200) cache.put(e.request, res.clone()); })
+          .catch(() => {});
+        return cached;
+      }
+
+      // Brak w cache (pierwsze uruchomienie) — pobierz z sieci
+      try {
+        const res = await fetch(e.request);
+        if (res && res.ok) cache.put(e.request, res.clone());
+        return res;
+      } catch {
+        // Offline i brak cache — fallback do index.html
+        return (await cache.match('./index.html')) ||
+               new Response('App offline', { status: 503, headers: { 'Content-Type': 'text/plain' } });
+      }
+    })());
     return;
   }
 
@@ -79,8 +106,7 @@ self.addEventListener('fetch', e => {
       return fetch(e.request)
         .then(res => {
           if (res && res.status === 200 && res.type !== 'opaque') {
-            const clone = res.clone();
-            caches.open(CACHE).then(c => c.put(e.request, clone));
+            caches.open(CACHE).then(c => c.put(e.request, res.clone()));
           }
           return res;
         })
