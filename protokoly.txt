@@ -1,0 +1,145 @@
+# nullroute — Quiz: Protokoły sieciowe
+# Format: pytanie;odpA;odpB;odpC;odpD;poprawna(e)
+# Pytania o porty, funkcje, warstwy, protokoły
+
+# ════════════════════════════════════════════════════════
+# PORTY — jaki port?
+# ════════════════════════════════════════════════════════
+Na jakim porcie działa HTTP?;21;53;80;443;C
+Na jakim porcie działa HTTPS?;80;443;8080;8443;B
+Na jakim porcie działa FTP (sterowanie)?;20;21;22;23;B
+Na jakim porcie działa FTP (dane)?;19;20;21;22;B
+Na jakim porcie działa SSH?;21;22;23;25;B
+Na jakim porcie działa Telnet?;21;22;23;24;C
+Na jakim porcie działa SMTP?;25;110;143;587;A
+Na jakim porcie działa POP3?;25;110;143;993;B
+Na jakim porcie działa IMAP?;110;143;443;993;B
+Na jakim porcie działa DNS?;43;53;67;68;B
+Na jakim porcie działa DHCP (serwer)?;53;67;68;69;B
+Na jakim porcie działa DHCP (klient)?;67;68;69;70;B
+Na jakim porcie działa TFTP?;67;68;69;70;C
+Na jakim porcie działa SNMP?;161;162;163;164;A
+Na jakim porcie działa SNMP Trap?;160;161;162;163;C
+Na jakim porcie działa NTP?;121;122;123;124;C
+Na jakim porcie działa RDP (Remote Desktop)?;3387;3388;3389;3390;C
+Na jakim porcie działa MySQL?;1433;3306;5432;5433;B
+Na jakim porcie działa PostgreSQL?;1433;3306;5432;5433;C
+Na jakim porcie działa MS SQL Server?;1433;1434;3306;5432;A
+Na jakim porcie działa RIP?;519;520;521;522;B
+Na jakim porcie działa BGP?;169;170;179;180;C
+Na jakim porcie działa LDAP?;387;388;389;390;C
+Na jakim porcie działa LDAPS (LDAP over SSL)?;636;637;638;639;A
+Na jakim porcie działa HTTPS alternatywny (proxy)?;8008;8080;8088;8880;B
+Na jakim porcie działa Winbox (MikroTik)?;8289;8290;8291;8292;C
+Na jakim porcie działa Syslog?;512;513;514;515;C
+Na jakim porcie działa RADIUS (uwierzytelnianie)?;1811;1812;1813;1814;B
+Na jakim porcie działa RADIUS (accounting)?;1812;1813;1814;1815;B
+Na jakim porcie działa PPTP?;1721;1722;1723;1724;C
+Na jakim porcie działa L2TP?;1700;1701;1702;1703;B
+Na jakim porcie działa SSTP?;80;443;8080;8443;B
+Na jakim porcie działa OpenVPN (domyślnie)?;1193;1194;1195;1196;B
+Na jakim porcie działa SMB/CIFS?;137;138;139;445;D
+Na jakim porcie działa HTTP alternatywny (dev)?;8080;8000;8008;Wszystkie wymienione;D
+Na jakim porcie działa SMTP z TLS (submission)?;25;465;587;993;C
+Na jakim porcie działa SMTP over SSL (SMTPS)?;25;465;587;993;B
+Na jakim porcie działa IMAPS (IMAP over SSL)?;443;993;994;995;B
+Na jakim porcie działa POP3S (POP3 over SSL)?;993;994;995;996;C
+Na jakim porcie działa SNMP v3?;161;162;163;164;A
+
+# ════════════════════════════════════════════════════════
+# PROTOKÓŁ — który protokół?
+# ════════════════════════════════════════════════════════
+Który protokół jest używany do automatycznego przydzielania adresów IP?;DNS;DHCP;ARP;RARP;B
+Który protokół tłumaczy nazwy domenowe na adresy IP?;DHCP;ARP;DNS;WINS;C
+Który protokół mapuje adresy IP na adresy MAC?;DNS;DHCP;ARP;RARP;C
+Który protokół mapuje adresy MAC na adresy IP?;ARP;RARP;DHCP;BOOTP;B
+Który protokół jest używany przez ping i traceroute?;TCP;UDP;ICMP;ARP;C
+Który protokół zapewnia niezawodną dostawę z potwierdzeniami?;UDP;IP;TCP;ICMP;C
+Który protokół jest szybki ale nie gwarantuje dostarczenia?;TCP;UDP;IP;ICMP;B
+Który protokół służy do synchronizacji czasu?;SNMP;SYSLOG;NTP;SMTP;C
+Który protokół służy do monitorowania urządzeń sieciowych?;NTP;SYSLOG;SNMP;LDAP;C
+Który protokół służy do wysyłania logów na zewnętrzny serwer?;SNMP;Syslog;NTP;LDAP;B
+Który protokół szyfruje sesję zdalnego terminala?;Telnet;SSH;RDP;FTP;B
+Który protokół służy do przesyłania plików bez szyfrowania?;SSH;SFTP;FTP;SCP;C
+Który protokół służy do przesyłania plików przez SSH?;FTP;TFTP;SFTP;SCP;C
+Który protokół służy do prostego przesyłania plików bez uwierzytelniania?;FTP;SFTP;TFTP;SCP;C
+Który protokół routingu używa algorytmu Dijkstry (link-state)?;RIP;EIGRP;OSPF;BGP;C
+Który protokół routingu działa między autonomicznymi systemami (Internet)?;OSPF;RIP;IS-IS;BGP;D
+Który protokół routingu używa liczby hopów jako metryki (max 15)?;OSPF;BGP;RIP;EIGRP;C
+Który protokół tunelowania używa portu TCP 1723?;L2TP;PPTP;SSTP;IPsec;B
+Który protokół tunelowania używa portu UDP 1701?;PPTP;L2TP;SSTP;GRE;B
+Który protokół VPN Microsoftu używa portu TCP 443?;PPTP;L2TP;SSTP;IPsec;C
+Który protokół zapobiega pętlom w sieciach z mostkami L2?;OSPF;STP;VRRP;HSRP;B
+Który protokół zapewnia redundancję bramy domyślnej (Cisco)?;STP;RSTP;HSRP;VRRP;C
+Który protokół zapewnia redundancję bramy (standard IEEE)?;HSRP;GLBP;VRRP;CARP;C
+Który protokół używa GRE (IP protokół 47)?;L2TP;PPTP;IPsec;SSTP;B
+Który protokół szyfruje i uwierzytelnia pakiety IP?;GRE;L2TP;IPsec;PPTP;C
+Który protokół jest używany przez HTTPS do szyfrowania?;SSL;TLS;Oba (SSL/TLS);AES;C
+Który protokół uwierzytelniania używa tiketów (Kerberos-like) i portów 1812/1813?;TACACS+;RADIUS;LDAP;Kerberos;B
+Który protokół służy do katalogowania użytkowników i zasobów (Active Directory)?;RADIUS;TACACS+;LDAP;KERBEROS;C
+Który protokół jest używany przez DNS do przesyłu strefowego (zone transfer)?;UDP 53;TCP 53;UDP 443;TCP 443;B
+Który protokół dynamicznie wykrywa sąsiednie urządzenia Cisco?;LLDP;MNDP;CDP;STP;C
+Który protokół dynamicznie wykrywa sąsiednie urządzenia (standard IEEE)?;CDP;MNDP;LLDP;STP;C
+Który protokół dynamicznie wykrywa sąsiednie urządzenia MikroTik?;CDP;LLDP;MNDP;STP;C
+
+# ════════════════════════════════════════════════════════
+# WARSTWA OSI — na której warstwie?
+# ════════════════════════════════════════════════════════
+Na której warstwie OSI działa protokół IP?;Warstwa 2;Warstwa 3;Warstwa 4;Warstwa 5;B
+Na której warstwie OSI działa protokół TCP?;Warstwa 2;Warstwa 3;Warstwa 4;Warstwa 5;C
+Na której warstwie OSI działa protokół UDP?;Warstwa 2;Warstwa 3;Warstwa 4;Warstwa 5;C
+Na której warstwie OSI działa protokół HTTP?;Warstwa 4;Warstwa 5;Warstwa 6;Warstwa 7;D
+Na której warstwie OSI działa protokół DNS?;Warstwa 4;Warstwa 5;Warstwa 6;Warstwa 7;D
+Na której warstwie OSI działa protokół ARP?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;B
+Na której warstwie OSI działa protokół ICMP?;Warstwa 2;Warstwa 3;Warstwa 4;Warstwa 5;B
+Na której warstwie OSI pracuje switch?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;B
+Na której warstwie OSI pracuje router?;Warstwa 2;Warstwa 3;Warstwa 4;Warstwa 5;B
+Na której warstwie OSI pracuje hub?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;A
+Na której warstwie OSI pracuje bridge?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;B
+Na której warstwie OSI pracuje firewall warstwy aplikacji (WAF)?;Warstwa 3;Warstwa 4;Warstwa 6;Warstwa 7;D
+Na której warstwie OSI działa SMTP?;Warstwa 4;Warstwa 5;Warstwa 6;Warstwa 7;D
+Na której warstwie OSI działa TLS/SSL (koncepcyjnie)?;Warstwa 4;Warstwa 5;Warstwa 6;Warstwa 7;C
+Na której warstwie OSI jest ramka Ethernet?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;B
+
+# ════════════════════════════════════════════════════════
+# CO ROBI — funkcja protokołu
+# ════════════════════════════════════════════════════════
+Co robi protokół ARP?;Tłumaczy nazwy na adresy IP;Mapuje adresy IP na adresy MAC w sieci lokalnej;Przydziela adresy IP;Sprawdza dostępność hosta;B
+Co robi protokół ICMP?;Zapewnia niezawodną dostawę;Przesyła pliki;Wysyła komunikaty diagnostyczne i błędy sieciowe;Tłumaczy nazwy domenowe;C
+Co robi protokół DHCP?;Tłumaczy nazwy na IP;Automatycznie konfiguruje adresy IP maskę bramę i DNS;Mapuje IP na MAC;Sprawdza routing;B
+Co robi protokół DNS?;Przydziela adresy IP;Szyfruje komunikację;Tłumaczy nazwy domenowe na adresy IP i odwrotnie;Monitoruje sieć;C
+Co robi protokół OSPF?;Filtruje ruch sieciowy;Dynamicznie oblicza trasy używając algorytmu Dijkstry;Szyfruje pakiety;Zarządza pasmem;B
+Co robi protokół BGP?;Routuje w sieci LAN;Wymienia informacje routingowe między autonomicznymi systemami;Przydziela adresy MAC;Monitoruje hosty;B
+Co robi protokół SNMP?;Szyfruje ruch;Monitoruje i zarządza urządzeniami sieciowymi przez polling i trapy;Przesyła pliki;Synchronizuje czas;B
+Co robi protokół NTP?;Przydziela adresy IP;Monitoruje sieć;Synchronizuje zegary urządzeń z serwerem czasu;Szyfruje komunikację;C
+Co robi protokół RADIUS?;Routuje pakiety;Centralnie uwierzytelnia i autoryzuje użytkowników oraz prowadzi accounting;Szyfruje tunel;Monitoruje sieć;B
+Co robi protokół GRE?;Szyfruje pakiety;Enkapsuluje pakiety tworząc tunel przez sieć IP;Kompresuje dane;Routuje dynamicznie;B
+Co robi protokół LLDP?;Routuje pakiety;Umożliwia urządzeniom ogłaszanie swojej tożsamości sąsiadom w sieci;Szyfruje komunikację;Przydziela adresy;B
+Co robi protokół STP (Spanning Tree)?;Przyspiesza routing;Zapobiega pętlom w sieciach z wieloma mostkami przez blokowanie redundantnych łączy;Szyfruje ramki;Zarządza VLAN;B
+Co robi protokół VRRP?;Routuje pakiety;Zapewnia redundancję bramy domyślnej dzieląc wirtualny adres IP między routery;Szyfruje tunele;Zarządza pasmem;B
+Co robi protokół 802.1Q?;Szyfruje ramki Ethernet;Dodaje znacznik VLAN do ramki Ethernet umożliwiając trunking;Zarządza STP;Przydziela adresy;B
+Co robi protokół IPsec?;Przyspiesza routing;Szyfruje i uwierzytelnia pakiety IP na poziomie sieci;Zarządza adresami;Monitoruje sieć;B
+Co robi protokół TLS?;Kompresuje dane;Zapewnia szyfrowanie integralność i uwierzytelnianie dla połączeń TCP;Routuje pakiety;Przydziela adresy;B
+Co robi protokół Syslog?;Przydziela adresy;Zbiera i przesyła logi zdarzeń systemowych do centralnego serwera;Szyfruje tunele;Routuje pakiety;B
+Co robi protokół LDAP?;Routuje pakiety;Zapewnia dostęp do katalogów użytkowników i zasobów (Active Directory);Szyfruje komunikację;Przydziela adresy;B
+Co robi protokół PPPoE?;Szyfruje pakiety;Enkapsuluje PPP w ramkach Ethernet umożliwiając uwierzytelnianie w DSL;Routuje dynamicznie;Zarządza VLAN;B
+Co robi protokół EAP?;Przydziela adresy;Rozszerzalny protokół uwierzytelniania używany w 802.1X i WiFi;Szyfruje dane;Routuje pakiety;B
+
+# ════════════════════════════════════════════════════════
+# TCP vs UDP — który protokół?
+# ════════════════════════════════════════════════════════
+Który protokół transportowy używa HTTP?;UDP;TCP;Oba;Żaden;B
+Który protokół transportowy używa DNS (zapytania)?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa DNS (zone transfer)?;UDP;TCP;Oba;Żaden;B
+Który protokół transportowy używa DHCP?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa TFTP?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa SNMP?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa NTP?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa FTP?;UDP;TCP;Oba;Żaden;B
+Który protokół transportowy używa SSH?;UDP;TCP;Oba;Żaden;B
+Który protokół transportowy używa Telnet?;UDP;TCP;Oba;Żaden;B
+Który protokół transportowy używa SMTP?;UDP;TCP;Oba;Żaden;B
+Który protokół transportowy używa Syslog?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa RADIUS?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa VoIP (RTP)?;TCP;UDP;Oba;Żaden;B
+Który protokół transportowy używa HTTPS?;UDP;TCP;Oba;Żaden;B

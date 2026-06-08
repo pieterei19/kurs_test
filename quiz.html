@@ -205,7 +205,11 @@ const PASS_PCT = 75;
 const C        = 2 * Math.PI * 55;
 const L        = ['A','B','C','D','E','F'];
 
-const EXAM_LABELS = { mtcna: 'MTCNA', inf03: 'Ogólne IT' };
+const EXAM_LABELS = { mtcna: 'MTCNA', inf03: 'Ogólne IT', protokoly: 'Protokoły' };
+const EXAM_COLORS = { mtcna: 'var(--accent)', inf03: 'var(--multi-t)', protokoly: '#34d399' };
+const examColor = EXAM_COLORS[EXAM] || 'var(--accent)';
+document.documentElement.style.setProperty('--accent', examColor);
+document.documentElement.style.setProperty('--accent-h', examColor);
 document.getElementById('back-label').textContent = EXAM_LABELS[EXAM] || EXAM.toUpperCase();
 document.title = `nullroute — ${EXAM_LABELS[EXAM] || EXAM}`;
 

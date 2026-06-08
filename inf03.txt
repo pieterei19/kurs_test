@@ -36,8 +36,38 @@ Które adresy IP są prywatne (RFC 1918)?;10.0.0.1;172.16.0.1;192.168.0.1;8.8.8.
 Jaki jest adres pętli zwrotnej (loopback) IPv4?;0.0.0.0;127.0.0.1;255.255.255.255;192.168.0.1;B
 
 # ════════════════════════════════════════════════════════
+# BLOK 2 — HTML / CSS
+# ════════════════════════════════════════════════════════
+Co oznacza skrót HTML?;HyperText Markup Language;High Text Machine Language;HyperTransfer Markup Language;HyperText Machine Link;A
+Co oznacza skrót CSS?;Cascading Style Sheets;Computer Style Sheets;Creative Style System;Colorful Style Sheets;A
+Który tag HTML tworzy nagłówek najwyższego poziomu?;h6;h1;head;title;B
+Który tag HTML tworzy akapit?;par;p;pg;para;B
+Który tag HTML tworzy hiperłącze?;link;href;a;url;C
+Który atrybut tagu a definiuje adres URL?;src;href;url;link;B
+Który tag HTML wstawia obraz?;image;pic;img;src;C
+Który atrybut tagu img definiuje ścieżkę do pliku?;href;src;url;path;B
+Który tag HTML tworzy nieuporządkowaną listę?;ol;dl;ul;li;C
+Który tag HTML tworzy uporządkowaną listę?;ul;dl;ol;li;C
+Który tag HTML tworzy element listy?;ul;ol;dl;li;D
+Który tag HTML tworzy tabelę?;tab;tbl;table;tr;C
+Który tag HTML tworzy wiersz tabeli?;td;th;tr;table;C
+Który tag HTML tworzy komórkę nagłówkową tabeli?;td;tr;th;caption;C
+Który tag HTML tworzy formularz?;input;form;field;submit;B
+Który atrybut określa metodę wysyłania formularza?;action;method;type;send;B
+Które metody HTTP są używane w formularzach HTML?;GET;POST;PUT;DELETE;A,B
+Jaka właściwość CSS zmienia kolor tekstu?;background-color;font-color;color;text-color;C
+Jaka właściwość CSS zmienia kolor tła?;color;background;background-color;bg-color;C
+Jaka właściwość CSS zmienia rozmiar czcionki?;font-size;text-size;size;font;A
+Co oznacza CSS display:none?;Element zajmuje miejsce ale jest niewidoczny;Element jest całkowicie usunięty z układu strony;Element ma przezroczyste tło;Element jest wyłączony;B
+Co to jest CSS Box Model?;Model kolorów;Model opisujący margin padding border i content elementu;Model czcionek;Model siatki;B
+Czym różni się margin od padding w CSS?;Niczym;Margin to zewnętrzny odstęp; padding to wewnętrzny;Padding to zewnętrzny; margin to wewnętrzny;Margin jest w pikselach a padding w procentach;B
+Co to jest CSS selector?;Właściwość CSS;Wzorzec wskazujący elementy HTML do ostylowania;Wartość właściwości;Plik CSS;B
+Co robi właściwość CSS position:absolute?;Pozycjonuje element względem przeglądarki;Pozycjonuje element względem najbliższego rodzica z position:relative;Usuwa element z przepływu strony;Centruje element;B
+
+# ════════════════════════════════════════════════════════
 # BLOK 3 — BAZY DANYCH / SQL
 # ════════════════════════════════════════════════════════
+Co oznacza skrót SQL?;Structured Query Language;Simple Query Language;Standard Query Logic;Sequential Query Language;A
 Które polecenie SQL pobiera dane z tabeli?;INSERT;UPDATE;SELECT;DELETE;C
 Które polecenie SQL dodaje nowy rekord?;SELECT;UPDATE;DELETE;INSERT;D
 Które polecenie SQL modyfikuje istniejące rekordy?;SELECT;UPDATE;INSERT;DELETE;B
@@ -218,3 +248,39 @@ Co to jest constraint w SQL?;Typ danych;Ograniczenie wymuszające reguły integr
 Co robi TRUNCATE w SQL w porównaniu do DELETE?;To samo co DELETE;Usuwa wszystkie wiersze szybciej bez logowania i bez możliwości ROLLBACK;Usuwa tabelę;Czyści indeksy;B
 
 # ════════════════════════════════════════════════════════
+# BLOK 11 — HTML/CSS/WEB (rozszerzenie)
+# ════════════════════════════════════════════════════════
+Co to jest semantyczny HTML?;HTML z wbudowanym CSS;Używanie tagów opisujących znaczenie treści a nie tylko wygląd (header nav article);HTML skompresowany;HTML bez JavaScript;B
+Co robi meta tag viewport?;Ustawia tytuł strony;Kontroluje skalowanie strony na urządzeniach mobilnych;Definiuje charset;Opisuje stronę dla SEO;B
+Co to jest CSS Flexbox?;Framework CSS;Model układu 1D do rozmieszczania elementów w wierszu lub kolumnie;System siatki 2D;Typ animacji;B
+Co to jest CSS Grid?;Siatka tła;System układu 2D do tworzenia złożonych układów stron;Siatka pikseli;Typ fontu;B
+Co robi CSS position:fixed?;Pozycjonuje element względem rodzica;Pozycjonuje element względem okna przeglądarki — nie scrolluje;Usuwa element z przepływu;Centruje element;B
+Co to jest CSS media query?;Zapytanie do bazy danych;Warunek stosujący style zależnie od właściwości urządzenia (szerokość ekranu);Selektor CSS;Typ fontu;B
+Co to jest z-index w CSS?;Kolor tła;Kontroluje kolejność układania elementów w osi Z (który jest na wierzchu);Rozmiar elementu;Opacity;B
+Co to jest pseudo-klasa CSS?;Typ selektora;Selektor stosowany w określonym stanie elementu np. :hover :focus :nth-child;Właściwość CSS;Animacja CSS;B
+Co robi HTML tag picture?;Wstawia dźwięk;Umożliwia dostarczenie różnych obrazów zależnie od warunków (responsive images);Tworzy galerię;Wstawia wideo;B
+Co to jest lazy loading?;Szybkie ładowanie;Opóźnione ładowanie zasobów do momentu gdy są potrzebne (np. obrazy poza widokiem);Preładowanie;Ładowanie w tle;B
+Co to jest ARIA w HTML?;Język znaczników;Accessible Rich Internet Applications — atrybuty HTML poprawiające dostępność dla czytników ekranu;Framework JS;Standard CSS;B
+Co robi CSS transform:rotate(45deg)?;Pochyla tekst;Obraca element o 45 stopni;Skaluje element;Przesuwa element;B
+Co to jest CSS custom properties (variables)?;Funkcje CSS;Zmienne CSS definiowane jako --nazwa i używane przez var();Prefiksy;Media queries;B
+Co to jest BEM w CSS?;Framework;Block Element Modifier — metodologia nazewnictwa klas CSS;Biblioteka;Preprocesor;B
+Co robi HTML attrybut defer przy tagu script?;Blokuje parsowanie HTML;Skrypt jest pobierany asynchronicznie i wykonywany po sparsowaniu HTML;Wykonuje skrypt natychmiast;Usuwa skrypt;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 12 — PROGRAMOWANIE OGÓLNE
+# ════════════════════════════════════════════════════════
+Co to jest algorytm?;Język programowania;Skończony zestaw kroków do rozwiązania problemu;Typ danych;Struktura danych;B
+Co to jest rekurencja?;Pętla while;Funkcja wywołująca samą siebie;Typ tablicy;Metoda sortowania;B
+Co to jest złożoność czasowa O(n²)?;Algorytm stały;Czas wykonania rośnie kwadratowo wraz z rozmiarem danych wejściowych;Algorytm liniowy;Algorytm logarytmiczny;B
+Co to jest stos (stack)?;Kolejka FIFO;Struktura danych LIFO — ostatni wchodzi pierwszy wychodzi;Tablica dynamiczna;Graf;B
+Co to jest kolejka (queue)?;Struktura LIFO;Struktura danych FIFO — pierwszy wchodzi pierwszy wychodzi;Drzewo;Hash mapa;B
+Co to jest API?;Język programowania;Application Programming Interface — interfejs umożliwiający komunikację między aplikacjami;Typ bazy danych;Protokół sieciowy;B
+Co to jest REST API?;Typ bazy;Architektura API oparta na HTTP — bezstanowa z zasobami identyfikowanymi przez URL;Protokół szyfrowania;Framework;B
+Co to jest JSON?;Język programowania;JavaScript Object Notation — tekstowy format wymiany danych;Baza danych;Protokół sieciowy;B
+Co to jest Git?;IDE;Rozproszony system kontroli wersji;Język programowania;Serwer aplikacji;B
+Co robi 'git commit'?;Pobiera zmiany ze zdalnego repozytorium;Zapisuje zestaw zmian w lokalnym repozytorium;Wysyła zmiany na serwer;Scala gałęzie;B
+Co to jest Docker?;Wirtualna maszyna;Platforma konteneryzacji aplikacji — izoluje aplikacje z ich zależnościami;Język programowania;System operacyjny;B
+Co to jest CI/CD?;Typ bazy danych;Continuous Integration/Continuous Deployment — automatyzacja budowania testowania i wdrażania kodu;Framework CSS;Protokół sieciowy;B
+Co to jest garbage collection?;Usuwanie plików;Automatyczne zarządzanie pamięcią — zwalnianie pamięci nieużywanych obiektów;Typ kompilacji;Debugowanie;B
+Co to jest polimorfizm w OOP?;Dziedziczenie;Możliwość użycia obiektu wielu typów poprzez wspólny interfejs;Enkapsulacja;Abstrakcja;B
+Co to jest dziedziczenie w OOP?;Polimorfizm;Mechanizm tworzenia nowej klasy na podstawie istniejącej — przejmuje jej właściwości;Enkapsulacja;Interfejs;B

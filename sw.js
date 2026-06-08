@@ -1,4 +1,4 @@
-const CACHE = 'nullroute-v4';
+const CACHE = 'nullroute-v5';
 
 // Pliki KRYTYCZNE - apka nie działa bez nich
 const CORE = [
@@ -15,7 +15,8 @@ const OPTIONAL = [
   './icon-512.png',
   './mtcna.txt',
   './inf03.txt',
-  './flashcards.txt'
+  './flashcards.txt',
+  './protokoly.txt'
 ];
 
 // Cachuj plik bez rzucania błędu jeśli nie ma
