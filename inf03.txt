@@ -1,0 +1,121 @@
+# nullroute — INF.03 / EE.09 baza pytań
+# Kwalifikacja INF.03 — Tworzenie i administrowanie stronami i aplikacjami internetowymi
+# Format: pytanie;odpA;odpB;...;poprawna(e)
+
+# ════════════════════════════════════════════════════════
+# BLOK 1 — SIECI KOMPUTEROWE PODSTAWY
+# ════════════════════════════════════════════════════════
+Ile warstw ma model OSI?;4;5;6;7;D
+Na której warstwie modelu OSI działa protokół IP?;Warstwa 1;Warstwa 2;Warstwa 3;Warstwa 4;C
+Na której warstwie modelu OSI działa protokół TCP?;Warstwa 2;Warstwa 3;Warstwa 4;Warstwa 5;C
+Które urządzenie pracuje na warstwie 2 modelu OSI?;Router;Switch;Hub;Modem;B
+Które urządzenie pracuje na warstwie 3 modelu OSI?;Switch;Hub;Router;Repeater;C
+Co to jest adres MAC?;Adres logiczny warstwy sieciowej;Adres fizyczny warstwy łącza danych (48-bitowy);Adres aplikacji;Adres portu;B
+Jaki protokół automatycznie przydziela adresy IP?;DNS;DHCP;FTP;HTTP;B
+Jaki protokół tłumaczy nazwy domenowe na adresy IP?;DHCP;ARP;DNS;NAT;C
+Jaki protokół mapuje adresy IP na adresy MAC?;DNS;DHCP;ARP;RARP;C
+Na jakim porcie działa HTTP?;21;23;80;443;C
+Na jakim porcie działa HTTPS?;80;8080;443;8443;C
+Na jakim porcie działa FTP (dane)?;20;21;22;23;A
+Na jakim porcie działa FTP (sterowanie)?;20;21;22;23;B
+Na jakim porcie działa SSH?;20;21;22;23;C
+Na jakim porcie działa Telnet?;21;22;23;25;C
+Na jakim porcie działa SMTP?;25;110;143;993;A
+Na jakim porcie działa POP3?;25;110;143;993;B
+Na jakim porcie działa IMAP?;25;110;143;993;C
+Na jakim porcie działa DNS?;43;53;63;73;B
+Co oznacza skrót TCP?;Transfer Control Protocol;Transmission Control Protocol;Transport Connection Protocol;Terminal Control Protocol;B
+Co oznacza skrót UDP?;User Datagram Protocol;Universal Data Protocol;User Data Port;Unified Datagram Protocol;A
+Czym różni się TCP od UDP?;TCP jest bezpołączeniowy;TCP zapewnia niezawodną dostawę z potwierdzeniami; UDP jest szybszy ale bez gwarancji dostarczenia;UDP jest wolniejszy;TCP używa mniej zasobów;B
+Ile bitów ma adres IPv4?;16;32;48;128;B
+Ile bitów ma adres IPv6?;32;64;96;128;D
+Jaka jest maska podsieci klasy C?;255.0.0.0;255.255.0.0;255.255.255.0;255.255.255.255;C
+Co to jest broadcast?;Pakiet do jednego hosta;Pakiet do wszystkich hostów w sieci;Pakiet do grupy hostów;Pakiet zwrotny;B
+Co to jest multicast?;Pakiet do jednego hosta;Pakiet do wszystkich hostów;Pakiet do wybranej grupy hostów;Pakiet zwrotny;C
+Które adresy IP są prywatne (RFC 1918)?;10.0.0.1;172.16.0.1;192.168.0.1;8.8.8.8;A,B,C
+Jaki jest adres pętli zwrotnej (loopback) IPv4?;0.0.0.0;127.0.0.1;255.255.255.255;192.168.0.1;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 2 — HTML / CSS
+# ════════════════════════════════════════════════════════
+Co oznacza skrót HTML?;HyperText Markup Language;High Text Machine Language;HyperTransfer Markup Language;HyperText Machine Link;A
+Co oznacza skrót CSS?;Cascading Style Sheets;Computer Style Sheets;Creative Style System;Colorful Style Sheets;A
+Który tag HTML tworzy nagłówek najwyższego poziomu?;h6;h1;head;title;B
+Który tag HTML tworzy akapit?;par;p;pg;para;B
+Który tag HTML tworzy hiperłącze?;link;href;a;url;C
+Który atrybut tagu a definiuje adres URL?;src;href;url;link;B
+Który tag HTML wstawia obraz?;image;pic;img;src;C
+Który atrybut tagu img definiuje ścieżkę do pliku?;href;src;url;path;B
+Który tag HTML tworzy nieuporządkowaną listę?;ol;dl;ul;li;C
+Który tag HTML tworzy uporządkowaną listę?;ul;dl;ol;li;C
+Który tag HTML tworzy element listy?;ul;ol;dl;li;D
+Który tag HTML tworzy tabelę?;tab;tbl;table;tr;C
+Który tag HTML tworzy wiersz tabeli?;td;th;tr;table;C
+Który tag HTML tworzy komórkę nagłówkową tabeli?;td;tr;th;caption;C
+Który tag HTML tworzy formularz?;input;form;field;submit;B
+Który atrybut określa metodę wysyłania formularza?;action;method;type;send;B
+Które metody HTTP są używane w formularzach HTML?;GET;POST;PUT;DELETE;A,B
+Jaka właściwość CSS zmienia kolor tekstu?;background-color;font-color;color;text-color;C
+Jaka właściwość CSS zmienia kolor tła?;color;background;background-color;bg-color;C
+Jaka właściwość CSS zmienia rozmiar czcionki?;font-size;text-size;size;font;A
+Co oznacza CSS display:none?;Element zajmuje miejsce ale jest niewidoczny;Element jest całkowicie usunięty z układu strony;Element ma przezroczyste tło;Element jest wyłączony;B
+Co to jest CSS Box Model?;Model kolorów;Model opisujący margin padding border i content elementu;Model czcionek;Model siatki;B
+Czym różni się margin od padding w CSS?;Niczym;Margin to zewnętrzny odstęp; padding to wewnętrzny;Padding to zewnętrzny; margin to wewnętrzny;Margin jest w pikselach a padding w procentach;B
+Co to jest CSS selector?;Właściwość CSS;Wzorzec wskazujący elementy HTML do ostylowania;Wartość właściwości;Plik CSS;B
+Co robi właściwość CSS position:absolute?;Pozycjonuje element względem przeglądarki;Pozycjonuje element względem najbliższego rodzica z position:relative;Usuwa element z przepływu strony;Centruje element;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 3 — BAZY DANYCH / SQL
+# ════════════════════════════════════════════════════════
+Co oznacza skrót SQL?;Structured Query Language;Simple Query Language;Standard Query Logic;Sequential Query Language;A
+Które polecenie SQL pobiera dane z tabeli?;INSERT;UPDATE;SELECT;DELETE;C
+Które polecenie SQL dodaje nowy rekord?;SELECT;UPDATE;DELETE;INSERT;D
+Które polecenie SQL modyfikuje istniejące rekordy?;SELECT;UPDATE;INSERT;DELETE;B
+Które polecenie SQL usuwa rekordy?;DROP;REMOVE;DELETE;TRUNCATE;C
+Jakie słowo kluczowe SQL filtruje wyniki?;ORDER BY;GROUP BY;WHERE;HAVING;C
+Jakie słowo kluczowe SQL sortuje wyniki?;WHERE;GROUP BY;HAVING;ORDER BY;D
+Jakie słowo kluczowe SQL grupuje wyniki?;WHERE;ORDER BY;GROUP BY;HAVING;C
+Co robi COUNT() w SQL?;Sumuje wartości;Liczy liczbę wierszy;Oblicza średnią;Znajduje maksimum;B
+Co robi SUM() w SQL?;Liczy wiersze;Sumuje wartości numeryczne;Oblicza średnią;Znajduje minimum;B
+Co to jest klucz główny (PRIMARY KEY)?;Kolumna która może być pusta;Kolumna jednoznacznie identyfikująca każdy rekord w tabeli;Kolumna z domyślną wartością;Kolumna łącząca tabele;B
+Co to jest klucz obcy (FOREIGN KEY)?;Klucz szyfrujący;Kolumna referencyjna wskazująca na klucz główny innej tabeli;Zapasowy klucz główny;Indeks tabeli;B
+Co to jest relacja jeden-do-wielu w bazie danych?;Jeden rekord łączy się z jednym rekordem;Jeden rekord łączy się z wieloma rekordami drugiej tabeli;Wiele rekordów łączy się z wieloma;Tabela bez relacji;B
+Co to jest JOIN w SQL?;Łączenie warunków WHERE;Łączenie danych z dwóch lub więcej tabel;Łączenie baz danych;Łączenie kolumn;B
+Które polecenie SQL tworzy nową tabelę?;ALTER TABLE;CREATE TABLE;INSERT TABLE;MAKE TABLE;B
+Które polecenie SQL usuwa całą tabelę?;DELETE TABLE;REMOVE TABLE;DROP TABLE;TRUNCATE TABLE;C
+
+# ════════════════════════════════════════════════════════
+# BLOK 4 — BEZPIECZEŃSTWO IT
+# ════════════════════════════════════════════════════════
+Co to jest phishing?;Atak siłowy na hasła;Wyłudzanie danych przez fałszywe e-maile lub strony;Skanowanie portów;Atak DDoS;B
+Co to jest atak DDoS?;Atak na pojedynczy serwer;Rozproszona odmowa usługi — zasypanie serwera ruchem z wielu źródeł;Atak słownikowy;Szyfrowanie danych;B
+Co to jest SQL Injection?;Błąd składni SQL;Atak polegający na wstrzykiwaniu złośliwego kodu SQL do zapytań aplikacji;Zabezpieczenie bazy danych;Optymalizacja zapytań;B
+Co to jest XSS (Cross-Site Scripting)?;Protokół komunikacji;Atak wstrzykujący złośliwy skrypt do strony wyświetlanej innym użytkownikom;Technika CSS;Metoda szyfrowania;B
+Co szyfruje protokół HTTPS?;Tylko nagłówki HTTP;Całą komunikację między przeglądarką a serwerem za pomocą TLS/SSL;Tylko hasła;Tylko pliki cookie;B
+Co to jest certyfikat SSL/TLS?;Rodzaj hasła;Cyfrowy dokument potwierdzający tożsamość serwera i umożliwiający szyfrowanie;Plik konfiguracyjny serwera;Protokół sieciowy;B
+Co to jest firewall?;Router sieciowy;System filtrujący ruch sieciowy według określonych reguł;Serwer plików;Protokół VPN;B
+Co to jest VPN?;Virtual Personal Network;Virtual Private Network — szyfrowany tunel przez publiczną sieć;Very Private Network;Virtual Protocol Network;B
+Co to jest autoryzacja a co uwierzytelnianie?;To samo;Uwierzytelnianie weryfikuje tożsamość; autoryzacja określa uprawnienia;Autoryzacja weryfikuje tożsamość; uwierzytelnianie uprawnienia;Oba dotyczą haseł;B
+Które algorytmy są algorytmami haszowania?;AES;MD5;SHA-256;RSA;B,C
+Co to jest szyfrowanie asymetryczne?;Szyfrowanie tym samym kluczem;Szyfrowanie kluczem publicznym i odszyfrowywanie kluczem prywatnym;Szyfrowanie bez kluczy;Szyfrowanie sprzętowe;B
+Co to jest ransomware?;Oprogramowanie antywirusowe;Złośliwe oprogramowanie szyfrujące pliki i żądające okupu;Narzędzie do backupu;Program do optymalizacji;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 5 — SYSTEMY OPERACYJNE / LINUX
+# ════════════════════════════════════════════════════════
+Które polecenie Linux wyświetla zawartość katalogu?;dir;list;ls;show;C
+Które polecenie Linux zmienia katalog?;move;cd;chdir;go;B
+Które polecenie Linux wyświetla bieżący katalog?;dir;cwd;pwd;where;C
+Które polecenie Linux tworzy nowy katalog?;md;mkdir;newdir;create;B
+Które polecenie Linux usuwa plik?;del;erase;remove;rm;D
+Które polecenie Linux kopiuje pliki?;move;copy;cp;duplicate;C
+Które polecenie Linux przenosi lub zmienia nazwę pliku?;cp;rename;mv;move;C
+Które polecenie Linux wyświetla zawartość pliku tekstowego?;view;cat;show;read;B
+Które polecenie Linux wyszukuje tekst w plikach?;find;search;grep;locate;C
+Co oznacza chmod 755 w Linux?;Właściciel rwx; grupa r-x; inni r-x;Właściciel r--; grupa rwx; inni rwx;Brak uprawnień;Pełne uprawnienia dla wszystkich;A
+Co oznacza sudo w Linux?;Super user do — wykonuje polecenie z uprawnieniami administratora;Switch user download;System user do;Standard user daemon;A
+Co to jest proces w systemie operacyjnym?;Plik wykonywalny;Uruchomiony program z własną przestrzenią adresową;Sterownik urządzenia;Usługa systemowa;B
+Które polecenie Linux wyświetla uruchomione procesy?;tasklist;proc;ps;list;C
+Które polecenie Linux kończy proces?;stop;end;exit;kill;D
+Co to jest system plików?;Program antywirusowy;Sposób organizowania i przechowywania danych na dysku;Protokół sieciowy;Kompilator;B
+Które systemy plików są używane w Linux?;NTFS;ext4;FAT32;XFS;B,D

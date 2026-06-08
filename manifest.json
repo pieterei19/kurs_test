@@ -1,7 +1,7 @@
 {
   "name": "nullroute",
   "short_name": "nullroute",
-  "description": "MikroTik MTCNA exam prep — nullroute your ignorance",
+  "description": "MikroTik MTCNA & INF.03 exam prep",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

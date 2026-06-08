@@ -1,0 +1,101 @@
+# nullroute — Fiszki
+# Format: przód;tył
+# Przód = termin/skrót, Tył = definicja/wyjaśnienie
+
+# ════════════════════════════════════
+# PROTOKOŁY SIECIOWE
+# ════════════════════════════════════
+TCP;Transmission Control Protocol — protokół połączeniowy warstwy 4. Gwarantuje dostarczenie danych w kolejności z potwierdzeniami. Używany przez HTTP, SSH, FTP.
+UDP;User Datagram Protocol — protokół bezpołączeniowy warstwy 4. Szybki, bez gwarancji dostarczenia. Używany przez DNS, VoIP, streaming, DHCP.
+IP;Internet Protocol — protokół warstwy 3 odpowiedzialny za adresowanie i routing pakietów między sieciami.
+ICMP;Internet Control Message Protocol — protokół diagnostyczny warstwy 3. Używany przez ping i traceroute do testowania łączności.
+ARP;Address Resolution Protocol — mapuje adresy IP (warstwa 3) na adresy MAC (warstwa 2) w obrębie sieci lokalnej.
+DNS;Domain Name System — tłumaczy nazwy domenowe (np. google.com) na adresy IP. Działa na porcie UDP/TCP 53.
+DHCP;Dynamic Host Configuration Protocol — automatycznie przydziela adresom IP, masce, bramie i DNS klientom w sieci. Port UDP 67/68.
+HTTP;HyperText Transfer Protocol — protokół przesyłania stron WWW. Port TCP 80. Bezstanowy, tekstowy.
+HTTPS;HTTP Secure — HTTP szyfrowane przez TLS/SSL. Port TCP 443. Certyfikat potwierdza tożsamość serwera.
+FTP;File Transfer Protocol — przesyłanie plików. Port 21 (sterowanie), port 20 (dane). Nieszyfrowany.
+SFTP;SSH File Transfer Protocol — bezpieczny transfer plików przez SSH. Port 22. Szyfrowany.
+SSH;Secure Shell — szyfrowany protokół zdalnego dostępu do terminala. Port TCP 22. Zastąpił Telnet.
+Telnet;Protokół zdalnego dostępu do terminala. Port TCP 23. Nieszyfrowany — dane w plaintext. Przestarzały.
+SMTP;Simple Mail Transfer Protocol — wysyłanie poczty e-mail. Port 25 (serwer-serwer), 587 (klient-serwer z TLS).
+POP3;Post Office Protocol v3 — pobieranie poczty z serwera. Port 110. Pobiera i usuwa z serwera.
+IMAP;Internet Message Access Protocol — dostęp do poczty na serwerze. Port 143. Synchronizuje wiele urządzeń.
+SNMP;Simple Network Management Protocol — monitorowanie i zarządzanie urządzeniami sieciowymi. Port UDP 161.
+NTP;Network Time Protocol — synchronizacja czasu między urządzeniami w sieci. Port UDP 123.
+OSPF;Open Shortest Path First — protokół routingu dynamicznego link-state. Używa algorytmu Dijkstry. AD=110.
+BGP;Border Gateway Protocol — protokół routingu między autonomicznymi systemami (AS) w Internecie. Port TCP 179.
+RIP;Routing Information Protocol — prostszy protokół routingu distance-vector. Max 15 hopów. AD=120.
+PPTP;Point-to-Point Tunneling Protocol — protokół VPN używający GRE (protokół IP 47). Port TCP 1723. Słabsze szyfrowanie.
+L2TP;Layer 2 Tunneling Protocol — protokół tunelowania warstwy 2. Port UDP 1701. Często łączony z IPsec.
+IPsec;Internet Protocol Security — zestaw protokołów szyfrowania i uwierzytelniania pakietów IP. Tryby: transport i tunnel.
+SSTP;Secure Socket Tunneling Protocol — protokół VPN Microsoftu przez HTTPS. Port TCP 443.
+MNDP;MikroTik Neighbor Discovery Protocol — protokół MikroTik do wykrywania sąsiadujących urządzeń RouterOS.
+EoIP;Ethernet over IP — tunel warstwy 2 między urządzeniami MikroTik. Enkapsuluje ramki Ethernet w pakietach IP.
+GRE;Generic Routing Encapsulation — protokół tunelowania IP w IP. Używany przez PPTP.
+
+# ════════════════════════════════════
+# MODEL OSI
+# ════════════════════════════════════
+Warstwa 1 OSI;Warstwa fizyczna (Physical) — bity, kable, sygnały elektryczne/optyczne. Urządzenia: hub, repeater. Jednostka: bit.
+Warstwa 2 OSI;Warstwa łącza danych (Data Link) — ramki, adresy MAC, wykrywanie błędów. Urządzenia: switch, bridge. Jednostka: ramka (frame).
+Warstwa 3 OSI;Warstwa sieciowa (Network) — pakiety, adresy IP, routing. Urządzenia: router. Jednostka: pakiet (packet).
+Warstwa 4 OSI;Warstwa transportowa (Transport) — segmenty, TCP/UDP, porty, niezawodność dostawy. Jednostka: segment.
+Warstwa 5 OSI;Warstwa sesji (Session) — zarządzanie sesjami i połączeniami między aplikacjami.
+Warstwa 6 OSI;Warstwa prezentacji (Presentation) — kodowanie, szyfrowanie, kompresja danych (SSL/TLS tu działa koncepcyjnie).
+Warstwa 7 OSI;Warstwa aplikacji (Application) — interfejs dla aplikacji użytkownika. Protokoły: HTTP, DNS, SMTP, FTP, SSH.
+
+# ════════════════════════════════════
+# MIKROTIK / ROUTEROS
+# ════════════════════════════════════
+Winbox;Graficzne narzędzie Windows do zarządzania RouterOS. Łączy się po IP lub adresie MAC.
+RouterOS;System operacyjny MikroTik bazujący na Linux. Obsługuje routing, firewall, VPN, QoS i wireless.
+Netwatch;Narzędzie RouterOS monitorujące dostępność hostów przez ping. Wykonuje skrypty gdy host up/down.
+Torch;Narzędzie RouterOS do analizy ruchu sieciowego w czasie rzeczywistym na wybranym interfejsie.
+The Dude;Bezpłatna aplikacja MikroTik do monitorowania sieci — mapuje topologię i alarmuje o awariach.
+PCQ;Per Connection Queue — typ kolejki QoS dzielący przepustowość równo między aktywne połączenia.
+HTB;Hierarchical Token Bucket — zaawansowany system kolejkowania w RouterOS z priorytetami i limitami.
+Mangle;Tabela firewall RouterOS do oznaczania pakietów (mark-packet/mark-connection) dla QoS i routingu.
+Nstreme;Proprietary protokół MikroTik poprawiający wydajność połączeń punkt-punkt przez polling zamiast CSMA/CA.
+WDS;Wireless Distribution System — rozszerzanie zasięgu sieci bezprzewodowej między AP bez kabla.
+ap-bridge;Tryb pracy interfejsu wireless w RouterOS — punkt dostępowy obsługujący wielu klientów.
+station;Tryb klienta bezprzewodowego w RouterOS — łączy się z zewnętrznym AP.
+MNDP;MikroTik Neighbor Discovery Protocol — automatyczne wykrywanie urządzeń MikroTik w sieci.
+Licencja Level 1;Demo RouterOS — ważna 24h. Ograniczone funkcje. Do testów.
+Licencja Level 6;Najwyższy poziom licencji RouterOS — bez limitów na tunele wireless i inne funkcje.
+/export;Eksportuje konfigurację RouterOS do edytowalnego pliku tekstowego .rsc.
+/system backup;Tworzy binarny backup konfiguracji RouterOS — nieedytowalny, do szybkiego przywracania.
+Connection tracking;Mechanizm RouterOS śledzący stany połączeń TCP/UDP/ICMP dla firewall (new/established/related/invalid).
+Masquerade;Typ src-nat w RouterOS — automatycznie używa adresu IP wychodzącego interfejsu. Idealne dla dynamicznych IP.
+Bridge filter;Firewall RouterOS dla ruchu przechodzącego przez bridge na warstwie 2.
+Hotspot;Funkcja RouterOS do uwierzytelniania użytkowników przed dostępem do sieci — strona logowania + RADIUS.
+Walled Garden;Lista adresów/usług dostępnych w HotSpot bez uwierzytelniania (np. strona firmowa, DNS).
+
+# ════════════════════════════════════
+# BEZPIECZEŃSTWO
+# ════════════════════════════════════
+Firewall;System kontroli dostępu filtrujący ruch sieciowy według reguł opartych na IP, portach i protokołach.
+NAT;Network Address Translation — tłumaczenie adresów IP. Pozwala wielu hostom prywatnym dzielić jeden publiczny IP.
+VPN;Virtual Private Network — szyfrowany tunel przez publiczną sieć. Zapewnia prywatność i bezpieczeństwo.
+SSL/TLS;Secure Sockets Layer / Transport Layer Security — protokoły szyfrowania komunikacji sieciowej. TLS to nowsza wersja SSL.
+Szyfrowanie symetryczne;Jeden klucz do szyfrowania i odszyfrowywania. Szybkie. Przykłady: AES, DES, 3DES.
+Szyfrowanie asymetryczne;Para kluczy: publiczny (szyfrowanie) i prywatny (odszyfrowanie). Przykłady: RSA, ECC.
+Hash / skrót;Jednokierunkowa funkcja matematyczna — z danych tworzy unikalny ciąg znaków (odcisk). MD5, SHA-256.
+Phishing;Atak socjotechniczny — fałszywe e-maile lub strony wyłudzające dane logowania lub wrażliwe informacje.
+DDoS;Distributed Denial of Service — atak zasypujący serwer ruchem z tysięcy zainfekowanych maszyn (botnet).
+SQL Injection;Atak wstrzykujący złośliwy kod SQL do zapytań aplikacji — może ujawnić lub usunąć dane z bazy.
+XSS;Cross-Site Scripting — wstrzykiwanie złośliwego kodu JavaScript do stron wyświetlanych innym użytkownikom.
+Ransomware;Złośliwe oprogramowanie szyfrujące pliki ofiary i żądające okupu (często w kryptowalutach).
+
+# ════════════════════════════════════
+# LINUX / SYSTEMY
+# ════════════════════════════════════
+chmod;Zmiana uprawnień pliku/katalogu. chmod 755 = rwxr-xr-x (właściciel rwx, grupa rx, inni rx).
+sudo;Wykonuje polecenie z uprawnieniami superużytkownika (root) bez logowania jako root.
+grep;Wyszukuje wzorzec tekstowy w plikach lub strumieniu danych. grep "błąd" /var/log/syslog
+ps aux;Wyświetla wszystkie uruchomione procesy z szczegółami (użytkownik, PID, CPU, RAM).
+kill;Kończy proces o podanym PID. kill -9 PID — wymuszone zakończenie.
+top;Interaktywny monitor procesów i zasobów systemowych (CPU, RAM) w czasie rzeczywistym.
+cron;Harmonogram zadań Linux — wykonuje polecenia automatycznie o określonym czasie.
+/etc/hosts;Lokalny plik rozwiązywania nazw — mapowanie nazwa→IP sprawdzane przed zapytaniem DNS.
+SSH keygen;Generuje parę kluczy SSH (publiczny + prywatny) do uwierzytelniania bez hasła.

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#16161e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>nullroute — fiszki</title>
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#16161e; --bg2:#1e1e2a; --bg3:#252535; --border:#2e2e42;
+  --text:#d4d4e8; --muted:#6c6c8a; --accent:#e05a5a; --radius:14px;
+  --purple:#7c3aed; --purple-t:#a78bfa; --purple-bg:#1a1028;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
+  --px:clamp(14px,4vw,40px); --py:clamp(14px,2.5vh,28px);
+}
+html { height:100%; height:-webkit-fill-available; }
+body {
+  min-height:100dvh; min-height:-webkit-fill-available;
+  background:var(--bg); color:var(--text);
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  display:flex; justify-content:center; overscroll-behavior:none; -webkit-text-size-adjust:100%;
+}
+#app {
+  width:100%; max-width:680px; min-height:100dvh; display:flex; flex-direction:column;
+  padding:calc(var(--safe-top) + var(--py)) calc(var(--safe-right) + var(--px))
+          calc(var(--safe-bottom) + var(--py)) calc(var(--safe-left) + var(--px));
+}
+
+/* topbar */
+.topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:clamp(12px,2vh,20px); flex-shrink:0; }
+.back-btn { display:flex; align-items:center; gap:8px; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+.back-icon { width:32px; height:32px; border-radius:8px; background:var(--bg2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--muted); }
+.back-btn:active .back-icon { background:var(--bg3); color:var(--text); }
+.back-label { font-size:clamp(10px,1.4vw,12px); font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.card-counter { font-size:clamp(12px,1.5vw,14px); font-weight:700; color:var(--muted); }
+.card-counter b { color:var(--text); }
+
+/* progress */
+.progress-wrap { height:3px; background:var(--border); border-radius:2px; margin-bottom:clamp(12px,2vh,22px); overflow:hidden; flex-shrink:0; }
+.progress-bar  { height:100%; background:var(--purple-t); border-radius:2px; transition:width 0.4s ease; width:0%; }
+
+/* filter tabs */
+.tabs { display:flex; gap:8px; margin-bottom:clamp(12px,2vh,20px); overflow-x:auto; flex-shrink:0; scrollbar-width:none; }
+.tabs::-webkit-scrollbar { display:none; }
+.tab {
+  background:var(--bg2); border:1px solid var(--border); border-radius:20px;
+  padding:6px 14px; font-size:clamp(11px,1.4vw,13px); font-weight:600; color:var(--muted);
+  cursor:pointer; white-space:nowrap; flex-shrink:0; -webkit-tap-highlight-color:transparent;
+  transition:border-color 0.15s,color 0.15s,background 0.15s;
+}
+.tab.active { border-color:var(--purple-t); color:var(--purple-t); background:var(--purple-bg); }
+.tab:active { background:var(--bg3); }
+
+/* card container with perspective */
+.card-wrap {
+  flex:1; display:flex; flex-direction:column;
+  perspective:1200px; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  min-height:0;
+}
+
+/* flip card */
+.card-3d {
+  position:relative; flex:1; min-height:200px; max-height:clamp(300px,50vh,460px);
+  transform-style:preserve-3d; transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+.card-3d.flipped { transform:rotateY(180deg); }
+
+.card-face {
+  position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  border-radius:var(--radius); display:flex; flex-direction:column;
+  justify-content:center; align-items:center; padding:clamp(20px,4vw,40px);
+  text-align:center;
+}
+.card-front {
+  background:var(--bg2); border:1.5px solid var(--purple-t);
+}
+.card-back {
+  background:var(--purple-bg); border:1.5px solid var(--purple-t);
+  transform:rotateY(180deg);
+}
+
+.card-hint {
+  position:absolute; top:14px; right:14px;
+  font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  color:var(--purple-t); opacity:0.6;
+}
+.card-term {
+  font-size:clamp(20px,4vw,32px); font-weight:800; color:var(--text);
+  line-height:1.2; margin-bottom:8px;
+}
+.card-category {
+  font-size:clamp(10px,1.3vw,12px); font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--purple-t); opacity:0.7;
+}
+.card-def {
+  font-size:clamp(13px,1.6vw,16px); color:var(--text); line-height:1.65;
+  max-width:520px;
+}
+
+/* swipe hint */
+.swipe-hint { text-align:center; font-size:clamp(11px,1.3vw,13px); color:var(--muted); margin-top:10px; flex-shrink:0; opacity:0.6; }
+
+/* nav buttons */
+.nav-row { display:flex; gap:10px; margin-top:clamp(10px,2vh,18px); flex-shrink:0; }
+.nav-btn {
+  flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+  padding:clamp(12px,1.8vh,16px); font-size:clamp(13px,1.5vw,15px); font-weight:700;
+  color:var(--muted); cursor:pointer; text-align:center;
+  transition:background 0.12s,color 0.12s,border-color 0.12s; -webkit-tap-highlight-color:transparent;
+}
+.nav-btn:active { background:var(--bg3); }
+.nav-btn.next { background:var(--purple); border-color:var(--purple); color:#fff; }
+.nav-btn.next:active { background:#6d28d9; }
+.nav-btn:disabled { opacity:0.3; cursor:default; }
+
+/* state */
+.state-center { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; color:var(--muted); font-size:14px; text-align:center; }
+.spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--purple-t); border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* done screen */
+#done { display:none; flex:1; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-align:center; }
+#done.active { display:flex; }
+.done-emoji { font-size:56px; }
+.done-title { font-size:clamp(20px,4vw,28px); font-weight:800; color:var(--text); }
+.done-sub   { font-size:clamp(13px,1.8vw,16px); color:var(--muted); }
+.btn-restart { background:var(--purple); color:#fff; border:none; border-radius:var(--radius); font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:16px 32px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.btn-restart:active { background:#6d28d9; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <a class="back-btn" href="index.html">
+      <div class="back-icon">‹</div>
+      <span class="back-label">nullroute</span>
+    </a>
+    <div class="card-counter"><b id="cur-num">1</b> / <b id="total-num">—</b></div>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="prog"></div></div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="state-center" id="loading"><div class="spinner"></div><div>Ładowanie fiszek…</div></div>
+  <div class="state-center" id="errbox" style="display:none"><div style="font-size:32px">⚠️</div><div id="errmsg"></div></div>
+
+  <div id="main" style="display:none; flex-direction:column; flex:1; min-height:0">
+    <div class="card-wrap" id="card-wrap" onclick="flipCard()">
+      <div class="card-3d" id="card3d">
+        <div class="card-face card-front">
+          <div class="card-hint">dotknij żeby odwrócić</div>
+          <div class="card-term" id="front-term"></div>
+          <div class="card-category" id="front-cat"></div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-hint">tył</div>
+          <div class="card-def" id="back-def"></div>
+        </div>
+      </div>
+    </div>
+    <div class="swipe-hint" id="swipe-hint">← poprzednia &nbsp;·&nbsp; następna →</div>
+    <div class="nav-row">
+      <button class="nav-btn" id="btn-prev" onclick="prevCard()">← Poprzednia</button>
+      <button class="nav-btn next" id="btn-next" onclick="nextCard()">Następna →</button>
+    </div>
+  </div>
+
+  <div id="done">
+    <div class="done-emoji">✅</div>
+    <div class="done-title">Wszystkie fiszki!</div>
+    <div class="done-sub" id="done-sub"></div>
+    <button class="btn-restart" onclick="restart()">Zacznij od nowa</button>
+  </div>
+</div>
+
+<script>
+let allCards=[], filtered=[], idx=0, categories=[], activeCategory='Wszystkie';
+
+function parseCards(text){
+  const cards=[], catMap={};
+  let currentCat='Ogólne';
+  text.split('\n').forEach(l=>{
+    l=l.trim();
+    if(!l)return;
+    if(l.startsWith('# ═') || (l.startsWith('#') && l.includes('══'))){
+      const m=l.replace(/^#+\s*/,'').replace(/═+/g,'').trim();
+      if(m) currentCat=m;
+      return;
+    }
+    if(l.startsWith('#'))return;
+    const sep=l.indexOf(';');
+    if(sep<1)return;
+    const front=l.slice(0,sep).trim(), back=l.slice(sep+1).trim();
+    if(!front||!back)return;
+    cards.push({front,back,category:currentCat});
+    catMap[currentCat]=(catMap[currentCat]||0)+1;
+  });
+  categories=['Wszystkie',...Object.keys(catMap)];
+  return cards;
+}
+
+function buildTabs(){
+  const el=document.getElementById('tabs');
+  el.innerHTML='';
+  categories.forEach(cat=>{
+    const t=document.createElement('button');
+    t.className='tab'+(cat===activeCategory?' active':'');
+    t.textContent=cat;
+    t.onclick=()=>setCategory(cat);
+    el.appendChild(t);
+  });
+}
+
+function setCategory(cat){
+  activeCategory=cat; idx=0;
+  filtered=cat==='Wszystkie'?[...allCards]:allCards.filter(c=>c.category===cat);
+  buildTabs(); showCard(); updateUI();
+}
+
+async function init(){
+  try{
+    const r=await fetch('./questions/flashcards.txt');
+    if(!r.ok)throw new Error('Błąd HTTP '+r.status);
+    allCards=parseCards(await r.text());
+    if(!allCards.length)throw new Error('Brak fiszek w pliku');
+    filtered=[...allCards];
+    document.getElementById('loading').style.display='none';
+    document.getElementById('main').style.display='flex';
+    buildTabs(); showCard(); updateUI();
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('errbox').style.display='flex';
+    document.getElementById('errmsg').textContent=e.message;
+  }
+}
+
+function showCard(){
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('main').style.display='flex';
+  if(!filtered.length)return;
+  const c=filtered[idx];
+  document.getElementById('front-term').textContent=c.front;
+  document.getElementById('front-cat').textContent=c.category;
+  document.getElementById('back-def').textContent=c.back;
+  document.getElementById('card3d').classList.remove('flipped');
+}
+
+function updateUI(){
+  const n=filtered.length;
+  document.getElementById('cur-num').textContent=Math.min(idx+1,n);
+  document.getElementById('total-num').textContent=n;
+  document.getElementById('prog').style.width=n?((idx+1)/n*100)+'%':'0%';
+  document.getElementById('btn-prev').disabled=idx===0;
+}
+
+function flipCard(){ document.getElementById('card3d').classList.toggle('flipped'); }
+
+function nextCard(){
+  if(idx>=filtered.length-1){
+    document.getElementById('main').style.display='none';
+    document.getElementById('done-sub').textContent='Przejrzałeś '+filtered.length+' fiszek z kategorii "'+activeCategory+'".';
+    document.getElementById('done').classList.add('active');
+    return;
+  }
+  idx++; showCard(); updateUI();
+}
+
+function prevCard(){ if(idx>0){idx--;showCard();updateUI();} }
+
+function restart(){ idx=0; document.getElementById('done').classList.remove('active'); document.getElementById('main').style.display='flex'; showCard(); updateUI(); }
+
+// Swipe support
+let touchStartX=0;
+document.getElementById('card-wrap').addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+document.getElementById('card-wrap').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  if(Math.abs(dx)>60){if(dx<0)nextCard();else prevCard();}
+  else flipCard();
+},{passive:true});
+// Remove click handler conflict with touch
+document.getElementById('card-wrap').onclick=null;
+document.getElementById('card-wrap').addEventListener('click',e=>{
+  if(!e._fromTouch)flipCard();
+});
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+init();
+</script>
+</body>
+</html>

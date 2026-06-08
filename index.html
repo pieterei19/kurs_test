@@ -13,266 +13,132 @@
 <title>nullroute</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg:      #16161e;
-  --bg2:     #1e1e2a;
-  --bg3:     #252535;
-  --border:  #2e2e42;
-  --text:    #d4d4e8;
-  --muted:   #6c6c8a;
-  --accent:  #e05a5a;
-  --accent-h:#c94444;
-  --radius:  14px;
-
-  --safe-top:    env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-left:   env(safe-area-inset-left, 0px);
-  --safe-right:  env(safe-area-inset-right, 0px);
+  --bg:#16161e; --bg2:#1e1e2a; --bg3:#252535; --border:#2e2e42;
+  --text:#d4d4e8; --muted:#6c6c8a; --accent:#e05a5a; --accent-h:#c94444;
+  --correct-t:#5dd87a; --wrong-t:#f07070; --multi-t:#5ab4f0;
+  --radius:14px;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
 }
-
-html {
-  height: 100%;
-  height: -webkit-fill-available;
-}
-
+html { height:100%; height:-webkit-fill-available; }
 body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  display: flex;
-  justify-content: center;
-  overscroll-behavior: none;
-  -webkit-text-size-adjust: 100%;
+  min-height:100dvh; min-height:-webkit-fill-available;
+  background:var(--bg); color:var(--text);
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  display:flex; justify-content:center; overscroll-behavior:none;
+  -webkit-text-size-adjust:100%;
 }
-
 #app {
-  width: 100%;
-  max-width: 680px;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
+  width:100%; max-width:680px; min-height:100dvh; display:flex; flex-direction:column;
   padding:
-    calc(var(--safe-top) + clamp(20px, 3vh, 40px))
-    calc(var(--safe-right) + clamp(16px, 4vw, 48px))
-    calc(var(--safe-bottom) + clamp(20px, 3vh, 40px))
-    calc(var(--safe-left) + clamp(16px, 4vw, 48px));
+    calc(var(--safe-top) + clamp(20px,3vh,40px))
+    calc(var(--safe-right) + clamp(16px,4vw,48px))
+    calc(var(--safe-bottom) + clamp(20px,3vh,40px))
+    calc(var(--safe-left) + clamp(16px,4vw,48px));
 }
 
-/* ── Top bar ── */
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: clamp(32px, 7vh, 60px);
-}
+/* topbar */
+.topbar { display:flex; align-items:center; gap:10px; margin-bottom:clamp(28px,6vh,52px); }
 .logo-badge {
-  width: clamp(32px, 5vw, 42px);
-  height: clamp(32px, 5vw, 42px);
-  background: var(--accent);
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(13px, 2vw, 17px);
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: -0.5px;
-  flex-shrink: 0;
+  width:clamp(32px,5vw,42px); height:clamp(32px,5vw,42px);
+  background:var(--accent); border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(13px,2vw,17px); font-weight:900; color:#fff;
+  flex-shrink:0; font-family:monospace; letter-spacing:-1px;
 }
 .logo-text {
-  font-size: clamp(10px, 1.5vw, 12px);
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-size:clamp(10px,1.5vw,12px); font-weight:700;
+  letter-spacing:2.5px; text-transform:uppercase; color:var(--muted);
 }
 
-/* ── Hero ── */
-.hero-tag {
-  font-size: clamp(10px, 1.5vw, 12px);
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-.hero-title {
-  font-size: clamp(26px, 6vw, 52px);
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 10px;
-}
-.hero-sub {
-  font-size: clamp(13px, 1.8vw, 16px);
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: clamp(32px, 7vh, 56px);
-  max-width: 420px;
-}
-
-/* ── Cards ── */
-.section-label {
-  font-size: clamp(10px, 1.4vw, 12px);
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: auto;
-}
-@media (min-width: 500px) {
-  .cards { flex-direction: row; }
-  .mode-card { flex: 1; flex-direction: column; align-items: flex-start; gap: 14px; }
-  .mode-arrow { display: none; }
-}
-
-.mode-card {
-  background: var(--bg2);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: clamp(16px, 3vw, 26px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.18s, background 0.18s, transform 0.1s;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-.mode-card:active { transform: scale(0.98); background: var(--bg3); }
-@media (hover: hover) {
-  .mode-card:hover { border-color: var(--accent); background: #221a1a; }
-  .mode-card:hover .mode-icon { background: var(--accent); border-color: var(--accent); }
-  .mode-card:hover .mode-arrow { color: var(--accent); transform: translateX(3px); }
-}
-
-.mode-icon {
-  width: clamp(42px, 7vw, 54px);
-  height: clamp(42px, 7vw, 54px);
-  border-radius: 11px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(20px, 3.5vw, 26px);
-  flex-shrink: 0;
-  transition: background 0.18s;
-}
-.mode-info { display: flex; flex-direction: column; gap: 4px; }
-.mode-name {
-  font-size: clamp(14px, 2.2vw, 17px);
-  font-weight: 700;
-  color: var(--text);
-}
-.mode-desc {
-  font-size: clamp(12px, 1.6vw, 14px);
-  color: var(--muted);
-  line-height: 1.45;
-}
-.mode-arrow {
-  margin-left: auto;
-  font-size: 22px;
-  color: var(--border);
-  flex-shrink: 0;
-  transition: color 0.18s, transform 0.18s;
-}
-
-/* ── Footer ── */
-.footer {
-  margin-top: clamp(24px, 4vh, 40px);
-  font-size: clamp(10px, 1.3vw, 12px);
-  color: var(--muted);
-  text-align: center;
-  opacity: 0.5;
-}
-
-/* ── Streak panel ── */
-.streak-panel {
-  display: flex;
-  gap: 10px;
-  margin-bottom: clamp(20px, 4vh, 36px);
-}
+/* streak */
+.streak-panel { display:none; gap:10px; margin-bottom:clamp(16px,3vh,28px); }
+.streak-panel.visible { display:flex; }
 .streak-box {
-  flex: 1;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: clamp(12px, 2vw, 18px);
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  flex:1; background:var(--bg2); border:1px solid var(--border);
+  border-radius:var(--radius); padding:clamp(10px,2vw,16px);
+  display:flex; align-items:center; gap:10px;
 }
-.streak-box.active {
-  border-color: #e07820;
-  background: #1e1a10;
-}
-.streak-box.best {
-  border-color: #3a6e2a;
-  background: #101e10;
-}
-.streak-emoji {
-  font-size: clamp(22px, 4vw, 28px);
-  flex-shrink: 0;
-  line-height: 1;
-}
-.streak-info { display: flex; flex-direction: column; gap: 2px; }
-.streak-label {
-  font-size: clamp(9px, 1.2vw, 11px);
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.streak-value {
-  font-size: clamp(20px, 3.5vw, 28px);
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1;
-}
-.streak-box.active .streak-value { color: #f09030; }
-.streak-box.best .streak-value   { color: var(--correct-t); }
+.streak-box.fire { border-color:#e07820; background:#1e1a10; }
+.streak-box.best { border-color:var(--correct-t); background:#101e10; }
+.streak-emoji { font-size:clamp(20px,4vw,26px); line-height:1; flex-shrink:0; }
+.streak-info { display:flex; flex-direction:column; gap:2px; }
+.streak-lbl { font-size:clamp(9px,1.1vw,11px); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
+.streak-val { font-size:clamp(18px,3.5vw,26px); font-weight:800; line-height:1; }
+.streak-box.fire .streak-val { color:#f09030; }
+.streak-box.best .streak-val { color:var(--correct-t); }
 
-/* ── PWA install banner ── */
+/* hero */
+.hero-tag { font-size:clamp(10px,1.5vw,12px); font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.hero-title { font-size:clamp(26px,6vw,52px); font-weight:800; color:var(--text); line-height:1.1; margin-bottom:8px; }
+.hero-sub { font-size:clamp(13px,1.8vw,16px); color:var(--muted); line-height:1.6; margin-bottom:clamp(24px,5vh,44px); max-width:440px; }
+
+/* section */
+.section-label { font-size:clamp(10px,1.4vw,12px); font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:12px; }
+
+/* exam cards */
+.exam-cards { display:flex; flex-direction:column; gap:12px; margin-bottom:auto; }
+@media (min-width:500px) {
+  .exam-cards { display:grid; grid-template-columns:1fr 1fr; }
+  .exam-card.wide { grid-column:1/-1; }
+}
+
+.exam-card {
+  background:var(--bg2); border:1.5px solid var(--border); border-radius:var(--radius);
+  padding:clamp(14px,2.5vw,22px); display:flex; flex-direction:column; gap:12px;
+  text-decoration:none; color:inherit;
+  transition:border-color 0.18s, background 0.18s, transform 0.1s;
+  -webkit-tap-highlight-color:transparent; user-select:none;
+}
+.exam-card:active { transform:scale(0.98); background:var(--bg3); }
+@media (hover:hover) {
+  .exam-card:hover { background:#1a1a26; }
+  .exam-card:hover .exam-icon { background:var(--accent); border-color:var(--accent); }
+}
+.exam-card.flash:hover .exam-icon { background:#7c3aed; border-color:#7c3aed; }
+
+.card-top { display:flex; align-items:center; gap:12px; }
+.exam-icon {
+  width:clamp(38px,6vw,48px); height:clamp(38px,6vw,48px);
+  border-radius:10px; background:var(--bg3); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(18px,3vw,24px); flex-shrink:0;
+  transition:background 0.18s, border-color 0.18s;
+  font-family:monospace; font-weight:900; color:var(--muted);
+}
+.exam-name { font-size:clamp(14px,2.2vw,17px); font-weight:700; color:var(--text); }
+.exam-sub  { font-size:clamp(11px,1.5vw,13px); color:var(--muted); }
+.exam-desc { font-size:clamp(12px,1.5vw,14px); color:var(--muted); line-height:1.45; }
+
+.mode-row { display:flex; gap:8px; }
+.mode-btn {
+  flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:9px;
+  padding:9px 8px; font-size:clamp(11px,1.4vw,13px); font-weight:600;
+  color:var(--muted); text-decoration:none; text-align:center;
+  transition:background 0.12s, color 0.12s, border-color 0.12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.mode-btn:active { background:var(--border); color:var(--text); }
+@media (hover:hover) {
+  .mode-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--bg2); }
+  .exam-card.flash .mode-btn:hover { border-color:#a78bfa; color:#a78bfa; }
+}
+.mode-btn.flash-link:hover { border-color:#a78bfa !important; color:#a78bfa !important; }
+
+/* pwa banner */
 #pwa-banner {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  font-size: clamp(12px, 1.5vw, 13px);
-  color: var(--muted);
+  display:none; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius);
+  padding:12px 14px; margin-bottom:16px; font-size:clamp(12px,1.5vw,13px); color:var(--muted);
 }
-#pwa-banner.visible { display: flex; }
-#pwa-banner b { color: var(--text); }
+#pwa-banner.visible { display:flex; }
 #pwa-install-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 7px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  flex-shrink: 0;
-  white-space: nowrap;
+  background:var(--accent); color:#fff; border:none; border-radius:8px;
+  padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer; flex-shrink:0; white-space:nowrap;
 }
+
+.footer { margin-top:clamp(20px,3vh,36px); font-size:clamp(10px,1.3vw,12px); color:var(--muted); text-align:center; opacity:0.4; }
 </style>
 </head>
 <body>
@@ -284,92 +150,108 @@ body {
   </div>
 
   <div id="pwa-banner">
-    <span>Dodaj do ekranu głównego — działa jak apka bez paska przeglądarki.</span>
+    <span>Dodaj do ekranu głównego — działa offline jak apka.</span>
     <button id="pwa-install-btn">Instaluj</button>
   </div>
 
-  <div class="hero-tag">MikroTik MTCNA prep</div>
-  <h1 class="hero-title">Wybierz tryb</h1>
-  <p class="hero-sub">Pytania z zakresu MikroTik RouterOS. Odpowiedzi losowane, kolejność opcji mieszana. Obsługa pytań wielokrotnego wyboru.</p>
-
-  <div class="streak-panel" id="streak-panel" style="display:none">
-    <div class="streak-box active">
+  <div class="streak-panel" id="streak-panel">
+    <div class="streak-box fire">
       <div class="streak-emoji">🔥</div>
       <div class="streak-info">
-        <div class="streak-label">Aktualny</div>
-        <div class="streak-value" id="streak-cur">0</div>
+        <div class="streak-lbl">Aktualny</div>
+        <div class="streak-val" id="streak-cur">0</div>
       </div>
     </div>
     <div class="streak-box best">
       <div class="streak-emoji">🏆</div>
       <div class="streak-info">
-        <div class="streak-label">Rekord</div>
-        <div class="streak-value" id="streak-best">0</div>
+        <div class="streak-lbl">Rekord</div>
+        <div class="streak-val" id="streak-best">0</div>
       </div>
     </div>
   </div>
 
-  <div class="section-label">Tryb nauki</div>
-  <div class="cards">
-    <a class="mode-card" href="1pyt.html">
-      <div class="mode-icon">∞</div>
-      <div class="mode-info">
-        <div class="mode-name">Jedno pytanie</div>
-        <div class="mode-desc">Losuj bez końca, w dowolnym tempie. Bez limitu.</div>
+  <div class="hero-tag">IT exam prep</div>
+  <h1 class="hero-title">Wybierz egzamin</h1>
+  <p class="hero-sub">Pytania z egzaminów MikroTik i INF.03. Tryb losowy lub test z wynikiem. Plus fiszki z protokołami.</p>
+
+  <div class="section-label">Egzaminy i materiały</div>
+  <div class="exam-cards">
+
+    <div class="exam-card">
+      <div class="card-top">
+        <div class="exam-icon">MT</div>
+        <div>
+          <div class="exam-name">MTCNA</div>
+          <div class="exam-sub">MikroTik Certified Network Associate</div>
+        </div>
       </div>
-      <div class="mode-arrow">›</div>
-    </a>
-    <a class="mode-card" href="30pyt.html">
-      <div class="mode-icon">📋</div>
-      <div class="mode-info">
-        <div class="mode-name">Test 30 pytań</div>
-        <div class="mode-desc">30 losowych pytań, wynik i ocena na końcu.</div>
+      <div class="exam-desc">RouterOS, firewall, routing, wireless, VPN, QoS. Próg zaliczenia: 75%.</div>
+      <div class="mode-row">
+        <a class="mode-btn" href="quiz.html?exam=mtcna&mode=endless">∞ Losuj</a>
+        <a class="mode-btn" href="quiz.html?exam=mtcna&mode=test">📋 Test 30</a>
       </div>
-      <div class="mode-arrow">›</div>
-    </a>
+    </div>
+
+    <div class="exam-card">
+      <div class="card-top">
+        <div class="exam-icon" style="font-size:clamp(14px,2vw,18px); letter-spacing:-0.5px;">INF</div>
+        <div>
+          <div class="exam-name">INF.03</div>
+          <div class="exam-sub">Tworzenie i administrowanie stronami</div>
+        </div>
+      </div>
+      <div class="exam-desc">Sieci, HTML/CSS, SQL, bezpieczeństwo IT, Linux. Próg zaliczenia: 75%.</div>
+      <div class="mode-row">
+        <a class="mode-btn" href="quiz.html?exam=inf03&mode=endless">∞ Losuj</a>
+        <a class="mode-btn" href="quiz.html?exam=inf03&mode=test">📋 Test 30</a>
+      </div>
+    </div>
+
+    <div class="exam-card flash wide">
+      <div class="card-top">
+        <div class="exam-icon" style="color:#a78bfa; font-size:clamp(20px,3vw,26px);">≡</div>
+        <div>
+          <div class="exam-name">Fiszki</div>
+          <div class="exam-sub">Protokoły · RouterOS · Bezpieczeństwo · Linux</div>
+        </div>
+      </div>
+      <div class="exam-desc">78 fiszek do nauki terminologii — przód to termin, tył to definicja. Przesuń żeby przewrócić.</div>
+      <div class="mode-row">
+        <a class="mode-btn flash-link" href="flashcards.html">Otwórz fiszki →</a>
+      </div>
+    </div>
+
   </div>
 
-  <div class="footer">nullroute · questions.txt</div>
+  <div class="footer">nullroute · questions/*.txt</div>
 </div>
-
 <script>
-// Register service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 
-// Load streak from localStorage
-(function() {
+(function(){
   const cur  = parseInt(localStorage.getItem('mtcna_streak') || '0');
   const best = parseInt(localStorage.getItem('mtcna_streak_best') || '0');
   if (cur > 0 || best > 0) {
     document.getElementById('streak-cur').textContent  = cur;
     document.getElementById('streak-best').textContent = best;
-    document.getElementById('streak-panel').style.display = 'flex';
+    document.getElementById('streak-panel').classList.add('visible');
   }
 })();
 
-// PWA install prompt
 let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
+  e.preventDefault(); deferredPrompt = e;
   document.getElementById('pwa-banner').classList.add('visible');
 });
-
 document.getElementById('pwa-install-btn').addEventListener('click', async () => {
   if (!deferredPrompt) return;
   deferredPrompt.prompt();
   const { outcome } = await deferredPrompt.userChoice;
   deferredPrompt = null;
-  if (outcome === 'accepted') {
-    document.getElementById('pwa-banner').classList.remove('visible');
-  }
+  if (outcome === 'accepted') document.getElementById('pwa-banner').classList.remove('visible');
 });
-
-window.addEventListener('appinstalled', () => {
-  document.getElementById('pwa-banner').classList.remove('visible');
-});
+window.addEventListener('appinstalled', () => document.getElementById('pwa-banner').classList.remove('visible'));
 </script>
 </body>
 </html>

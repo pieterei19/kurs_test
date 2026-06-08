@@ -1,16 +1,16 @@
-// Zmień wersję żeby wymusić odświeżenie cache po każdym deploy
-const CACHE = 'nullroute-v1';
+const CACHE = 'nullroute-v2';
 
-// Ścieżki relatywne — działają niezależnie od podkatalogu repo
 const FILES = [
   './',
   './index.html',
-  './1pyt.html',
-  './30pyt.html',
-  './questions.txt',
+  './quiz.html',
+  './flashcards.html',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './questions/mtcna.txt',
+  './questions/inf03.txt',
+  './questions/flashcards.txt'
 ];
 
 self.addEventListener('install', e => {
@@ -32,13 +32,12 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Tylko GET, tylko same-origin
   if (e.request.method !== 'GET') return;
 
   e.respondWith(
     caches.match(e.request).then(cached => {
-      // Network-first dla questions.txt żeby zawsze mieć świeże pytania
-      if (e.request.url.includes('questions.txt')) {
+      // Network-first dla plików z pytaniami
+      if (e.request.url.includes('/questions/')) {
         return fetch(e.request)
           .then(res => {
             if (res && res.status === 200) {
@@ -47,12 +46,10 @@ self.addEventListener('fetch', e => {
             }
             return res;
           })
-          .catch(() => cached); // fallback do cache gdy offline
+          .catch(() => cached);
       }
-
       // Cache-first dla reszty
       if (cached) return cached;
-
       return fetch(e.request).then(res => {
         if (res && res.status === 200 && res.type !== 'opaque') {
           const clone = res.clone();
