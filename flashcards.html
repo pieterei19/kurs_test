@@ -191,6 +191,16 @@ body { display:flex; justify-content:center; }
 </div>
 
 <script>
+
+// Fullscreen API
+function requestFullscreen(){
+  const el=document.documentElement;
+  const r=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen;
+  if(r)r.call(el).catch(()=>{});
+}
+document.addEventListener('click',function f(){requestFullscreen();document.removeEventListener('click',f);},{once:true});
+if(window.matchMedia('(display-mode:standalone)').matches||window.matchMedia('(display-mode:fullscreen)').matches||window.navigator.standalone){requestFullscreen();}
+
 let allCards=[], filtered=[], idx=0, categories=[], activeCategory='Wszystkie';
 
 function parseCards(text){

@@ -227,6 +227,27 @@ body {
   <div class="footer">nullroute · questions/*.txt</div>
 </div>
 <script>
+// ── Fullscreen ────────────────────────────────────────────────────────────────
+function requestFullscreen() {
+  const el = document.documentElement;
+  const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
+  if (req) req.call(el).catch(() => {});
+}
+
+// Przy pierwszym tapnięciu wejdź w fullscreen
+document.addEventListener('click', function onFirstTap() {
+  requestFullscreen();
+  document.removeEventListener('click', onFirstTap);
+}, { once: true });
+
+// Jeśli apka uruchomiona jako standalone/fullscreen PWA — od razu fullscreen
+if (window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone) {
+  requestFullscreen();
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 // Wyczyść stary cache przy każdym uruchomieniu (bezpieczne)
 async function clearOldCaches() {
   if (!('caches' in window)) return;
