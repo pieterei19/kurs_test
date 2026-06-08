@@ -119,3 +119,168 @@ Które polecenie Linux wyświetla uruchomione procesy?;tasklist;proc;ps;list;C
 Które polecenie Linux kończy proces?;stop;end;exit;kill;D
 Co to jest system plików?;Program antywirusowy;Sposób organizowania i przechowywania danych na dysku;Protokół sieciowy;Kompilator;B
 Które systemy plików są używane w Linux?;NTFS;ext4;FAT32;XFS;B,D
+
+# ════════════════════════════════════════════════════════
+# BLOK 6 — NETWORKING BASICS / TCP-IP (SET 16)
+# ════════════════════════════════════════════════════════
+
+# ── IPv6 / Adresacja ───────────────────────────────────
+Ile bitów ma adres IPv6?;32 bity;128 bajtów;64 bity;128 bitów;D
+Który wariant NAT pozwala wielu użytkownikom korzystać z jednego adresu IP do połączenia z internetem?;NAT;Static;Dynamic;PAT;D
+Które dwa główne typy list kontroli dostępu (ACL) istnieją?;Standard i Extended;IEEE i Specialized;Standard i IEEE;Extended i Specialized;A
+Który standard WLAN IEEE umożliwia do 54Mbps w paśmie 2.4GHz?;802.11a;802.11b;802.11g;802.11n;C
+Gdzie w modelu OSI jest określony hub?;Warstwa sesji;Warstwa fizyczna;Warstwa łącza danych;Warstwa aplikacji;B
+Co 2 sekundy urządzenie warstwy 2 wysyła ramki BPDU. Jak często?;Nigdy;Co 2 sekundy;Co 10 minut;Co 30 sekund;B
+Ile domen rozgłoszeniowych tworzy się przy segmentacji sieci przełącznikiem 12-portowym?;1;2;5;12;A
+Ile domen kolizyjnych tworzy się przy segmentacji sieci przełącznikiem 12-portowym?;1;2;5;12;D
+Co to jest sieć stub (stub network)?;Sieć z więcej niż jednym punktem wyjścia;Sieć z więcej niż jednym wejściem i wyjściem;Sieć z tylko jednym wejściem i bez wyjścia;Sieć z tylko jednym wejściem i wyjściem;D
+Co robi VLAN?;Działa jako najszybszy port do serwerów;Zapewnia wiele domen kolizji na jednym porcie switcha;Dzieli domeny rozgłoszeniowe w sieci przełączanej L2;Zapewnia wiele domen rozgłoszeniowych w ramach jednej domeny kolizji;C
+Jaki jest główny powód stworzenia modelu OSI?;Aby stworzyć model większy niż model DoD;Aby programiści mogli zmieniać protokoły tylko jednej warstwy na raz;Aby różne sieci mogły się komunikować;Aby Cisco mogło używać modelu;C
+Który protokół PPP zapewnia dynamiczne adresowanie uwierzytelnianie i multilink?;NCP;HDLC;LCP;X.25;C
+Ile root bridge powinno być w sieci z dziesiątkami przełączników?;1;2;5;12;A
+Które protokoły są używane do konfiguracji trunking na przełączniku?;VLAN Trunking Protocol i VLAN;802.1Q i ISL;Tylko VLAN Trunking Protocol;Tylko VLAN;B
+
+# ── TCP/IP ─────────────────────────────────────────────
+Które usługi używają protokołu TCP?;DHCP i SMTP;SMTP HTTP i FTP;DHCP SMTP i TFTP;DHCP HTTP i TFTP;B
+Która warstwa modelu TCP/IP jest odpowiednikiem warstwy transportowej modelu OSI?;Application;Host-to-Host;Internet;Network Access;B
+Które stwierdzenia opisują komunikat DHCP Discover?;Używa FF:FF:FF:FF:FF:FF jako broadcast L2 i UDP jako protokół transportowy;Używa TCP jako protokół transportowy;Nie używa adresu docelowego L2;Używa unicast;A
+Który protokół pozwala routerowi odpowiadać na żądanie ARP przeznaczone dla zdalnego hosta?;Gateway DP;Reverse ARP (RARP);Proxy ARP;Inverse ARP (IARP);C
+Która warstwa modelu DoD (TCP/IP) jest odpowiednikiem warstwy sieciowej modelu OSI?;Application;Host-to-Host;Internet;Network Access;C
+Które usługi używają protokołu UDP?;DHCP SNMP i TFTP;SMTP i FTP;DHCP SMTP i FTP;Wszystkie wymienione;A
+Która klasa adresów IP zapewnia maksymalnie 254 adresy hostów per sieć?;Klasa A;Klasa B;Klasa C;Klasa D;C
+Które stwierdzenia są prawdziwe dotyczące pakietów ICMP?;ICMP potwierdza odbiór segmentu TCP;ICMP gwarantuje dostarczenie datagramów;ICMP może dostarczać hostom informacji o problemach sieciowych;ICMP jest enkapsulowany w datagramach IP;C,D
+Które warstwy wchodzą w skład modelu TCP/IP?;Application i Session;Application Transport i Internet;Session Transport i Data Link;Transport Internet i Data Link;B
+Który protokół warstwy 4 jest używany dla połączenia Telnet?;IP;TCP;TCP/IP;UDP;B
+Który protokół używa zarówno TCP jak i UDP?;FTP;SMTP;Telnet;DNS;D
+Co to jest adres Class B w zapisie binarnym (pierwsze bity)?;01xxxxxx;0xxxxxxx;10xxxxxx;110xxxxx;C
+Który protokół jest używany do znalezienia adresu sprzętowego (MAC) urządzenia lokalnego?;RARP;ARP;IP;ICMP;B
+Który z poniższych jest prywatnym adresem IP?;12.0.0.1;168.172.19.39;172.15.14.36;192.168.24.43;D
+
+# ════════════════════════════════════════════════════════
+# BLOK 7 — SIECI KOMPUTEROWE (rozszerzenie)
+# ════════════════════════════════════════════════════════
+Który protokół warstwy aplikacji jest używany do pobierania poczty e-mail z serwera z synchronizacją?;POP3;SMTP;IMAP;FTP;C
+Co oznacza skrót DHCP?;Dynamic Host Configuration Protocol;Dynamic Host Control Protocol;Data Host Configuration Protocol;Domain Host Config Protocol;A
+Które urządzenie sieciowe działa wyłącznie na warstwie 1 OSI i nie analizuje adresów?;Switch;Router;Hub;Bridge;C
+Co to jest half-duplex?;Dane płyną tylko w jednym kierunku;Dane płyną w obu kierunkach jednocześnie;Dane płyną w jednym kierunku na raz;Brak transmisji danych;C
+Co to jest full-duplex?;Dane płyną tylko w jednym kierunku;Dane płyną w obu kierunkach jednocześnie;Dane płyną w jednym kierunku na raz;Szybszy half-duplex;B
+Ile podsieci można uzyskać z sieci klasy C dzieląc ją maską /27?;4;6;8;16;C
+Co to jest CSMA/CD?;Protokół routingu;Metoda dostępu do medium w Ethernet — wykrywanie kolizji;Typ enkapsulacji;Protokół zarządzania siecią;B
+Który protokół warstwy 3 jest bezpołączeniowy i nie gwarantuje dostarczenia?;TCP;UDP;IP;ICMP;C
+Jaki jest domyślny port HTTPS?;80;8080;443;8443;C
+Co to jest TTL w kontekście pakietu IP?;Rozmiar pakietu;Czas życia pakietu — zmniejszany o 1 na każdym routerze;Priorytet pakietu;Numer sekwencji;B
+Co oznacza MTU?;Maximum Transfer Unit;Maximum Transmission Unit;Minimum Transmission Unit;Maximum Tunnel Unit;B
+Jaka jest domyślna wartość MTU dla Ethernet?;576;1024;1500;9000;C
+Co to jest VLAN?;Wirtualna lokalna sieć — logiczny podział sieci L2;Typ routera;Protokół routingu;Kabel sieciowy;A
+Co to jest trunk port w kontekście VLAN?;Port obsługujący jeden VLAN;Port obsługujący wiele VLAN;Port wyłącznie do zarządzania;Port nieaktywny;B
+Jaki protokół jest używany do dynamicznego routingu w małych sieciach?;OSPF;BGP;RIP;IS-IS;C
+Co oznacza CIDR?;Classless Inter-Domain Routing;Class Internet Domain Routing;Classful Internet Domain Routing;Complex IP Domain Routing;A
+Jaki jest zakres adresów link-local IPv6?;FE80::/10;FC00::/7;FF00::/8;2000::/3;A
+Co to jest NAT hairpinning?;NAT dla ruchu IPv6;Dostęp do serwera w LAN przez jego publiczny adres IP z wewnątrz sieci;Typ tunelowania;Protokół bezpieczeństwa;B
+Który protokół rozwiązuje konflikty adresów IP w sieci?;ARP;GARP;RARP;DHCP;B
+Co to jest Spanning Tree Protocol?;Protokół routingu;Protokół zapobiegający pętlom w sieciach z mostkami L2;Protokół zarządzania VLAN;Protokół szyfrowania;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 8 — SYSTEMY OPERACYJNE / LINUX (rozszerzenie)
+# ════════════════════════════════════════════════════════
+Które polecenie Linux wyświetla użycie miejsca na dysku w czytelnej formie?;du -h;df -h;ls -lh;fdisk -l;B
+Co robi polecenie 'tar -czf backup.tar.gz /home'?;Rozpakowuje archiwum;Tworzy skompresowane archiwum katalogu /home;Sprawdza archiwum;Usuwa katalog /home;B
+Co oznacza uprawnienie 777 w systemie Linux?;Właściciel rwx reszta brak;Pełne uprawnienia dla wszystkich;Tylko odczyt dla wszystkich;Pełne uprawnienia tylko dla właściciela;B
+Które polecenie wyświetla ostatnie 20 linii pliku w czasie rzeczywistym?;head -20;tail -20;tail -f;less;C
+Co robi polecenie 'find / -name "*.conf"'?;Edytuje pliki konfiguracyjne;Wyszukuje wszystkie pliki .conf w całym systemie;Kopiuje pliki .conf;Usuwa pliki .conf;B
+Co to jest inode w systemie plików Linux?;Nazwa pliku;Struktura danych przechowująca metadane pliku;Zawartość pliku;Katalog;B
+Które polecenie sprawdza otwarte porty w systemie Linux?;netstat -tulpn;ps aux;top;ifconfig;A
+Co robi polecenie 'chmod +x plik.sh'?;Usuwa prawa wykonywania;Dodaje prawo wykonywania dla wszystkich;Zmienia właściciela;Tworzy link symboliczny;B
+Co to jest symlink (dowiązanie symboliczne)?;Kopia pliku;Wskaźnik na inny plik lub katalog;Skrócona ścieżka w PATH;Typ archiwum;B
+Które polecenie wyświetla zmienne środowiskowe w Linux?;set;env;printenv;Wszystkie powyższe;D
+Co robi polecenie 'dd if=/dev/sda of=/dev/sdb'?;Formatuje dysk sdb;Klonuje dysk sda na sdb blok po bloku;Montuje dysk;Sprawdza błędy dysku;B
+Co to jest swap w Linuksie?;Szybka pamięć RAM;Przestrzeń na dysku używana jako rozszerzenie RAM;Protokół sieciowy;Typ systemu plików;B
+Które polecenie sprawdza integralność pliku za pomocą sumy MD5?;sha256sum;md5sum;checksum;hash;B
+Co robi polecenie 'iptables -A INPUT -p tcp --dport 22 -j ACCEPT'?;Blokuje port SSH;Zezwala na ruch TCP przychodzący na port 22;Otwiera port 22 dla wychodzącego ruchu;Usuwa regułę dla portu 22;B
+Co to jest POSIX?;System plików;Standard definiujący interfejs systemowy dla systemów Unix;Protokół sieciowy;Typ licencji;B
+Które polecenie wyświetla uruchomione usługi w systemd?;service --status-all;systemctl list-units --type=service;systemctl status;init list;B
+Co robi polecenie 'chown user:group plik'?;Zmienia uprawnienia pliku;Zmienia właściciela i grupę pliku;Zmienia czas dostępu;Tworzy kopię pliku;B
+Co to jest /proc w systemie Linux?;Katalog z programami;Wirtualny system plików z informacjami o procesach i systemie;Katalog konfiguracji;Katalog tymczasowy;B
+Które polecenie kompresuje plik gzip?;gzip plik;zip plik;compress plik;bzip2 plik;A
+Co robi 'rsync -avz /src/ user@host:/dst/'?;Pobiera pliki z serwera;Synchronizuje katalogi lokalnie i zdalnie przez SSH;Montuje zdalny system plików;Sprawdza połączenie;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 9 — BEZPIECZEŃSTWO IT (rozszerzenie)
+# ════════════════════════════════════════════════════════
+Co to jest atak Man-in-the-Middle?;Atak na serwer;Przechwytywanie komunikacji między dwoma stronami bez ich wiedzy;Atak siłowy na hasło;Skanowanie portów;B
+Co to jest brute force attack?;Atak socjotechniczny;Próba odgadnięcia hasła przez testowanie wszystkich możliwych kombinacji;Wstrzykiwanie kodu;Atak na dostępność;B
+Co to jest zero-day exploit?;Znana luka z dostępną łatką;Luka w zabezpieczeniach nieznana producentowi oprogramowania — brak łatki;Atak z zerowym opóźnieniem;Exploit używany przez 0 dni;B
+Co to jest IDS?;Intrusion Detection System — system wykrywający próby włamania;Firewall następnej generacji;System szyfrowania;VPN;A
+Co to jest IPS?;Intrusion Prevention System — system wykrywający i blokujący ataki;Serwer proxy;System tworzenia kopii zapasowych;Monitor sieci;A
+Co to jest DMZ (Demilitarized Zone)?;Sieć bez firewall;Strefa sieciowa między siecią publiczną a prywatną — dla serwerów publicznych;Szyfrowana sieć VPN;Typ VLAN;B
+Co to jest pentesting?;Testowanie wydajności sieci;Autoryzowane testy bezpieczeństwa symulujące ataki hakerów;Skanowanie antywirusowe;Monitorowanie logów;B
+Co to jest OWASP?;Firma antywirusowa;Open Web Application Security Project — organizacja dokumentująca luki w aplikacjach web;Protokół bezpieczeństwa;Standard szyfrowania;B
+Co to jest CSRF?;SQL Injection;Cross-Site Request Forgery — zmuszenie przeglądarki do wykonania niepożądanej akcji;Cross-Site Scripting;Buffer overflow;B
+Co to jest buffer overflow?;Przepełnienie dysku;Atak polegający na zapisaniu danych poza przydzielonym buforem pamięci;Przepełnienie kolejki pakietów;Błąd bazy danych;B
+Co to jest privilege escalation?;Tworzenie konta administratora;Uzyskanie wyższych uprawnień niż przyznane — często przez exploitację luki;Reset hasła;Klonowanie konta;B
+Co oznacza CIA w bezpieczeństwie informacji?;Confidentiality Integrity Availability;Central Intelligence Agency;Computer Internet Access;Cyber Infrastructure Architecture;A
+Co to jest social engineering?;Programowanie aplikacji społecznościowych;Manipulowanie ludźmi w celu uzyskania poufnych informacji;Zarządzanie sieciami społecznymi;Marketing w IT;B
+Co to jest 2FA (Two-Factor Authentication)?;Dwa hasła;Uwierzytelnianie wymagające dwóch różnych czynników (coś wiesz + coś masz);Dwa konta użytkownika;Podwójne szyfrowanie;B
+Co to jest PKI?;Public Key Infrastructure — system zarządzania certyfikatami i kluczami publicznymi;Personal Key Index;Protokół bezpieczeństwa;Typ firewalla;A
+Co to jest HTTPS HSTS?;HTTP Strict Transport Security — wymusza HTTPS przez określony czas;Typ szyfrowania;Protokół warstwy 3;Standard SSL;A
+Co to jest honeypot?;Pułapka dla hakerów — fałszywy system przyciągający atakujących;Typ wirusa;Protokół VPN;Narzędzie antywirusowe;A
+Które algorytmy szyfrowania są asymetryczne?;AES i DES;RSA i ECC;MD5 i SHA;3DES i Blowfish;B
+Co to jest SIEM?;Security Information and Event Management — zbieranie i analiza logów bezpieczeństwa;Serwer VPN;Typ firewalla;Protokół uwierzytelniania;A
+Co to jest wyciek danych (data breach)?;Awaria dysku;Nieautoryzowany dostęp i ujawnienie poufnych danych;Błąd synchronizacji;Backup danych;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 10 — BAZY DANYCH (rozszerzenie)
+# ════════════════════════════════════════════════════════
+Co to jest indeks w bazie danych?;Kopia tabeli;Struktura danych przyspieszająca wyszukiwanie w tabeli;Więz integralności;Widok tabeli;B
+Co to jest transakcja w bazie danych?;Jedno zapytanie SQL;Zestaw operacji traktowanych jako jedna atomowa jednostka — albo wszystkie albo żadna;Kopia bazy danych;Typ połączenia;B
+Co oznacza ACID w bazach danych?;Atomicity Consistency Isolation Durability;Automatic Consistent Index Data;Advanced Consistent Integrity Database;Atomicity Consistency Index Durability;A
+Co to jest normalizacja bazy danych?;Szyfrowanie danych;Proces organizacji danych eliminujący redundancję i zależności;Tworzenie kopii zapasowej;Kompresja danych;B
+Co to jest widok (VIEW) w SQL?;Kopia tabeli;Wirtualna tabela oparta na zapytaniu SQL;Indeks tabeli;Procedura składowana;B
+Co robi polecenie SQL INNER JOIN?;Zwraca wszystkie wiersze z lewej tabeli;Zwraca tylko wiersze pasujące w obu tabelach;Zwraca wszystkie wiersze z obu tabel;Łączy dwie bazy danych;B
+Co to jest klucz złożony (composite key)?;Klucz z wielu baz;Klucz główny składający się z więcej niż jednej kolumny;Klucz obcy;Automatyczny klucz;B
+Co robi funkcja SQL DISTINCT?;Liczy wiersze;Usuwa duplikaty z wyników zapytania;Sortuje wyniki;Grupuje wyniki;B
+Co to jest stored procedure (procedura składowana)?;Widok bazy;Zestaw instrukcji SQL zapisanych w bazie i wykonywanych na żądanie;Indeks;Trigger;B
+Co to jest trigger w bazie danych?;Indeks automatyczny;Procedura wykonywana automatycznie w odpowiedzi na zdarzenie w tabeli;Klucz obcy;Constraint;B
+Co robi LEFT JOIN w SQL?;Zwraca tylko pasujące wiersze;Zwraca wszystkie wiersze z lewej tabeli i pasujące z prawej;Zwraca wszystkie wiersze z prawej tabeli;Łączy tabele bez warunku;B
+Co to jest denormalizacja?;Usuwanie danych;Celowe wprowadzenie redundancji dla poprawy wydajności odczytu;Normalizacja;Kompresja tabeli;B
+Co robi GROUP BY w SQL?;Filtruje wyniki;Grupuje wiersze o tych samych wartościach;Sortuje wyniki;Łączy tabele;B
+Co to jest constraint w SQL?;Typ danych;Ograniczenie wymuszające reguły integralności danych w tabeli;Indeks;Widok;B
+Co robi TRUNCATE w SQL w porównaniu do DELETE?;To samo co DELETE;Usuwa wszystkie wiersze szybciej bez logowania i bez możliwości ROLLBACK;Usuwa tabelę;Czyści indeksy;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 11 — HTML/CSS/WEB (rozszerzenie)
+# ════════════════════════════════════════════════════════
+Co to jest semantyczny HTML?;HTML z wbudowanym CSS;Używanie tagów opisujących znaczenie treści a nie tylko wygląd (header nav article);HTML skompresowany;HTML bez JavaScript;B
+Co robi meta tag viewport?;Ustawia tytuł strony;Kontroluje skalowanie strony na urządzeniach mobilnych;Definiuje charset;Opisuje stronę dla SEO;B
+Co to jest CSS Flexbox?;Framework CSS;Model układu 1D do rozmieszczania elementów w wierszu lub kolumnie;System siatki 2D;Typ animacji;B
+Co to jest CSS Grid?;Siatka tła;System układu 2D do tworzenia złożonych układów stron;Siatka pikseli;Typ fontu;B
+Co robi CSS position:fixed?;Pozycjonuje element względem rodzica;Pozycjonuje element względem okna przeglądarki — nie scrolluje;Usuwa element z przepływu;Centruje element;B
+Co to jest CSS media query?;Zapytanie do bazy danych;Warunek stosujący style zależnie od właściwości urządzenia (szerokość ekranu);Selektor CSS;Typ fontu;B
+Co to jest z-index w CSS?;Kolor tła;Kontroluje kolejność układania elementów w osi Z (który jest na wierzchu);Rozmiar elementu;Opacity;B
+Co to jest pseudo-klasa CSS?;Typ selektora;Selektor stosowany w określonym stanie elementu np. :hover :focus :nth-child;Właściwość CSS;Animacja CSS;B
+Co robi HTML tag picture?;Wstawia dźwięk;Umożliwia dostarczenie różnych obrazów zależnie od warunków (responsive images);Tworzy galerię;Wstawia wideo;B
+Co to jest lazy loading?;Szybkie ładowanie;Opóźnione ładowanie zasobów do momentu gdy są potrzebne (np. obrazy poza widokiem);Preładowanie;Ładowanie w tle;B
+Co to jest ARIA w HTML?;Język znaczników;Accessible Rich Internet Applications — atrybuty HTML poprawiające dostępność dla czytników ekranu;Framework JS;Standard CSS;B
+Co robi CSS transform:rotate(45deg)?;Pochyla tekst;Obraca element o 45 stopni;Skaluje element;Przesuwa element;B
+Co to jest CSS custom properties (variables)?;Funkcje CSS;Zmienne CSS definiowane jako --nazwa i używane przez var();Prefiksy;Media queries;B
+Co to jest BEM w CSS?;Framework;Block Element Modifier — metodologia nazewnictwa klas CSS;Biblioteka;Preprocesor;B
+Co robi HTML attrybut defer przy tagu script?;Blokuje parsowanie HTML;Skrypt jest pobierany asynchronicznie i wykonywany po sparsowaniu HTML;Wykonuje skrypt natychmiast;Usuwa skrypt;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 12 — PROGRAMOWANIE OGÓLNE
+# ════════════════════════════════════════════════════════
+Co to jest algorytm?;Język programowania;Skończony zestaw kroków do rozwiązania problemu;Typ danych;Struktura danych;B
+Co to jest rekurencja?;Pętla while;Funkcja wywołująca samą siebie;Typ tablicy;Metoda sortowania;B
+Co to jest złożoność czasowa O(n²)?;Algorytm stały;Czas wykonania rośnie kwadratowo wraz z rozmiarem danych wejściowych;Algorytm liniowy;Algorytm logarytmiczny;B
+Co to jest stos (stack)?;Kolejka FIFO;Struktura danych LIFO — ostatni wchodzi pierwszy wychodzi;Tablica dynamiczna;Graf;B
+Co to jest kolejka (queue)?;Struktura LIFO;Struktura danych FIFO — pierwszy wchodzi pierwszy wychodzi;Drzewo;Hash mapa;B
+Co to jest API?;Język programowania;Application Programming Interface — interfejs umożliwiający komunikację między aplikacjami;Typ bazy danych;Protokół sieciowy;B
+Co to jest REST API?;Typ bazy;Architektura API oparta na HTTP — bezstanowa z zasobami identyfikowanymi przez URL;Protokół szyfrowania;Framework;B
+Co to jest JSON?;Język programowania;JavaScript Object Notation — tekstowy format wymiany danych;Baza danych;Protokół sieciowy;B
+Co to jest Git?;IDE;Rozproszony system kontroli wersji;Język programowania;Serwer aplikacji;B
+Co robi 'git commit'?;Pobiera zmiany ze zdalnego repozytorium;Zapisuje zestaw zmian w lokalnym repozytorium;Wysyła zmiany na serwer;Scala gałęzie;B
+Co to jest Docker?;Wirtualna maszyna;Platforma konteneryzacji aplikacji — izoluje aplikacje z ich zależnościami;Język programowania;System operacyjny;B
+Co to jest CI/CD?;Typ bazy danych;Continuous Integration/Continuous Deployment — automatyzacja budowania testowania i wdrażania kodu;Framework CSS;Protokół sieciowy;B
+Co to jest garbage collection?;Usuwanie plików;Automatyczne zarządzanie pamięcią — zwalnianie pamięci nieużywanych obiektów;Typ kompilacji;Debugowanie;B
+Co to jest polimorfizm w OOP?;Dziedziczenie;Możliwość użycia obiektu wielu typów poprzez wspólny interfejs;Enkapsulacja;Abstrakcja;B
+Co to jest dziedziczenie w OOP?;Polimorfizm;Mechanizm tworzenia nowej klasy na podstawie istniejącej — przejmuje jej właściwości;Enkapsulacja;Interfejs;B
