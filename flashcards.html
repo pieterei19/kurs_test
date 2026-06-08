@@ -128,6 +128,7 @@ body { display:flex; justify-content:center; }
 .nav-btn:active { background:var(--bg3); }
 .nav-btn.next { background:var(--purple); border-color:var(--purple); color:#fff; }
 .nav-btn.next:active { background:#6d28d9; }
+.nav-btn.shuffle { flex:0 0 auto; padding-left:18px; padding-right:18px; font-size:clamp(16px,2vw,20px); }
 .nav-btn:disabled { opacity:0.3; cursor:default; }
 
 /* state */
@@ -162,7 +163,7 @@ body { display:flex; justify-content:center; }
   <div class="state-center" id="errbox" style="display:none"><div style="font-size:32px">⚠️</div><div id="errmsg"></div></div>
 
   <div id="main" style="display:none; flex-direction:column; flex:1; min-height:0">
-    <div class="card-wrap" id="card-wrap" onclick="flipCard()">
+    <div class="card-wrap" id="card-wrap">
       <div class="card-3d" id="card3d">
         <div class="card-face card-front">
           <div class="card-hint">dotknij żeby odwrócić</div>
@@ -178,6 +179,7 @@ body { display:flex; justify-content:center; }
     <div class="swipe-hint" id="swipe-hint">← poprzednia &nbsp;·&nbsp; następna →</div>
     <div class="nav-row">
       <button class="nav-btn" id="btn-prev" onclick="prevCard()">← Poprzednia</button>
+      <button class="nav-btn shuffle" id="btn-shuffle" onclick="shuffleCards()" title="Przetasuj">🔀</button>
       <button class="nav-btn next" id="btn-next" onclick="nextCard()">Następna →</button>
     </div>
   </div>
@@ -295,19 +297,25 @@ function nextCard(){
 function prevCard(){ if(idx>0){idx--;showCard();updateUI();} }
 
 function restart(){ idx=0; document.getElementById('done').classList.remove('active'); document.getElementById('main').style.display='flex'; showCard(); updateUI(); }
+function shuffleCards(){ filtered=shuf([...filtered]); idx=0; showCard(); updateUI(); }
 
-// Swipe support
-let touchStartX=0;
-document.getElementById('card-wrap').addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
-document.getElementById('card-wrap').addEventListener('touchend',e=>{
+// Swipe + click support
+let touchStartX=0, lastTouchEnd=0;
+const wrap=document.getElementById('card-wrap');
+wrap.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
+wrap.addEventListener('touchend',e=>{
+  lastTouchEnd=Date.now();
   const dx=e.changedTouches[0].clientX-touchStartX;
   if(Math.abs(dx)>60){if(dx<0)nextCard();else prevCard();}
   else flipCard();
 },{passive:true});
-// Remove click handler conflict with touch
-document.getElementById('card-wrap').onclick=null;
-document.getElementById('card-wrap').addEventListener('click',e=>{
-  if(!e._fromTouch)flipCard();
+wrap.addEventListener('click',()=>{if(Date.now()-lastTouchEnd>300)flipCard();});
+
+// Keyboard navigation
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') nextCard();
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp') prevCard();
+  else if(e.key===' '||e.key==='Enter'){e.preventDefault();flipCard();}
 });
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').then(r=>{if(r.waiting)r.waiting.postMessage({type:'SKIP_WAITING'});}).catch(()=>{});}

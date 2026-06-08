@@ -1,4 +1,4 @@
-const CACHE = 'nullroute-v5';
+const CACHE = 'nullroute-v6';
 
 // Pliki KRYTYCZNE - apka nie działa bez nich
 const CORE = [

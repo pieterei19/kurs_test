@@ -139,6 +139,7 @@ body {
 }
 
 .footer { margin-top:clamp(20px,3vh,36px); font-size:clamp(10px,1.3vw,12px); color:var(--muted); text-align:center; opacity:0.4; }
+.card-stats { font-size:clamp(10px,1.2vw,11px); color:var(--muted); opacity:0.75; min-height:0; }
 </style>
 </head>
 <body>
@@ -187,6 +188,7 @@ body {
         </div>
       </div>
       <div class="exam-desc">RouterOS, firewall, routing, wireless, VPN, QoS. Próg zaliczenia: 75%.</div>
+      <div class="card-stats" id="stats-mtcna"></div>
       <div class="mode-row">
         <a class="mode-btn" href="quiz.html?exam=mtcna&mode=endless">∞ Losuj</a>
         <a class="mode-btn" href="quiz.html?exam=mtcna&mode=test">📋 Test 30</a>
@@ -202,6 +204,7 @@ body {
         </div>
       </div>
       <div class="exam-desc">Pytania z ogólnej wiedzy IT — sieci komputerowe, Linux, HTML/CSS, SQL, bezpieczeństwo. Próg zaliczenia: 75%.</div>
+      <div class="card-stats" id="stats-inf03"></div>
       <div class="mode-row">
         <a class="mode-btn" href="quiz.html?exam=inf03&mode=endless">∞ Losuj</a>
         <a class="mode-btn" href="quiz.html?exam=inf03&mode=test">📋 Test 30</a>
@@ -231,6 +234,7 @@ body {
         </div>
       </div>
       <div class="exam-desc">122 pytania o protokoły sieciowe — numery portów, co robi dany protokół, na której warstwie działa.</div>
+      <div class="card-stats" id="stats-protokoly"></div>
       <div class="mode-row">
         <a class="mode-btn" href="quiz.html?exam=protokoly&mode=endless" style="border-color:#34d399; color:#34d399;">∞ Losuj</a>
       </div>
@@ -288,13 +292,22 @@ if ('serviceWorker' in navigator) {
 }
 
 (function(){
-  const cur  = parseInt(localStorage.getItem('mtcna_streak') || '0');
-  const best = parseInt(localStorage.getItem('mtcna_streak_best') || '0');
+  const exams=['mtcna','inf03','protokoly'];
+  const cur  = Math.max(0,...exams.map(e=>parseInt(localStorage.getItem(e+'_streak')||'0')));
+  const best = Math.max(0,...exams.map(e=>parseInt(localStorage.getItem(e+'_streak_best')||'0')));
   if (cur > 0 || best > 0) {
     document.getElementById('streak-cur').textContent  = cur;
     document.getElementById('streak-best').textContent = best;
     document.getElementById('streak-panel').classList.add('visible');
   }
+  exams.forEach(exam=>{
+    const s=JSON.parse(localStorage.getItem(exam+'_stats')||'null');
+    const el=document.getElementById('stats-'+exam);
+    if(s&&s.total>0&&el){
+      const pct=Math.round(s.correct/s.total*100);
+      el.textContent=s.total+' pytań · '+pct+'% poprawnych';
+    }
+  });
 })();
 
 let deferredPrompt = null;
