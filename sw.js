@@ -1,4 +1,4 @@
-const CACHE = 'nullroute-v2';
+const CACHE = 'nullroute-v3';
 
 const FILES = [
   './',
@@ -8,9 +8,9 @@ const FILES = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  './questions/mtcna.txt',
-  './questions/inf03.txt',
-  './questions/flashcards.txt'
+  './mtcna.txt',
+  './inf03.txt',
+  './flashcards.txt'
 ];
 
 self.addEventListener('install', e => {
@@ -33,11 +33,10 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
-
   e.respondWith(
     caches.match(e.request).then(cached => {
-      // Network-first dla plików z pytaniami
-      if (e.request.url.includes('/questions/')) {
+      // Network-first dla plików z pytaniami/fiszkami
+      if (e.request.url.match(/\.(txt)$/)) {
         return fetch(e.request)
           .then(res => {
             if (res && res.status === 200) {

@@ -264,7 +264,7 @@ function breakStreak(){
 // ── Load ──────────────────────────────────────────────────────────────────────
 async function init(){
   try{
-    const r=await fetch('./questions/'+EXAM+'.txt');
+    const r=await fetch('./'+EXAM+'.txt');
     if(!r.ok) throw new Error('Błąd HTTP '+r.status+' — brak pliku questions/'+EXAM+'.txt');
     allQ=parse(await r.text());
     if(!allQ.length) throw new Error('Plik pytań jest pusty lub ma nieprawidłowy format');

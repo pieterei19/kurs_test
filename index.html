@@ -227,7 +227,18 @@ body {
   <div class="footer">nullroute · questions/*.txt</div>
 </div>
 <script>
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+// Wyczyść stary cache przy każdym uruchomieniu (bezpieczne)
+async function clearOldCaches() {
+  if (!('caches' in window)) return;
+  const keys = await caches.keys();
+  const old  = keys.filter(k => k !== 'nullroute-v3');
+  await Promise.all(old.map(k => caches.delete(k)));
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  clearOldCaches();
+}
 
 (function(){
   const cur  = parseInt(localStorage.getItem('mtcna_streak') || '0');
