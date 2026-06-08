@@ -155,3 +155,212 @@ Który submenu RouterOS służy do konfiguracji DNS?;/ip dns;/ip settings;/syste
 Jakie polecenie flushuje cache DNS w RouterOS?;/ip dns flush;/ip dns cache flush;/system dns reset;/ip dns clear;B
 Co to jest MTU?;Maximum Transfer Unit;Maximum Transmission Unit — maksymalny rozmiar ramki;Minimum Tunnel Unit;Medium Transfer Unit;B
 Jaka jest domyślna wartość MTU dla Ethernet?;576;1024;1500;9000;C
+
+# ════════════════════════════════════════════════════════
+# BLOK 12 — PYTANIA Z EGZAMINÓW (ZESTAW 2)
+# ════════════════════════════════════════════════════════
+
+# Zdjęcie 1
+Jakie opcje powinny być używane gdy chcesz zablokować dostęp z jednego konkretnego adresu do interfejsu webowego routera?;Filtrowanie łańcucha wejściowego zapory sieciowej;Filtrowanie łańcucha zapory sieciowej do przodu;Usługa WWW z IP Services;Ustawienia grupowe dla użytkowników systemu;A
+Jakie funkcje są usuwane po odinstalowaniu pakietu advanced-tools?;Sąsiedzi;Test przepustowości;Ping;Skanner IP;Wsparcie LCD;Netwatch;A,C,F
+
+# Zdjęcie 2
+Ile różnych priorytetów można wybrać dla kolejek w MikroTik RouterOS?;1;0;8;16;C
+Dwaj gospodarze A i B są połączeni z siecią LAN typu broadcast. Wybierz wszystkie odpowiedzi które pokazują pary adresów IP i maskę która pozwoli na nawiązanie połączeń IP między dwoma hostami;adres/maska która pozwoli na nawiązanie połączeń IP między dwoma hostami;10.1.2.192/24;A: 10.2.1.0/23 i B: 10.2.0.1/22;A: 10.2.2.1/23 i B: 10.2.0.1/22;10.1.2.66/25;B,C
+
+# Zdjęcie 3
+Masz router z konfiguracją: Publiczny IP 202.168.125.45/24 Brama 202.168.7.125.1 DNS 248.115.148.136 i 137 Lokalny IP 192.168.2.1/24. Jaka konfiguracja komputera klienckiego umożliwi dostęp do internetu?;192.168.1.223/24;IP:192.168.2.253/24 brama:202.168.0.1;IP:192.168.2.115/24 brama:192.168.2.1;192.168.0.1/24;C
+Musisz skonfigurować połączenie E1/T1 z ustawionym PPP. Jaki poziom licencji jest potrzebny?;Nie można tego zrobić w RouterOS;Poziom 5;Poziom 4;A
+Jakie są niezbędne sekcje w /queue simple do ustawienia limitu przepustowości?;Maksymalny limit;Adres docelowy;Adres docelowy i maksymalny limit;Adres docelowy;C
+
+# Zdjęcie 4
+Zaznacz możliwe stany połączeń w tabeli śledzenia połączeń RouterOS;Ustanowiony;Syn;Nowe;Nieprawidłowy;Zamknięte;Powiązane;A,C,D,F
+Które z poniższych działań są dostępne dla '/ip firewall mangle' (wybierz wszystkie ważne)?;Zmień MSS;Oznacz pakiet;Akceptuj;Skocz;Oznacz połączenie;Zrzuć;A,B,C,D,E
+
+# Zdjęcie 5
+Pula adresów IP może zawierać adresy z więcej niż jednej podsieci;Prawda;Fałsz;A
+
+# Zdjęcie 6
+WPA 2 klucz wspólny PSK jest włączony na punkcie dostępu — wszyscy klienci muszą używać tego samego PSK. Tylko Wirtualny AP może być używany do umożliwienia klientom połączenia się z innym PSK;Prawda;Fałsz;B
+Klient DHCP MikroTik RouterOS może otrzymywać następujące opcje;Limit bajtów;Limit Uptime;Adres IP i podsieć;Limit szybkości;Bramę IP;C,E
+Funkcja hotspot może być używana tylko na interfejsach ethernetowych — musisz użyć osobnego wskaźnika dostępu jeśli chcesz użyć tej funkcji z bezprzewodowym;Tak;Nie;B
+Jaki typ kolejki jest odpowiedni w zatłoczonej sieci ale nie sprawdza się w przypadku UDP?;BFIFO;SCQ;PFIFO;RED (CZERWONY);PCQ;D
+
+# Zdjęcie 7
+Router A i B działają jako serwery PPPoE w różnych domenach rozgłoszeniowych. Czy możliwe jest skonfigurowanie Routera A tak aby korzystał z kont /ppp secret z Routera B do uwierzytelniania klientów PPPoE?;Tak;Nie;B
+Sekrety PPP są używane do;Użytkowników routera;Klientów IPSec;Klientów PPP;Klientów PPPoE;Klientów PPTP;Klientów L2TP;C,D,E,F
+
+# Zdjęcie 8
+Pierwsze dwie zasady w łańcuchu forward tabeli filtrów to: /ip firewall filter add chain=forward connection-state=established action=accept oraz /ip firewall filter add chain=forward connection-state=invalid action=drop — pakiety powiązane (related) nie są filtrowane przez powyższe zasady;Prawda;Fałsz;A
+Jakie są prawdziwe fakty na temat plików kopii zapasowej /system backup?;Może być edytowany;W pliku backup znajduje się nazwa użytkownika i hasło z /user;Zawiera całą konfigurację routera;Uwzględnia pliki zapisane w /files;C,D
+Do funkcji statycznego routingu oprócz pakietu systemowego RouterOS będziesz potrzebować następujący pakiet oprogramowania;Żaden;DHCP;Routing;Narzędzia zaawansowane;A
+
+# ════════════════════════════════════════════════════════
+# BLOK 13 — PYTANIA Z SETÓW 1-5 I ZDJĘĆ
+# ════════════════════════════════════════════════════════
+
+# ── ADRESACJA / SIECI ──────────────────────────────────
+Urządzenie ma adres IPv4 192.168.100.70 z maską 255.255.255.252. Jaki będzie prawidłowy adres IPv4 dla RouterBOARD 750 aby nawiązać połączenie?;192.168.100.70/255.255.255.252;192.168.100.69/255.255.255.252;192.168.100.71/255.255.255.252;192.168.100.68/255.255.255.252;C
+Komunikacja warstwy L3 między 2 hostami w RouterOS jest możliwa przy użyciu podsieci;/31;/29;/32;/30;D
+Które komputery mogą komunikować się bezpośrednio (bez routerów)?;192.168.17.15/29 i 192.168.17.20/28;192.168.0.5/26 i 192.168.0.100;10.5.5.1/24 i 10.5.5.100/25;10.10.0.17/22 i 10.10.1.30/23;D
+Ile adresów IP można znaleźć w nagłówku pakietu IP?;1;3;2;4;C
+Co to jest adres sieci (network address)?;Pierwszy używalny adres podsieci;Ostatni adres podsieci;Pierwszy adres podsieci;C
+Jak nazywa się adres zakodowany sprzętowo na interfejsie sieciowym?;Adres IP;Adres MAC;Adres FQDN;Adres interfejsu;B
+Czy ARP jest używany w protokole IPv6?;Fałsz;Prawda;A
+Które protokoły i porty są używane przez SNMP?;TCP 162;UDP 162;UDP 161;TCP 25;TCP 123;TCP 161;B,C
+Jeśli ARP=reply-only jest skonfigurowany na interfejsie co będzie robił ten interfejs?;Akceptuje wszystkie kombinacje IP/MAC z /ip arp jako wpisy statyczne;Akceptuje wszystkie adresy IP z /ip arp jako wpisy statyczne;Dodaje nowe adresy MAC do /ip arp;Akceptuje wszystkie adresy MAC z /ip arp jako wpisy statyczne;Dodaje nowe adresy IP do /ip arp;A
+Które z poniższych są publicznymi adresami IP?;192.168.0.1;172.168.254.2;172.28.73.21;10.110.50.37;11.63.72.21;B,E
+Które z poniższych adresów IP są publicznie routowalne?;127.34.155.3;192.168.1.4;172.16.13.23;11.3.10.4;D
+Jeśli ARP=reply-only jest włączony na interfejsie routera czy router może dodawać dynamiczne wpisy ARP dla tego interfejsu?;Fałsz;Prawda;A
+Ile użytecznych adresów IP jest w podsieci 20-bitowej?;2046;2047;4094;4096;2048;C
+Który z poniższych NIE jest prawidłowym adresem MAC?;13:16:86:53:89:43;80:GF:AA:67:13:5D;88:0C:00:99:5F:EF;EA:BA:AA:EE:FF:CB;95:B5:DD:EE:78:8A;B
+Warstwa MAC w modelu OSI jest znana jako;Warstwa 3;Warstwa 7;Warstwa 1;Warstwa 2;Warstwa 6;D
+Ile warstw ma model OSI?;7;6;5;12;9;A
+Komputer PC ma adres IP 192.168.1.2 z ustawionym statycznym ARP na bramie. Gdy karta sieciowa padła i wymieniono ją na nową z tym samym IP co należy jeszcze zrobić?;Zaktualizować stary wpis statyczny ARP na bramie dla nowej karty;Nic — zadziała jak poprzednio;Zmienić adres MAC nowej karty na adres MAC starej karty;Dodać inny adres IP dla dostępu do internetu;A,C
+Jaka jest domyślna wartość TTL dla pakietu IP w RouterOS?;60;30;1;64;D
+
+# ── FIREWALL / NAT ─────────────────────────────────────
+Jakie działanie określisz dla reguły DST-NAT aby wszystkie zapytania DNS z twojej sieci były rozwiązywane na twoim routerze bez względu na konfigurację klientów?;Przekierowanie (redirect);NAT dst;Maskarada;Nie możesz użyć DST-NAT do tego;A
+Akcja=redirect pozwala ci na;Włączenie lokalnej usługi;Przekazanie DNS do adresu IP innego urządzenia;Przezroczystą pamięć podręczną DNS;Przezroczysty serwer proxy HTTP;C,D
+Jakie litery pojawiają się obok trasy która jest automatycznie tworzona przez RouterOS gdy użytkownik doda prawidłowy adres do aktywnego interfejsu?;I;D;A;S;C;C,E
+Możliwe działania filtra zapory IP to;Dodaj do listy adresów;Plandeka;Odbicie;Akceptuj;Dziennik;Klejący się środek;A,D,E,F
+Jeśli nowe wcześniej nieznane połączenie trafia do routera jaki stan połączenia zostanie do niego przypisany?;Brak stanu połączenia;new (nowe);unknown (nieznane);invalid (nieprawidłowe);established (ustanowione);B
+
+# ── WIRELESS ───────────────────────────────────────────
+Dlaczego warto ustawić nazwę radia (Radio Name) na interfejsach radiowych?;Aby zidentyfikować stację na liście podłączonych klientów;Aby zidentyfikować stację na liście dostępu (Access List);Aby zidentyfikować stację w odkrywaniu sąsiedztwa (Neighbor Discovery);C
+Do czego służy /interface wireless access-list?;Zawiera ustawienia profili zabezpieczeń;Autoryzuje użytkowników Hotspot;Zarządza listą adresów MAC klientów aby zezwolić lub odmówić połączeń z AP;Wyświetla listę adresów MAC klientów które są już zarejestrowane w AP;C
+Czy NStreme działa tylko na szerokości kanału 40 MHz?;Prawda;Fałsz;B
+Unikanie flappingu wskaźników można osiągnąć poprzez;Wybierz większe kanały 40MHz zamiast 20MHz;Zmiana ap-bridge na bridge;Ustal podstawowe stawki na tylko jedną prędkość danych np. 24Mbps;Zmniejsz obsługiwane stawki;C,D
+Które z poniższych są możliwymi rozwiązaniami do połączenia dwóch sieci przez łącze bezprzewodowe?;Oba urządzenia w trybie AP z włączonym WDS;Jedno urządzenie AP drugie station-pseudobridge-clone;Jedno urządzenie AP drugie station-pseudobridge;Jedno urządzenie AP drugie station;A,B,C
+Mamy dwie karty radiowe w łączu punkt-punkt. Karta 1: mode=ap-bridge ssid=office frequency=2447 security=wpa. Karta 2: mode=station ssid=office frequency=2412 security=wpa2. Czy Karta 2 połączy się z Kartą 1?;Tak jeśli Nstreme jest włączony lub wyłączony na obu;Tak gdy ustawienia profilu bezpieczeństwa są zgodne i Nstreme włączony lub wyłączony na obu;Nie z powodu różnych częstotliwości;Nie z powodu różnych profili bezpieczeństwa;D
+Używając wireless connect-list można priorytetyzować połączenie z jednym AP nad innym przez zmianę kolejności wpisów;Fałsz;Prawda;B
+
+# ── SYSTEM / KONFIGURACJA ──────────────────────────────
+W przypadku utraty hasła do logowania routera konieczna jest ponowna instalacja RouterOS lub użycie sprzętowej funkcji resetującej;Prawda;Fałsz;A
+Jaka jest domyślna prędkość baud obecnie produkowanych RouterBOARDów?;11520;3128;8291;115200;D
+Która wersja oprogramowania może być zainstalowana na następujących typach RouterBoard?;Routeros-mipsle-x.xx.npk na RB133;Routeros-mipsbe-x.xx.npk na RB433;Routeros-powerpc-x.xx.npk na RB333;Routeros-x86-x.xx.npk na RB1100;Routeros-mipsbe-x.xx.npk na RB133;A,B
+Jaki jest domyślny protokół i port IP-Winbox?;UDP 5678;TCP 8291;TCP 22;TCP 8080;B
+Nie można wyłączyć użytkownika admin w menu /user;Prawda;Fałsz;B
+Czy po zaimportowaniu pliku rsc (.rsc exported config) konieczny jest restart RouterBOARD aby aktywować nową konfigurację?;Prawda;Fałsz;B
+
+# ── KOLEJKI / QoS ─────────────────────────────────────
+Chcesz użyć PCQ z maksymalnym pobieraniem i wysyłaniem 256k dla każdego klienta. Wybierz poprawne wartości argumentów;kind=pcq pcq-limit=1256000 pcq-classifier=dst-address;kind=pcq pcq-limit=256000 pcq-classifier=dst-address;kind=pcq pcq-limit=5000000 pcq-classifier=src-address;kind=pcq pcq-limit=256000 pcq-classifier=src-address;kind=pcq pcq-limit=5000000 pcq-classifier=dst-address;B
+Co może być użyte jako target-address w simple queue?;Adres klienta;Adres MAC klienta;Adres serwera;Nazwa listy adresów;A,C,D
+Zaznacz typy kolejek dostępne w RouterOS;SFQ – Stochastic Fairness Queuing;DRR – Deficit Round Robin;FIFO – First In First Out;LIFO – Last In First Out;PCQ – Per Connection Queuing;RED – Random Early Detect;A,C,E,F
+
+# ── CONNECTION TRACKING ────────────────────────────────
+Co jest prawdą dla connection tracking w RouterOS?;Włączenie connection tracking zmniejsza użycie CPU;Connection tracking musi być włączony aby firewall działał efektywnie;Connection tracking musi być włączony dla sieci z NAT;Wyłącz connection tracking aby mangle działał;B,C
+
+# ── HOTSPOT ────────────────────────────────────────────
+Co konfiguruje polecenie /ip hotspot setup?;/ip service;/ip hotspot user;/ip hotspot walled-garden;/ip dhcp-server;/queue tree;B,C,D
+
+# ── EKSPORT / BACKUP ───────────────────────────────────
+Gdy wykonujesz backup routera poleceniem Export co się dzieje?;Nazwy użytkowników i hasła Winbox są zapisywane;Plik eksportu można edytować standardowym edytorem tekstu po utworzeniu;Zostaniesz poproszony o podanie nazwy pliku eksportu;B
+
+# ════════════════════════════════════════════════════════
+# BLOK 14 — SETY 5-15 (nowe pytania)
+# ════════════════════════════════════════════════════════
+
+# ── ROUTING ────────────────────────────────────────────
+RouterOS wysyła logi do zewnętrznego serwera syslog. Który protokół i port jest używany domyślnie?;UDP 514;UDP 21;UDP 113;TCP 110;A
+Która trasa zostanie użyta do dotarcia do hosta 192.168.1.55? (dst=192.168.1.0/24 gw=1.1.1.1, dst=192.168.1.0/25 gw=2.2.2.2, dst=192.168.0.0/16 gw=3.3.3.3);Trasa przez bramę 1.1.1.1;Trasa przez bramę 3.3.3.3;Trasa przez bramę 2.2.2.2;C
+Która trasa zostanie użyta dla pakietu z adresem docelowym 10.1.5.126? (dst=10.0.0.0/24 gw=10.1.5.126, dst=10.1.5.0/24 gw=10.1.1.1, dst=10.1.0.0/24 gw=25.1.1.1, dst=10.1.5.0/25 gw=10.1.1.2);25.1.1.1;10.1.1.1;10.1.1.2;10.1.5.126;C
+Jaka jest domyślna wartość target-scope dla trasy statycznej?;30;1;10;255;A
+Czy dodając trasę statyczną musisz zawsze podać zarówno bramę (gateway) jak i interfejs?;Fałsz;Prawda;A
+Jakie litery statusu tras są możliwe w RouterOS?;S = Static;C = Connected;D = Drop;A = Active;A,B,D
+Co to jest pętla routingu (routing loop)?;Sytuacja gdy pakiet jest przekierowywany przez tę samą sekwencję routerów aż do wygaśnięcia TTL;Sytuacja gdy pakiet nie dociera do celu;Sytuacja gdy TTL pakietu wygasa;Sytuacja gdy pakiet jest przekierowywany przez ten sam router dwa razy;A
+Czy możliwe jest użycie OSPF i RIP jednocześnie w RouterOS?;Tak;Nie;A
+ID obszaru OSPF nie musi być unikalne w obrębie AS;Prawda;Fałsz;B
+
+# ── FIREWALL ───────────────────────────────────────────
+Konfiguracja firewalla: 1) chain=input icmp action=jump jump-target=ICMP 2) chain=input icmp action=log ICMP-DENY 3) chain=input icmp action=drop 4) chain=ICMP icmp action=log JUMP-ICMP-DENY 5) chain=ICMP icmp action=drop. Klient wysyła ping do routera. Co zrobi router?;Router odrzuci pakiet w regule drop łańcucha ICMP (5);Router zaloguje z prefiksem ICMP-DENY;Router odrzuci pakiet w regule drop chain input (3);Router zaloguje z prefiksem JUMP-ICMP-DENY;A
+Komenda /ip firewall nat add chain=dstnat in-interface=ether1 protocol=tcp dst-port=3389 action=dst-nat to-address=192.168.1.2 to-ports=81 — co robi?;Dodaje adres IP 192.168.1.2 do interfejsu ether1;Przekierowuje ruch TCP przychodzący przez ether1 port 3389 na port 81 hosta 192.168.1.2;Przekierowuje ruch TCP z 192.168.1.2 na port 81 interfejsu ether1;Przekierowuje ruch TCP przez ether1 port 81 na port 3389 hosta 192.168.1.2;B
+Możesz pingować bramę ale nie możesz przeglądać internetu. Skype działa bez problemów. Jaka jest najbardziej prawdopodobna przyczyna?;DNS nie jest dostępny;Komputer nie dostał adresu IP;Karta sieciowa lub kabel nie działa;Reguła masquerade nie jest zastosowana;A
+Co oznacza matcher connection-state=established?;Pakiet zaczyna nowe połączenie TCP;Pakiet nie odpowiada żadnemu znanemu połączeniu;Pakiet należy do istniejącego połączenia np. odpowiedź lub pakiet już odpowiedzianego połączenia;Pakiet jest powiązany z ale nie jest częścią istniejącego połączenia;C
+Czy action=masquerade jest dozwolona w chain=dstnat?;Nie;Tak;Tak ale działa tylko dla połączeń przychodzących;Tak ale tylko jeśli dst-addr jest podany;A
+Który łańcuch firewalla użyć do filtrowania pakietów ICMP z samego routera?;input;forward;postrouting;output;D
+Który łańcuch firewalla użyć do filtrowania ruchu HTTP klientów przechodzącego przez router?;prerouting;output;input;forward;D
+Który łańcuch firewalla użyć aby zablokować ruch MSN klienta na routerze?;output;static;input;forward;D
+Firewall NAT przetwarza tylko pierwszy pakiet każdego połączenia;Prawda;Fałsz;A
+Destination NAT ma miejsce;Po ip firewall filter chain forward;Przed ip firewall filter chain forward;Przed decyzją routingu;Po decyzji routingu;C
+Znaczniki połączeń (connection marks) są przechowywane w tablicy connection tracking;Tak;Nie;A
+Dwie reguły mangle definiujące różne oznaczenia dla tego samego ruchu spowodują że pakiet będzie miał oba oznaczenia;Tak;Nie;B
+Czy możliwe jest że ten sam adres IP jest umieszczony w wielu listach adresów i jednocześnie używany przez te listy?;Tak;Nie;A
+Action=redirect dotyczy;Reguł SRC-NAT;Reguł DST-NAT;Reguł Firewall Filter;Reguł Route;B
+Możliwe działania filtra zapory IP to (zaznacz poprawne);tarpit;tarp;bounce;add-to-address-list;log;accept;A,D,E,F
+Co robi działanie Redirect w firewallu (zaznacz wszystkie prawdziwe)?;Przekierowuje pakiet na podany adres IP;Przekierowuje pakiet na podany port hosta w sieci;Przekierowuje pakiet na podany port na routerze;Przekierowuje pakiet do routera;C,D
+Do zablokowania nieznanego adresu od dostępu do webowego interfejsu routera należy użyć;Firewall Filter Chain Forward;Firewall Filter Chain Input;Ustawienia grupowe dla użytkowników systemu;Usługa WWW z IP Services;B,D
+Aby ukryć sieć prywatną przy komunikacji ze światem zewnętrznym prawidłową akcją NAT jest;tarpit;masquerade;passthrough;allow;B
+Jest serwer HTTP 10.0.0.1 w sieci prywatnej. Zrobiłeś DST-NAT z 80.232.50.100 na ten serwer. Chcesz zablokować 159.148.20.30. Jak zidentyfikować komunikację w regule firewalla?;src=159.148.20.30 dst=80.232.50.100;src=159.148.20.30 dst=10.0.0.1;src=80.232.50.100 dst=10.0.0.1;src=80.232.50.100 dst=159.148.20.30;B
+
+# ── NAT / MASQUERADE ───────────────────────────────────
+Do użycia masquerade potrzebujesz;action=accept out-interface chain=src-nat;action=masquerade out-interface chain=src-nat;action=masquerade in-interface chain=src-nat;action=masquerade out-interface chain=dst-nat;B
+Aby maskować sieć 192.168.0.0/24 skonfigurowaną na interfejsie Ether1 należy dodać regułę;/ip firewall nat add chain=dstnat in-interface=ether1 src-address=192.168.0.0/24 action=masquerade;/ip firewall nat add chain=srcnat src-address=192.168.0.0/24 action=masquerade;/ip firewall nat add chain=dstnat out-interface=ether1 src-address=192.168.0.0/24 action=masquerade;/ip firewall nat add chain=srcnat out-interface=ether1 src-address=192.168.0.0/24 action=masquerade;D
+Aby udostępnić serwer WWW z LAN w internecie tylko na porcie HTTP co musisz zrobić?;Trasa między routerem NAT a serwerem musi istnieć;LAN adres serwera powinien być routowalny w internecie;W ip firewall NAT powinna być reguła dst-nat między publicznym IP routera a prywatnym IP serwera;Connection Tracking musi być włączony na routerze NAT;Publiczny adres IP serwera musi być zainstalowany na routerze NAT;A,C,D
+Czy do NAT konieczne jest włączone connection tracking?;Prawda;Fałsz;A
+
+# ── WIRELESS ───────────────────────────────────────────
+Jakie są poprawne wartości scan-list w konfiguracji interface wireless?;5560 5620-5700;5640~5680;default 5560 5600 5660-5700;5540 5560 5620+5700;A,C
+Jakie formaty są dozwolone dla wireless scan-list?;5500 5700;5500-5700;5500 5700;5500 - 5700;5500/5700;B,C
+Które z poniższych zapobiega połączeniu nieznanych klientów z AP (najlepsza odpowiedź)?;Zaznacz 'Do not permit unknown client' w konfiguracji wireless;Odznacz Default Authenticate i dodaj MAC każdego klienta do access-list z enable authenticate;Dodaj MAC każdego klienta do access-list — tylko ten krok jest potrzebny;Odznacz Default Authenticate i dodaj MAC każdego klienta do connect-list;Skonfiguruj serwer RADIUS;B
+Czy klient może połączyć się z AP jeśli oboje używają różnych ustawień regulacji krajowych ale wybrana częstotliwość jest dozwolona w obu krajach?;Prawda;Fałsz;A
+Chcesz ograniczyć przepustowość dla użytkowników HotSpot. Czy HotSpot może tworzyć dynamiczne kolejki przy logowaniu?;Tak;Nie;A
+Jesteś na access point i uruchamiasz skanowanie sieci bezprzewodowych. Co się stanie?;Wszyscy podłączeni klienci się rozłączą;Zobaczysz podłączonych klientów;Zobaczysz dostępne częstotliwości;A
+Jakie tryby bezprzewodowe można użyć w konfiguracji WDS?;bridge;nstreme-dual-slave;station-wds;ap-bridge;station;B,C,D
+Migracja z 802.11a na Nv2 na 5GHz. Jakie ustawienie wireless-protocol włączyć na kliencie aby auto-wykrył protokół AP i działał z 802.11a lub Nv2?;Nv2;nv2-nstreme-802.11;any;unspecified;B,C
+NStreme działa tylko na szerokości kanału 40 MHz;Prawda;Fałsz;B
+Klient stacji (mode=station) będzie działał prawidłowo jeśli jest zbridgowany z ethernetem;Prawda;Fałsz;B
+Wireless interfejs ma SSID=WLAN1 mode=ap-bridge oraz VirtualAP z SSID=VAP1. Czy można używać protokołu nstreme?;Tak ale Nstreme będzie używany dla wszystkich SSID przypisanych do fizycznego interfejsu;Tak ale Nstreme można użyć tylko dla SSID=WLAN1;Nie Nstreme nie może być użyty na interfejsie wireless jeśli jest VirtualAP;Tak ale Nstreme można użyć tylko dla SSID=VAP1;A
+Które ustawienia są konieczne do użycia HotSpot Universal Client?;arp=enabled na interfejsie HotSpot;Konfiguracja /ip dhcp-server;Konfiguracja address-pool w /ip hotspot i /ip hotspot user profile;Reguły /ip firewall mangle;A,C
+
+# ── HOTSPOT / PPP ──────────────────────────────────────
+Jak skonfigurować wiele loginów z jedną nazwą użytkownika na serwerze HotSpot?;Ustaw opcję 'Shared Users' w /ip hotspot user profile;Niemożliwe;Ustaw opcję 'Shared Users' w /ip hotspot;Ustaw only-one=no w /ip hotspot;A
+W jakiej kolejności są przetwarzane wpisy w Access List i Connect List?;W kolejności sekwencyjnej;W losowej kolejności;Według siły sygnału;Według nazwy interfejsu;A
+Gdzie są widoczni autoryzowani klienci HotSpot?;/ip hotspot host;/ip hotspot active;/ip hotspot;/ip hotspot user;B
+Co oznacza litera R przy aktywnej sesji w menu PPP Active Connections?;Running;Radius;Remote;B
+Jakie pakiety oprogramowania RouterOS są wymagane do konfiguracji AP wireless?;wireless;advanced-tools;dhcp;routing;system;A,E
+Czy możliwe jest posiadanie klienta PPTP i serwera PPTP na jednym routerze MikroTik?;Tak;Nie;A
+Co konfiguruje polecenie /ip hotspot setup?;/ip service;/ip hotspot user;/ip hotspot walled-garden;/ip dhcp-server;/queue tree;B,C,D
+W jakim menu /user są widoczni użytkownicy?;użytkownicy pptp;użytkownicy wireless;użytkownicy hotspot;użytkownicy routera;D
+Dla użytkownika w lokalnej bazie ppp secrets/ppp profiles możliwe jest;Zezwolenie/odmowa użycia więcej niż jednego logowania przez tego użytkownika;Zezwolenie tylko na login pppoe;Zezwolenie na login przez pppoe i pptp ale odmowa l2tp;Odmowa usług tylko dla tego użytkownika lub grupy;Ustawienie max wartości dla całkowitych przesłanych bajtów;A,E
+Sekrety PPP są używane dla (zaznacz wszystkie);Użytkowników routera;Klientów IPSec;Klientów PPP;Klientów PPPoE;Klientów PPTP;Klientów L2TP;C,D,E,F
+Sekrety PPP są używane do (zaznacz właściwe);Użytkownicy routera;Klienci IPSec;Klienci PPP;Klienci PPPoE;Klienci PPTP;Klienci L2TP;C,D,E,F
+Co jest niezbędne do konfiguracji klienta PPPoE?;Reguła ip firewall nat masquerade;Interfejs na którym klient PPPoE będzie działał;Statyczny adres IP na interfejsie klienta PPPoE;B
+
+# ── NETINSTALL / SYSTEM ────────────────────────────────
+W jakich sytuacjach Netinstall NIE może być użyty do instalacji RouterBOARD?;Router nie ma systemu operacyjnego;Router jest podłączony tylko do sieci bezprzewodowej;Nie znasz hasła routera;Router jest podłączony tylko do dodatkowego portu Ethernet;B,D
+Co możesz zrobić z Netinstall?;Resetowanie hasła w RouterOS;Instalacja Linux;Dodanie konfiguracji do RouterOS;Reinstalacja RouterOS;D
+Co można zrobić z Netinstall?;Zainstalowanie innej wersji oprogramowania (upgrade lub downgrade);Zachowanie konfiguracji i resetowanie utraconego hasła administratora;Reinstalacja oprogramowania bez utraty licencji;Instalacja pakietu dla innej architektury sprzętowej;A,C
+W Winbox Hide Passwords odznaczone pokazuje hasła dla;Użytkownik RouterOS;Użytkownik Hotspot;Wspólny sekret RADIUS;Sekrety PPP;A,B,C,D
+Czy możliwe jest ustawienie portu szeregowego MikroTik do komunikacji z zewnętrznym urządzeniem przez kabel null-modem?;Tak jeśli port nie jest używany;Tak gdy drugie urządzenie jest routerem MikroTik;Tak zawsze możliwe przez /system serial-terminal;A
+Logi są domyślnie przechowywane na dysku;Prawda;Fałsz;B
+Domyślnie komunikaty info error i warning są logowane do pamięci RouterOS;Prawda;Fałsz;A
+
+# ── DHCP / VLAN / KOLEJKI ──────────────────────────────
+Serwer DHCP jest skonfigurowany na ether1 z adresem 192.168.0.100/24. Które pule adresów IP mogą być użyte przez ten serwer DHCP?;192.168.0.1-192.168.0.255;192.169.0.1-192.169.0.254;192.168.0.1-192.168.0.14;192.168.0.1-192.168.0.99 i 192.168.0.101-192.168.0.254;A,C,D
+Czy można dodać 20 dodatkowych adresów IP do sieci DHCP bez dodawania nowego serwera DHCP?;Tak;Nie;A
+RouterOS może ustawiać vlan-id w zakresie;1-2049;1-4096;1-4095;1-2048;C
+Najwyższy priorytet kolejki to;16;8;256;1;D
+Najwyższy priorytet kolejki (liczba) to;16;8;256;1;D
+Czy można monitorować grafy (graphs) MikroTik na innym porcie niż HTTP port 80?;Tak;Nie;A
+Polecenia RouterOS mogą być uruchamiane raz dziennie przez;/system watchdog;/system scheduler;/system cron;B
+Całkowity-max-limit w Simple Queue ogranicza połączone upload i download dla docelowego adresu;Tak;Nie;A
+Każdy pakiet może mieć tylko jeden routing mark;Prawda;Fałsz;A
+Kolizje są możliwe w sieciach Ethernet full-duplex;Prawda;Fałsz;B
+Jakie poprawne maski podsieci?;192.0.0.0;255.255.224.0;255.255.192.255;255.192.0.0;A,B,D
+Aby uniknąć pętli w sieci bezprzewodowej z AP1 AP2 AP3 (mesh) musisz;Włączyć RSTP na AP1 i AP3;Włączyć RSTP na AP1;Włączyć RSTP na AP1 AP2 i AP3;C
+HotSpot jest wymagany na interfejsach ether2 ether3 wlan1 które są zbridgowane w bridge1. Na którym interfejsie skonfigurować serwer HotSpot?;Na ether2;Na ether3;Na wlan1;Na bridge1;D
+Gdzie monitorować połączenia w czasie rzeczywistym (adresy i porty)?;Queue Tree;Tool Torch;Firewall Counters;Firewall Connection Tracking;D
+
+# ── PROXY / STORE ──────────────────────────────────────
+Poprawne stwierdzenia dotyczące MikroTik proxy?;Reguła Destination NAT jest wymagana do przezroczystego proxy;Aby zablokować stronę caching musi być włączony;Kontroluje domeny lub serwery które mogą być cachowane przez Proxy;Może odmówić dostępu do domen lub serwerów ale nie konkretnych stron;A,C,D
+Funkcje proxy MikroTik to;Cachowanie POP3;Filtrowanie nazw DNS;Cachowanie SMTP;Cachowanie HTTP;Cachowanie FTP;B,D,E
+/store pozwala zapisywać na zewnętrzny dysk;Dane User-Manager;Dane Dude;Dane web-proxy;Konfigurację systemu;A,B,C
+Aby zapisać odwiedzone strony do logów z web-proxy prawidłowa konfiguracja to;/system logging add topics=web-proxy debug action=memory;/system logging add topics=web-proxy !debug action=memory;/system logging add topics=web-proxy !debug action=remote;/system logging add topics=web-proxy !debug action=disk;B
+Czy RouterOS DHCP server może wysyłać dowolne opcje DHCP określone w RFC do klientów?;Tak;Nie;A
+Które opcje serwera DHCP są zaimplementowane dla DHCP-Client (nie Custom)?;WINS Server;Serwer NTP;Serwer DNS;Maska podsieci;TFTP;Brama;B,C,D,F
+
+# ── INNE ───────────────────────────────────────────────
+Która wersja RouterOS powinna być używana dla wsparcia standardu IEEE 802.11n?;Wersje 3.x;Wersje 4.x;Wersje 5.x;C
+Które pakiety RouterOS powinny być zainstalowane dla obsługi serwera SSH?;advanced-tools;system;ssh;security;B,D
+Aby zabezpieczyć RouterOS — nie chcesz żeby był wykrywalny przez MNDP lub CDP i chcesz odmówić zarządzania przez MAC. Wybierz poprawne działania;Usuń/wyłącz wszystkie interfejsy pod mac-server telnet;Usuń/wyłącz wszystkie interfejsy discovery;Dodaj regułę forward firewalla do blokowania mac discovery;Usuń/wyłącz interfejsy;Dodaj regułę input firewalla do blokowania mac discovery;Usuń/wyłącz wszystkie interfejsy pod mac-Server winbox;Dodaj regułę Deny All input firewall;A,B,F
